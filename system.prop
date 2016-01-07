@@ -55,6 +55,7 @@ media.stagefright.enable-scan=true
 mmp.enable.3g2=true
 mm.enable.smoothstreaming=true
 media.aac_51_output_enabled=true
+av.debug.disable.pers.cache=true
 
 #3379827: Decimal sum after adding WAV parser flag
 #37491 is decimal sum of supported codecs in AAL
