@@ -116,3 +116,5 @@ endif
 
 # Enable sensor multi HAL
 USE_SENSOR_MULTI_HAL := true
+
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.msm
