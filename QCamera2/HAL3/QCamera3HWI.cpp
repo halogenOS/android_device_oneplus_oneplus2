@@ -222,10 +222,13 @@ const QCamera3HardwareInterface::QCameraMap<
 
 const int32_t available_thumbnail_sizes[] = {0, 0,
                                              144, 176,
+                                             256, 144,
+                                             240, 144,
                                              240, 320,
                                              176, 144,
                                              320, 240,
                                              320, 320,
+                                             240, 160,
                                              288, 432,
                                              432, 288,
                                              154, 256,
