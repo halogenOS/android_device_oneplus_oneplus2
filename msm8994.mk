@@ -17,7 +17,7 @@ ifneq ($(TARGET_USES_AOSP),true)
 TARGET_USES_QCA_NFC := false
 TARGET_USES_QCOM_BSP := true
 endif
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := false
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # copy customized media_profiles and media_codecs xmls for 8994
 ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
