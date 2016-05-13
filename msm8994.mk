@@ -96,6 +96,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant_overlay.conf \
     p2p_supplicant_overlay.conf
 
+-include $(TOPDIR)hardware/qcom/audio/configs/msm8994/msm8994.mk
+
 PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
