@@ -33,6 +33,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapgrowthlimit=256m
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 $(call inherit-product, device/qcom/common/common64.mk)
+#msm8996 platform WLAN Chipset
+WLAN_CHIPSET := qca_cld
 
 PRODUCT_NAME := msm8994
 PRODUCT_DEVICE := msm8994
@@ -97,6 +99,10 @@ PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf
 
 -include $(TOPDIR)hardware/qcom/audio/configs/msm8994/msm8994.mk
+
+ifneq ($(WLAN_CHIPSET),)
+PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
+endif
 
 PRODUCT_PACKAGES += \
     libqcomvisualizer \
