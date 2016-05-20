@@ -60,13 +60,13 @@ endif
 PRODUCT_PACKAGES += libGLES_android
 
 # Audio configuration file
-#ifeq ($(TARGET_USES_AOSP), true)
+ifeq ($(TARGET_USES_AOSP), true)
 PRODUCT_COPY_FILES += \
     device/qcom/common/media/audio_policy.conf:system/etc/audio_policy.conf
-#else
-#PRODUCT_COPY_FILES += \
+else
+PRODUCT_COPY_FILES += \
     device/qcom/msm8994/audio_policy.conf:system/etc/audio_policy.conf
-#endif
+endif
 
 PRODUCT_COPY_FILES += \
     device/qcom/msm8994/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf \
