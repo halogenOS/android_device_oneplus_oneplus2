@@ -42,6 +42,13 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := MSM8994 for arm64
 
 PRODUCT_BOOT_JARS += tcmiface
+# This jar is needed for MSIM manual provisioning and for other
+# telephony related functionalities to work.
+PRODUCT_BOOT_JARS += telephony-ext
+
+PRODUCT_PACKAGES += telephony-ext
+
+
 ifneq ($(strip $(QCPATH)),)
 PRODUCT_BOOT_JARS += qcom.fmradio
 #PRODUCT_BOOT_JARS += WfdCommon
