@@ -67,28 +67,7 @@ endif
 PRODUCT_PACKAGES += libGLES_android
 
 # Audio configuration file
-ifeq ($(TARGET_USES_AOSP), true)
-PRODUCT_COPY_FILES += \
-    device/qcom/common/media/audio_policy.conf:system/etc/audio_policy.conf
-else
-PRODUCT_COPY_FILES += \
-    device/qcom/msm8994/audio_policy.conf:system/etc/audio_policy.conf
-endif
-
-PRODUCT_COPY_FILES += \
-    device/qcom/msm8994/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf \
-    device/qcom/msm8994/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    device/qcom/msm8994/mixer_paths.xml:system/etc/mixer_paths.xml \
-    device/qcom/msm8994/mixer_paths_i2s.xml:system/etc/mixer_paths_i2s.xml \
-    device/qcom/msm8994/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
-    device/qcom/msm8994/audio_platform_info_i2s.xml:system/etc/audio_platform_info_i2s.xml \
-    device/qcom/msm8994/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
-    device/qcom/msm8994/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml \
-    device/qcom/msm8994/audio_platform_info.xml:system/etc/audio_platform_info.xml
-
-# Listen configuration file
-PRODUCT_COPY_FILES += \
-    device/qcom/msm8994/listen_platform_info.xml:system/etc/listen_platform_info.xml
+-include $(TOPDIR)hardware/qcom/audio/configs/msm8994/msm8994.mk
 
 # WLAN driver configuration files
 PRODUCT_COPY_FILES += \
@@ -105,16 +84,10 @@ PRODUCT_PACKAGES += \
     wpa_supplicant_overlay.conf \
     p2p_supplicant_overlay.conf
 
--include $(TOPDIR)hardware/qcom/audio/configs/msm8994/msm8994.mk
 
 ifneq ($(WLAN_CHIPSET),)
 PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
 endif
-
-PRODUCT_PACKAGES += \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libqcompostprocbundle
 
 # MSM IRQ Balancer configuration file
 PRODUCT_COPY_FILES += \
@@ -146,11 +119,3 @@ PRODUCT_PACKAGES += \
 PRODUCT_SUPPORTS_VERITY := true
 PRODUCT_SYSTEM_VERITY_PARTITION :=  /dev/block/bootdevice/by-name/system
 PRODUCT_AAPT_CONFIG += xlarge large
-
-# Reduce client buffer size for fast audio output tracks
-PRODUCT_PROPERTY_OVERRIDES += \
-    af.fast_track_multiplier=1
-
-# Low latency audio buffer size in frames
-PRODUCT_PROPERTY_OVERRIDES += \
-    audio_hal.period_size=192
