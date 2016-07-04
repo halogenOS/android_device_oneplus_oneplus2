@@ -211,7 +211,7 @@ public:
     void deallocateMeta();
 #ifdef USE_MEDIA_EXTENSIONS
     native_handle_t *updateNativeHandle(uint32_t index, bool metadata = true);
-    static int closeNativeHandle(const void *data, bool metadata = true);
+    int closeNativeHandle(const void *data, bool metadata = true);
 #endif
 private:
     camera_memory_t *mMetadata[MM_CAMERA_MAX_NUM_FRAMES];
