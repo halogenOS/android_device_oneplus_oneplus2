@@ -19,6 +19,9 @@ TARGET_USES_QCOM_BSP := true
 endif
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
+# Enable features in video HAL that can compile only on this platform
+TARGET_USES_MEDIA_EXTENSIONS := true
+
 # copy customized media_profiles and media_codecs xmls for 8994
 ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
 PRODUCT_COPY_FILES += device/qcom/msm8994/media_profiles.xml:system/etc/media_profiles.xml \
