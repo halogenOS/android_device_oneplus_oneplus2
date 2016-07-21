@@ -120,3 +120,5 @@ endif
 USE_SENSOR_MULTI_HAL := true
 
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.msm
+
+TARGET_USES_IMS := true
