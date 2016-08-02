@@ -54,7 +54,7 @@ PRODUCT_PACKAGES += telephony-ext
 
 ifneq ($(strip $(QCPATH)),)
 PRODUCT_BOOT_JARS += qcom.fmradio
-#PRODUCT_BOOT_JARS += WfdCommon
+PRODUCT_BOOT_JARS += WfdCommon
 #PRODUCT_BOOT_JARS += extendedmediaextractor
 #PRODUCT_BOOT_JARS += security-bridge
 #PRODUCT_BOOT_JARS += qsb-port
