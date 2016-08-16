@@ -125,3 +125,7 @@ PRODUCT_AAPT_CONFIG += xlarge large
 
 #QTIC flag
 -include $(QCPATH)/common/config/qtic-config.mk
+
+#for android_filesystem_config.h
+PRODUCT_PACKAGES += \
+    fs_config_files
