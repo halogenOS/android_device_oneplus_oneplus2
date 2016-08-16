@@ -183,7 +183,7 @@ ro.min_pointer_dur=1
 # Max events per second, increases responsiveness a lot
 windowsmgr.max_events_per_sec=2040
 # Higher fling velocities to render and process UI faster
-ro.min.fling_velocity=12000
+ro.min.fling_velocity=160
 ro.max.fling_velocity=20000
 # Use better camera quality
 ro.media.dec.jpeg.memcap=8000000
