@@ -24,7 +24,9 @@ $(call inherit-product, device/oneplus/oneplus2/device.mk)
 PRODUCT_NAME := XOS_oneplus2
 PRODUCT_DEVICE := oneplus2
 PRODUCT_MANUFACTURER := OnePlus
-PRODUCT_MODEL := oneplus2
+#PRODUCT_MODEL := oneplus2
 PRODUCT_BRAND := OnePlus
+
+TARGET_MODEL_VARIES := true
 
 PRODUCT_GMS_CLIENTID_BASE := android-oneplus
