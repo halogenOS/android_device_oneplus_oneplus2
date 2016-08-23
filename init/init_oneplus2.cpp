@@ -61,6 +61,7 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         /* Asia/Europe */
         property_set("ro.product.model", "ONE A2003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
+        property_set("telephony.lteOnCdmaDevice", "1");
         property_set("ro.telephony.default_network", "9,9");
     } else if (strstr(rf_version, "34")) {
         /* America */
