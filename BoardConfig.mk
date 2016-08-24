@@ -215,5 +215,9 @@ BOARD_USES_QC_TIME_SERVICES := true
 BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
+# Device-specific stuff for halogenOS
+PRODUCT_XOS_INITFILE := $(abspath $(realpath $(TOP)/device/oneplus/oneplus2/init/DeviceInit.java))
+TARGET_MODEL_VARIES := true
+
 # inherit from the proprietary version
 -include vendor/oneplus/oneplus2/BoardConfigVendor.mk
