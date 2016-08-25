@@ -39,7 +39,7 @@
 #include <errno.h>
 #include <dirent.h>
 
-#include <healthd.h>
+#include "healthd/healthd.h"
 #include "minui/minui.h"
 
 #define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
@@ -422,9 +422,11 @@ void healthd_board_init(struct healthd_config*)
     char value[PROP_VALUE_MAX];
     int rc = 0, scale_count = 0, i;
     GRSurface **scale_frames;
+    int scale_fps;  // Not in use (charger/cm_battery_scale doesn't have FPS text
+                    // chunk). We are using hard-coded frame.disp_time instead.
 
     rc = res_create_multi_display_surface("charger/cm_battery_scale",
-            &scale_count, &scale_frames);
+            &scale_fps, &scale_count, &scale_frames);
     if (rc < 0) {
         LOGE("%s: Unable to load battery scale image", __func__);
         return;
