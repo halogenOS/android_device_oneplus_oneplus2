@@ -48,6 +48,7 @@ audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
 audio.offload.buffer.size.kb=1024
 ro.audio.flinger_standbytime_ms=320
+audio.deep_buffer.media=true
 
 # Bluetooth
 bluetooth.hfp.client=1
@@ -141,10 +142,8 @@ profiler.force_disable_ulog=1
 profiler.force_disable_err_rpt=1
 com.qc.hardware=1
 ro.config.hw_fast_dormancy=1
-ro.kernel.checkjni=0
 persist.sys.purgeable_assets=1
-persist.adb.notify=0
-ro.kernel.android.checkjni=0
+persist.adb.notify=1
 
 ##Profiler
 profiler.debugmonitor=false
@@ -165,9 +164,6 @@ persist.debug.sf.statistics=0
 
 # Enable HSUPA for faster upload on 3G
 ro.ril.hsxpa=3
-# Use Google DNS
-net.dns1=8.8.8.8
-net.dns2=8.8.4.4
 # Enable GPU acceleration
 video.accelerate.hw=1
 debug.sf.hw=1
