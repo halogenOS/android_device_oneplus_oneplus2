@@ -60,6 +60,20 @@ ro.bluetooth.wipower=true
 camera.disable_zsl_mode=1
 persist.camera.cpp.duplication=false
 
+#Use HAL1 for certain apps
+camera.hal1.packagelist=com.skype.raider
+camera.hal1.packagelist=com.google.android.talk
+camera.hal1.packagelist=com.tencent.mm
+camera.hal1.packagelist=com.whatsapp
+camera.hal1.packagelist=com.instagram.android
+camera.hal1.packagelist=com.snapchat.android
+camera.hal1.packagelist=org.codeaurora.snapcam
+camera.hal1.packagelist=com.google.android.GoogleCamera
+camera.hal1.packagelist=com.facebook.orca
+camera.hal1.packagelist=com.facebook.katana
+camera.hal1.packagelist=com.flavionet.android.camera.lite
+camera.hal1.packagelist=com.nianticlabs.pokemongo
+
 # CEC
 ro.hdmi.device_type=4
 persist.sys.hdmi.addr.playback=4
