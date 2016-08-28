@@ -60,10 +60,11 @@ ro.bluetooth.wipower=true
 camera.disable_zsl_mode=1
 persist.camera.cpp.duplication=false
 
-#Use HAL1 for certain apps
+# Use HAL1 for certain apps
 camera.hal1.packagelist=com.skype.raider
 camera.hal1.packagelist=com.google.android.talk
 camera.hal1.packagelist=com.tencent.mm
+camera.hal1.packagelist=com.tencent.mobileqq
 camera.hal1.packagelist=com.whatsapp
 camera.hal1.packagelist=com.instagram.android
 camera.hal1.packagelist=com.snapchat.android
