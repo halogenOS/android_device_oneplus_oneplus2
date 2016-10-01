@@ -8,13 +8,21 @@ ro.qc.sdk.audio.fluencetype=fluence
 ro.qc.sdk.audio.ssr=false
 persist.audio.ssr.3mic=false
 media.aac_51_output_enabled=true
-audio.offload.pcm.16bit.enable=false
+audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
 use.voice.path.for.pcm.voip=true
 audio.offload.multiple.enabled=true
 audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
 audio.offload.buffer.size.kb=1024
+audio.dolby.ds2.enabled=true
+audio.dolby.ds2.hardbypass=true
+audio.offload.passthrough=false
+persist.dpm.feature=1
+tunnel.audio.encode=false
+av.debug.disable.pers.cache=true
+ro.audio.flinger_standbytime_ms=300
+audio.deep_buffer.media=true
 
 # Bluetooth
 bluetooth.hfp.client=1
@@ -52,7 +60,7 @@ persist.sys.dpmd.nsrm=3
 dalvik.vm.boot-dex2oat-threads=4
 dalvik.vm.dex2oat-threads=2
 dalvik.vm.image-dex2oat-threads=4
-
+  		
 # GPS
 persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location
@@ -62,11 +70,31 @@ ro.pip.gated=0
 # Graphics
 persist.hwc.mdpcomp.enable=true
 dalvik.vm.heapsize=36m
+persist.mdpcomp.4k2kSplit=1
+persist.hwc.mdpcomp.maxpermixer=5
+persist.mdpcomp_perfhint=50
+debug.mdpcomp.logs=0
+persist.hwc.ptor.enable=true
+dev.pm.dyn_samplingrate=1
+persist.demo.hdmirotationlock=false
 ro.qualcomm.cabl=0
 ro.sf.lcd_density=480
 ro.opengles.version=196610
 
 # QC vendor extension
+# Enable low power video mode for 4K encode
+vidc.debug.perf.mode=2
+vidc.enc.dcvs.extra-buff-count=2
+
+# Camera
+persist.camera.cpp.duplication=false
+camera.disable_zsl_mode=1
+media.camera.ts.monotonic=0
+
+# Time services
+persist.timed.enable=true
+
+# Perf
 ro.vendor.extension_library=libqti-perfd-client.so
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 drm.service.enabled=true
