@@ -93,6 +93,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
     $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
 
+# QC AV Enhancement
+PRODUCT_PACKAGES += \
+	libdashplayer \
+	qcmediaplayer
+
+PRODUCT_BOOT_JARS += qcmediaplayer
+
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
