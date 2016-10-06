@@ -95,10 +95,7 @@ PRODUCT_COPY_FILES += \
 
 # QC AV Enhancement
 PRODUCT_PACKAGES += \
-	libdashplayer \
-	qcmediaplayer
-
-PRODUCT_BOOT_JARS += qcmediaplayer
+	libdashplayer
 
 # ANT+
 PRODUCT_PACKAGES += \
