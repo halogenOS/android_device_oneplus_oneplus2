@@ -36,7 +36,7 @@
 
 void init_variant_properties() {
 
-    std::string device = property_get("ro.cm.device");
+    std::string device = property_get("ro.product.device");
     std::string rf_version;
 
     if (device != "oneplus2")
@@ -66,5 +66,9 @@ void init_variant_properties() {
 }
 
 void vendor_load_properties() {
+    init_variant_properties();
+}
+
+void init_msm_properties() {
     init_variant_properties();
 }

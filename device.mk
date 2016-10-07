@@ -163,6 +163,10 @@ PRODUCT_PACKAGES += \
     sap.conf \
     xtwifi.conf
 
+# Init
+PRODUCT_PACKAGES += \
+	libinit_oneplus2
+
 # IPv6
 PRODUCT_PACKAGES += \
     ebtables \
