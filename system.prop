@@ -1,4 +1,4 @@
-# system.prop for OnePlus2
+# OnePlus 2-specific system properties
 
 # Audio
 persist.audio.fluence.voicecall=true
@@ -46,14 +46,9 @@ persist.dpm.feature=7
 persist.env.fastdorm.enabled=true
 persist.sys.dpmd.nsrm=3
 
-# Debug logging for DPM & CNE can be enabled via:
-# Push libdpmlog.so to system/vendor/lib|64
-#persist.dpm.nsrm.bkg.evt=3955
-#persist.dpm.loglevel=7825
-
 # Dex2oat limits
 dalvik.vm.boot-dex2oat-threads=12
-dalvik.vm.dex2oat-threads=6
+dalvik.vm.dex2oat-threads=8
 dalvik.vm.image-dex2oat-threads=12
   		
 # GPS
