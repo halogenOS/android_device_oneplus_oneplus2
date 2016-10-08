@@ -28,7 +28,6 @@
  */
 
 #include <stdlib.h>
-#include <algorithm>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -36,15 +35,7 @@
 #include "util.h"
 
 void init_variant_properties() {
-
-    std::string device = property_get("ro.product.device");
     std::string rf_version;
-    
-    std::transform(
-        device.begin(), device.end(), device.begin(), ::tolower);
-
-    if (device != "oneplus2")
-        return;
 
     rf_version = property_get("ro.boot.rf_v1");
 
