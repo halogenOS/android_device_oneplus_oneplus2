@@ -202,6 +202,9 @@ TARGET_USERIMAGES_USE_F2FS := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
+# Enable HW disk encryption
+TARGET_HW_DISK_ENCRYPTION := true
+
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
