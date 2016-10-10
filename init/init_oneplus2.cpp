@@ -43,19 +43,16 @@ void init_variant_properties() {
         /* Chinese */
         property_set("ro.product.model", "ONE A2001");
         property_set("ro.rf_version", "TDD_FDD_Ch_All");
-        property_set("telephony.lteOnCdmaDevice", "1");
         property_set("ro.telephony.default_network", "20,20");
     } else if (rf_version == "24") {
         /* Asia/Europe */
         property_set("ro.product.model", "ONE A2003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
-        property_set("telephony.lteOnCdmaDevice", "1");
         property_set("ro.telephony.default_network", "9,9");
     } else if (rf_version == "34") {
         /* America */
         property_set("ro.product.model", "ONE A2005");
         property_set("ro.rf_version", "TDD_FDD_Am");
-        property_set("telephony.lteOnCdmaDevice", "1");
         property_set("ro.telephony.default_network", "9,9");
     } else {
         /* Who knows? Could happen. */
@@ -63,6 +60,8 @@ void init_variant_properties() {
         property_set("ro.rf_version", "TDD_FDD_Eu");
         property_set("ro.telephony.default_network", "9,9");
     }
+    
+    property_set("telephony.lteOnCdmaDevice", "1");
 }
 
 void vendor_load_properties() {
