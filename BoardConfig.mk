@@ -171,6 +171,8 @@ TARGET_NO_RPC := true
 USE_SENSOR_MULTI_HAL := true
 BOARD_GLOBAL_CFLAGS += -DCOMPAT_SENSORS_M
 
+TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
+
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
   ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
