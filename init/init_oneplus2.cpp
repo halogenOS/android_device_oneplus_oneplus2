@@ -57,6 +57,11 @@ void init_variant_properties() {
         property_set("ro.rf_version", "TDD_FDD_Am");
         property_set("telephony.lteOnCdmaDevice", "1");
         property_set("ro.telephony.default_network", "9,9");
+    } else {
+        /* Who knows? Could happen. */
+        property_set("ro.product.model", "OnePlus Two");
+        property_set("ro.rf_version", "TDD_FDD_Eu");
+        property_set("ro.telephony.default_network", "9,9");
     }
 }
 
