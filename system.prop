@@ -113,3 +113,11 @@ persist.timed.enable=true
 
 # Wifi
 persist.data.iwlan.enable=true
+
+# Hardware Info
+ro.device.chipset=Qualcomm MSM8994 Snapdragon 810
+ro.device.cpu=Quad-core 1.56 GHz Cortex-A53 & Quad-core 1.82 GHz Cortex-A57
+ro.device.gpu=Adreno 430
+ro.device.rear_cam=13 MP
+ro.device.front_cam=5.0 MP
+ro.device.screen_res=1080x1920
