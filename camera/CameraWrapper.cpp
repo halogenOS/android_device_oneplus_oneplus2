@@ -74,6 +74,12 @@ static int load(const char *path,
 
     handle = dlopen(path, RTLD_NOW);
     if (handle == NULL) {
+#ifdef VERBOSE_LOG
+        const char* dlerr = dlerror();
+        if(dlerr == NULL)
+            dlerr = "Unknown.";
+        ALOGE("dlopen failed for %s. Reason: %s", path, dlerr);
+#endif
         status = -EINVAL;
         goto done;
     }
@@ -81,6 +87,9 @@ static int load(const char *path,
     hmi = (struct hw_module_t *)dlsym(handle,
         HAL_MODULE_INFO_SYM_AS_STR);
     if (hmi == NULL) {
+#ifdef VERBOSE_LOG
+        ALOGE("Could not load library %s", path);
+#endif
         status = -EINVAL;
         goto done;
     }
@@ -90,6 +99,9 @@ static int load(const char *path,
     done:
     *pHmi = hmi;
 
+#ifdef VERBOSE_LOG
+    ALOGE("Load status: %i for library %s", status, path);
+#endif
     return status;
 }
 
@@ -104,7 +116,7 @@ static int check_vendor_module()
     rv = load("/system/lib/hw/camera.vendor.msm8994.so",
             (const hw_module_t**)&gVendorModule);
     if (rv)
-        ALOGE("failed to open vendor camera module");
+        ALOGE("failed to load vendor camera module");
     return rv;
 }
 
@@ -118,7 +130,9 @@ static int camera_device_open(const hw_module_t *module __unused, const char *na
 
     android::Mutex::Autolock lock(gCameraWrapperLock);
 
+#ifdef VERBOSE_LOG
     ALOGV("%s", __FUNCTION__);
+#endif
 
     if (name == NULL || check_vendor_module() != android::NO_ERROR) {
         return -EINVAL;
@@ -142,7 +156,9 @@ static int camera_device_open(const hw_module_t *module __unused, const char *na
 
 static int camera_get_number_of_cameras(void)
 {
+#ifdef VERBOSE_LOG
     ALOGV("%s", __FUNCTION__);
+#endif
     if (check_vendor_module())
         return 0;
     return gVendorModule->get_number_of_cameras();
@@ -150,7 +166,9 @@ static int camera_get_number_of_cameras(void)
 
 static int camera_get_camera_info(int camera_id, struct camera_info *info)
 {
+#ifdef VERBOSE_LOG
     ALOGV("%s", __FUNCTION__);
+#endif
     if (check_vendor_module())
         return 0;
 
