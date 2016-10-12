@@ -100,6 +100,14 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
+# Buttons & Gestures
+PRODUCT_BUTTON_GESTURES_PACKAGES := \
+	oppo-keyhandler \
+	ConfigPanel
+
+PRODUCT_PACKAGES  += $(PRODUCT_BUTTON_GESTURES_PACKAGES)
+PRODUCT_BOOT_JARS += oppo-keyhandler
+
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8994 \
