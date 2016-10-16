@@ -13,5 +13,10 @@
     "repository": "halogenOS/android_kernel_oneplus_msm8994",
     "target_path": "kernel/oneplus/msm8994",
     "branch":       "XOS-7.0"
+  },
+  {
+    "repository": "halogenOS/aarch64-linux-android-4.9-kernel",
+    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9-kernel",
+    "branch": "master"
   }
 ]
