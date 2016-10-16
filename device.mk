@@ -299,5 +299,12 @@ PRODUCT_COPY_FILES += \
 # SU Support
 SUPERUSER_EMBEDDED := true
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.root_access=3
+
+# Enable ADB authentication
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.adb.secure=1
+
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)
