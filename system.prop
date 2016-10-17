@@ -121,3 +121,7 @@ ro.device.gpu=Adreno 430
 ro.device.rear_cam=13 MP
 ro.device.front_cam=5.0 MP
 ro.device.screen_res=1080x1920
+
+###      Tweaks and UX improvements      ###
+#  exclusively made by the halogenOS team  #
+
