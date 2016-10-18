@@ -32,7 +32,8 @@ import init.superuser.rc
 on early-init
     symlink /data/tombstones /tombstones
 
-    write /proc/sys/vm/swappiness 100
+    # Swappiness 4. Enough + more performance without battery drain
+    write /proc/sys/vm/swappiness 4
 
 on early-fs
     mkdir /firmware 0771 system system
