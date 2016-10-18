@@ -641,7 +641,7 @@ service energy-awareness /system/bin/energy-awareness
     oneshot
 
 on property:sys.boot_completed=1
-    write /dev/kmsg "Boot completed "
+    write /dev/kmsg "Boot completed"
 
 # corefile limit and ETB enabling
 on property:persist.debug.trace=1
