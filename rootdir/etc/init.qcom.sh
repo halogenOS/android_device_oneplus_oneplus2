@@ -1,5 +1,6 @@
 #!/system/bin/sh
 # Copyright (c) 2009-2015, The Linux Foundation. All rights reserved.
+# Copyright (C) 2016 halogenOS
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -32,13 +33,13 @@ if [ -f /sys/devices/soc0/soc_id ]; then
 else
     platformid=`cat /sys/devices/system/soc/soc0/id`
 fi
+
 #
 # Function to start sensors for DSPS enabled platforms
 #
 # VENDOR_EDIT
 # qiuchangping@BSP 2015-04-16 add begin for gyro sensitity calibration
-start_sensors()
-{
+start_sensors() {
     if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
         mkdir -p /persist/sensors
         chmod -h 775 /persist/sensors
@@ -55,8 +56,7 @@ start_sensors()
 }
 # qiucahngping@BSP add end
 
-start_battery_monitor()
-{
+start_battery_monitor() {
 	if ls /sys/bus/spmi/devices/qpnp-bms-*/fcc_data ; then
 		chown -h root.system /sys/module/pm8921_bms/parameters/*
 		chown -h root.system /sys/module/qpnp_bms/parameters/*
@@ -72,8 +72,7 @@ start_battery_monitor()
 	fi
 }
 
-start_charger_monitor()
-{
+start_charger_monitor() {
 	if ls /sys/module/qpnp_charger/parameters/charger_monitor; then
 		chown -h root.system /sys/module/qpnp_charger/parameters/*
 		chown -h root.system /sys/class/power_supply/battery/input_current_max
@@ -89,8 +88,7 @@ start_charger_monitor()
 	fi
 }
 
-start_vm_bms()
-{
+start_vm_bms() {
 	if [ -e /dev/vm_bms ]; then
 		chown -h root.system /sys/class/power_supply/bms/current_now
 		chown -h root.system /sys/class/power_supply/bms/voltage_ocv
@@ -100,8 +98,7 @@ start_vm_bms()
 	fi
 }
 
-start_msm_irqbalance_8939()
-{
+start_msm_irqbalance_8939() {
 	if [ -f /system/bin/msm_irqbalance ]; then
 		case "$platformid" in
 		    "239")
@@ -110,28 +107,27 @@ start_msm_irqbalance_8939()
 	fi
 }
 
-start_msm_irqbalance()
-{
+start_msm_irqbalance() {
 	if [ -f /system/bin/msm_irqbalance ]; then
 		start msm_irqbalance
 	fi
 }
 
 baseband=`getprop ro.baseband`
+
 #
 # Suppress default route installation during RA for IPV6; user space will take
 # care of this
 # exception default ifc
-for file in /proc/sys/net/ipv6/conf/*
-do
+for file in /proc/sys/net/ipv6/conf/*; do
   echo 0 > $file/accept_ra_defrtr
 done
 echo 1 > /proc/sys/net/ipv6/conf/default/accept_ra_defrtr
 
 case "$baseband" in
-        "svlte2a")
+    "svlte2a")
         start bridgemgrd
-        ;;
+    ;;
 esac
 
 start_sensors
@@ -270,7 +266,7 @@ mkdir /data/misc/radio/modem_config
 #ifdef VENDOR_EDIT
 # Modify /data/misc/radio/modem_config authority to 770 from 660, and modify the target path to /system/etc/firmware/mbn_ota/, by hanqingpu@oneplus.cn, 20150530
 chmod 770 /data/misc/radio/modem_config
-cp -r /system/etc/firmware/mbn_ota/* /data/misc/radio/modem_config
+cp -R /system/etc/firmware/mbn_ota/* /data/misc/radio/modem_config
 #endif /*VENDOR_EDIT*/
 chown -hR radio.radio /data/misc/radio/modem_config
 echo 1 > /data/misc/radio/copy_complete
