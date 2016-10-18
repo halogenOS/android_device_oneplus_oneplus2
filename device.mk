@@ -234,7 +234,6 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.qcom.bt.sh \
-    init.zram.sh \
     fstab.qcom \
     init.qcom.power.rc \
     init.qcom.rc \
