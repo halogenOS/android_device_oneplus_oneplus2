@@ -175,7 +175,9 @@ TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
-  ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
+  # Only enable on user builds
+  # It's annoying to have to flash the whole rom to test things etc.
+  ifeq ($(filter-out user,$(TARGET_BUILD_VARIANT)),)
     ifeq ($(WITH_DEXPREOPT),)
       WITH_DEXPREOPT := true
     endif
