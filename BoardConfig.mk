@@ -179,12 +179,15 @@ ifeq ($(HOST_OS),linux)
   # It's annoying to have to flash the whole rom to test things etc.
   ifeq ($(TARGET_BUILD_VARIANT),user)
     ifeq ($(WITH_DEXPREOPT),)
-    	$(info Dexpreopt is enabled)
       WITH_DEXPREOPT := true
     endif
   else
-  	$(info Dexpreopt is disabled)
-  	WITH_DEXPREOPT := false
+    # Environment variable
+    ifeq ($(TARGET_FORCE_DEXPREOPT),true)
+      WITH_DEXPREOPT := true
+    else
+      WITH_DEXPREOPT := false
+    endif # TARGET_FORCE_DEXPREOPT = true
   endif # TARGET_BUILD_VARIANT = user
 endif
 
