@@ -115,6 +115,7 @@ PRODUCT_PACKAGES  += $(PRODUCT_BUTTON_GESTURES_PACKAGES)
 PRODUCT_PACKAGES += \
     camera.msm8994 \
     sensors.hal.tof \
+    libshim_camera \
     Snap
 
 # Charger
