@@ -119,6 +119,9 @@ on init
     chown root system /proc/s1302/virtual_key
     chmod 0660 /proc/s1302/virtual_key
 
+    chown root system /proc/s1302/reset
+    chmod 0660 /proc/s1302/reset
+
     chown root system /proc/tri-state-key/keyCode_top
     chmod 0660 /proc/tri-state-key/keyCode_top
 
