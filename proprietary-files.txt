@@ -17,7 +17,7 @@ vendor/lib64/libadsprpc.so
 etc/firmware/tfa98xx.cnt
 vendor/lib/libacdb-fts.so
 vendor/lib/libacdbloader.so
-vendor/lib/libacdbrtac.so
+vendor/lib/libacdbrtac.sonb
 vendor/lib/libadiertac.so
 vendor/lib/libaudcal.so
 vendor/lib/libhwdaphal.so
