@@ -478,10 +478,10 @@ on post-fs-data
 
 # start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
-    class main
+    class late_start
     user camera
     group camera system inet input graphics
-    writepid /dev/cpuset/system-background/tasks
+    writepid /dev/cpuset/camera-daemon/tasks
 
 service qseecomd /system/bin/qseecomd
     class core

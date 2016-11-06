@@ -1,4 +1,2 @@
-#allow mm-qcamerad system_file:file execmod;
-allow mm-qcamerad cam_sysfs:file { read write open };
-allow mm-qcamerad stm_sensor:chr_file { read ioctl open };
-allow mm-qcamerad input_device:dir search;
+allow mm-qcamerad cam_sysfs:file { open read write };
+allow mm-qcamerad stm_sensor:chr_file { ioctl open read };
