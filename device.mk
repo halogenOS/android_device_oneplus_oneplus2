@@ -116,6 +116,7 @@ PRODUCT_PACKAGES += \
     camera.msm8994 \
     sensors.hal.tof \
     libshim_camera \
+    libshim_ims-camera \
     Snap
 
 # Charger
