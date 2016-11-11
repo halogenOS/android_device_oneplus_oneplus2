@@ -21,6 +21,9 @@ ifeq ($(BOARD_USES_QC_TIME_SERVICES),true)
 endif
 include $(BUILD_STATIC_LIBRARY)
 
+# It's QCOM HARDWARE
+LOCAL_CFLAGS += -DQCOM_HARDWARE
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := font_log.png
 LOCAL_SRC_FILES := fonts/$(PRODUCT_AAPT_PREF_CONFIG)/font_log.png
