@@ -39,7 +39,7 @@
 #include <errno.h>
 #include <dirent.h>
 
-#include "healthd.h"
+#include <healthd.h>
 #include "minui/minui.h"
 
 #define LOGE(x...) do { KLOG_ERROR("charger", x); } while (0)
