@@ -15,7 +15,6 @@ audio.offload.multiple.enabled=true
 audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
 audio.offload.buffer.size.kb=1024
-persist.dpm.feature=1
 
 # Bluetooth
 bluetooth.hfp.client=1
