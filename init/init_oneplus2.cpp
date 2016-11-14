@@ -48,17 +48,17 @@ void init_variant_properties() {
         /* Asia/Europe */
         property_set("ro.product.model", "ONE A2003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
-        property_set("ro.telephony.default_network", "9,9");
+        property_set("ro.telephony.default_network", "10,10");
     } else if (rf_version == "34") {
         /* America */
         property_set("ro.product.model", "ONE A2005");
         property_set("ro.rf_version", "TDD_FDD_Am");
-        property_set("ro.telephony.default_network", "9,9");
+        property_set("ro.telephony.default_network", "10,10");
     } else {
         /* Who knows? Could happen. */
         property_set("ro.product.model", "OnePlus Two");
         property_set("ro.rf_version", "TDD_FDD_Eu");
-        property_set("ro.telephony.default_network", "9,9");
+        property_set("ro.telephony.default_network", "10,10");
     }
     
     property_set("telephony.lteOnCdmaDevice", "1");
