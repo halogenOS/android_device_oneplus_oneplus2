@@ -62,6 +62,7 @@ void init_variant_properties() {
     }
     
     property_set("telephony.lteOnCdmaDevice", "1");
+    property_set("telephony.lteOnGsmDevice", "1");
 }
 
 void vendor_load_properties() {
