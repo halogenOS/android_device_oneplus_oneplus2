@@ -15,6 +15,7 @@ audio.offload.multiple.enabled=true
 audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
 audio.offload.buffer.size.kb=1024
+audio.offload.video=true
 
 # Bluetooth
 bluetooth.hfp.client=1
@@ -104,6 +105,34 @@ ro.qc.sdk.camera.facialproc=false
 
 # Wifi
 persist.data.iwlan.enable=true
+
+# OnePlus 2-specific things (OOS3)
+dev.pm.dyn_samplingrate=1
+debug.sf.hw=1
+debug.egl.hw=1
+persist.mdpcomp.4k2kSplit=1
+persist.hwc.mdpcomp.maxpermixer=5
+persist.mdpcomp_perfhint=50
+mmp.enable.3g2=true
+ro.hwui.texture_cache_size=96
+ro.hwui.layer_cache_size=64
+ro.hwui.r_buffer_cache_size=12
+ro.hwui.path_cache_size=39
+ro.hwui.gradient_cache_size=1
+ro.hwui.drop_shadow_cache_size=7
+ro.hwui.texture_cache_flushrate=0.4
+ro.hwui.text_small_cache_width=2048
+ro.hwui.text_small_cache_height=2048
+ro.hwui.text_large_cache_width=3072
+ro.hwui.text_large_cache_height=2048
+ro.fm.transmitter=false
+persist.audio.DiracEnable=true
+persist.audio.DiracHeadset=2
+persist.dirac.acs.controller=qem
+persist.radio.custom_ecc=1
+af.fast_track_multiplier=2
+audio_hal.period_size=192
+mm.enable.qcom_parser=3253107
 
 # Hardware Info
 ro.device.chipset=Qualcomm MSM8994 Snapdragon 810
