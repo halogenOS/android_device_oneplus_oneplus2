@@ -19,10 +19,10 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
     echo 4 > max_cpus_online_big
     echo 1 > min_cpus_online_big
     echo 50 > online_load_big
-    echo 8 > offline_load_big
+    echo 12 > offline_load_big
     
     # Display off
-    echo 3 > max_cpus_online_susp
+    echo 2 > max_cpus_online_susp
     
     cd
 fi
