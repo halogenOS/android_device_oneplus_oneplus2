@@ -17,6 +17,15 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    
+    <bool name="config_enableCpuBoostForAppLaunch">true</bool>
+    <integer name="launchboost_timeout_param">2000</integer>
+    <integer-array name="launchboost_param_value">
+        <item>0x40C00000</item> <!-- SCHEDBOOST resource opcode-->
+        <item>0x1</item>        <!-- SCHEDBOOST resource value-->
+        <item>0x40800100</item> <!-- CPUBOOST_MIN_FREQ LITTEL Core resource opcode-->
+        <item>1300</item>     <!-- CPUBOOST MIN_FREQ resource value-->
+     </integer-array>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
