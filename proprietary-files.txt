@@ -236,15 +236,7 @@ vendor/lib64/libxml.so
 -etc/pp_calib_data_jd35695_1080p_cmd_mode_dsi_panel.xml
 
 # DPM
-bin/dpmd
-etc/dpm/dpm.conf
-etc/dpm/nsrm/NsrmConfiguration.xml
-etc/permissions/com.qti.dpmframework.xml
-etc/permissions/dpmapi.xml
-framework/com.qti.dpmframework.jar
-framework/dpmapi.jar
 framework/tcmclient.jar
--priv-app/dpmserviceapp/dpmserviceapp.apk|eefe7347dbf916b6a3ef796baa118b043d6949a6
 vendor/lib/libdpmctmgr.so
 vendor/lib/libdpmfdmgr.so
 vendor/lib/libdpmframework.so
