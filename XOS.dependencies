@@ -18,5 +18,10 @@
     "repository": "halogenOS/aarch64-linux-android-4.9-kernel",
     "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9-kernel",
     "branch": "master"
+  },
+  {
+    "repository": "halogenOS/aarch64-linux-android-4.9",
+    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+    "branch": "master"
   }
 ]
