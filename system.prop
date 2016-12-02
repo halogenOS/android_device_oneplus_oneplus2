@@ -14,7 +14,7 @@ use.voice.path.for.pcm.voip=true
 audio.offload.multiple.enabled=true
 audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
-audio.offload.buffer.size.kb=1024
+audio.offload.buffer.size.kb=256
 audio.offload.video=true
 audio.offload.track.enable=true
 
