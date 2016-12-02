@@ -299,7 +299,6 @@ on boot
     chmod 0664 /sys/class/graphics/fb0/idle_time
 
     # setup permissions for fb1 related nodes
-    chown system graphics /sys/class/graphics/fb0/idle_time
     chown system graphics /sys/class/graphics/fb0/dynamic_fps
     chown system graphics /sys/class/graphics/fb0/dyn_pu
     chown system graphics /sys/class/graphics/fb0/modes
