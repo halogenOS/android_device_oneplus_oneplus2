@@ -77,7 +77,6 @@ PRODUCT_CHARACTERISTICS := nosdcard
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
-    audio.primary.msm8994 \
     audio.r_submix.default \
     audio.usb.default \
     audio_policy.msm8994 \
