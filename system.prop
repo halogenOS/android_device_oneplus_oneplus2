@@ -68,7 +68,6 @@ ro.pip.gated=0
 
 # Graphics
 persist.hwc.mdpcomp.enable=true
-dalvik.vm.heapsize=36m
 persist.demo.hdmirotationlock=false
 ro.qualcomm.cabl=0
 ro.sf.lcd_density=480
