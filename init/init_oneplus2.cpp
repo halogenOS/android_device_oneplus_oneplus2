@@ -60,9 +60,6 @@ void init_variant_properties() {
         property_set("ro.rf_version", "TDD_FDD_Eu");
         property_set("ro.telephony.default_network", "10,10");
     }
-    
-    property_set("telephony.lteOnCdmaDevice", "1");
-    property_set("telephony.lteOnGsmDevice", "1");
 }
 
 void vendor_load_properties() {
