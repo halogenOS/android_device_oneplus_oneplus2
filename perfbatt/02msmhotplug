@@ -3,8 +3,6 @@
 # Super Battery-Performance ratio
 # If MSM Hotplug is available the settings below will be set.
 
-echo -n "disable" > /sys/devices/soc.0/qcom,bcl.62/mode
-
 if [ -e "/sys/module/msm_hotplug/" ] && \
     [ ! -f "/data/xos/disable.auto.msm_hotplug" ]; then
     cd /sys/module/msm_hotplug/
@@ -17,12 +15,14 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
     echo 8 > offline_load
     # big
     echo 4 > max_cpus_online_big
-    echo 1 > min_cpus_online_big
-    echo 50 > online_load_big
-    echo 12 > offline_load_big
+    echo 0 > min_cpus_online_big
+    echo 48 > online_load_big
+    echo 10 > offline_load_big
     
     # Display off
     echo 2 > max_cpus_online_susp
+    
+    echo 0 > io_is_busy
     
     cd
 fi
