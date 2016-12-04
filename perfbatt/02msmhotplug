@@ -26,3 +26,5 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
     
     cd
 fi
+
+exit 0

@@ -57,7 +57,7 @@ PRODUCT_COPY_FILES += \
 
 # 02msmhotplug
 PRODUCT_COPY_FILES += \
-	device/oneplus/oneplus2/perfbatt/02msmhotplug:system/etc/init.d/02msmhotplug
+	device/oneplus/oneplus2/perfbatt/02msmhotplug:system/etc/msmhotplug-default.sh
 
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
