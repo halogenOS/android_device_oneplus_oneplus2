@@ -6,7 +6,7 @@
 if [ -e "/sys/module/msm_hotplug/" ] && \
     [ ! -f "/data/xos/disable.auto.msm_hotplug" ]; then
     cd /sys/module/msm_hotplug/
-    
+
     # Turn on
     echo -n '1'>msm_enabled
     # LITTLE
@@ -18,12 +18,12 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
     echo 0 > min_cpus_online_big
     echo 48 > online_load_big
     echo 10 > offline_load_big
-    
+
     # Display off
     echo 2 > max_cpus_online_susp
-    
+
     echo 0 > io_is_busy
-    
+
     cd
 fi
 
