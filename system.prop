@@ -111,6 +111,9 @@ ro.qc.sdk.sensors.gestures=true
 ro.qc.sdk.gestures.camera=false
 ro.qc.sdk.camera.facialproc=false
 
+# Tethering
+net.tethering.noprovisioning=true
+
 # Wifi
 persist.data.iwlan.enable=true
 
