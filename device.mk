@@ -250,7 +250,6 @@ PRODUCT_PACKAGES += \
 # Telephony
 PRODUCT_PACKAGES  += telephony-ext
 PRODUCT_BOOT_JARS += telephony-ext
-PRODUCT_BOOT_JARS += tcmiface
 
 # Sensors
 PRODUCT_PACKAGES += \
