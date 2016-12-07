@@ -19,7 +19,7 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
     echo 1 > min_cpus_online_big
     echo 40 > online_load_big
     echo 10 > offline_load_big
-    echo 10 > big_core_up_delay
+    echo 0 > big_core_up_delay
 
     # Turn on all cores on this load
     echo 80 > fast_lane_load
