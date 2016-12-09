@@ -1030,6 +1030,10 @@ status_t AudioPolicyManagerCustom::stopSource(sp<AudioOutputDescriptor> outputDe
                                     dev,
                                     true,
                                     delayMs);
+                        // re-apply device specific volume if not done by setOutputDevice()
+                        if (!force) {
+                            applyStreamVolumes(desc, dev, delayMs);
+                        }
                 }
             }
             // update the outputs if stopping one with a stream that can affect notification routing
@@ -2005,7 +2009,7 @@ status_t AudioPolicyManagerCustom::startInput(audio_io_handle_t input,
         if (mInputs.activeInputsCountOnDevices() == 0) {
             SoundTrigger::setCaptureState(true);
         }
-        setInputDevice(input, getNewInputDevice(input), true /* force */);
+        setInputDevice(input, device, true /* force */);
 
         // automatically enable the remote submix output when input is started if not
         // used by a policy mix of type MIX_TYPE_RECORDERS
