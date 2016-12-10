@@ -74,6 +74,11 @@ on enable-low-power
     write /sys/devices/soc.0/qcom,bcl.62/hotplug_soc_mask 240
     write /sys/devices/soc.0/qcom,bcl.62/mode "enable"
 
+    # Re-enabled A57 cores
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+
     # change GPU initial power level from 305MHz(level 4) to 180MHz(level 5) for power savings
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 5
 
@@ -112,10 +117,10 @@ on enable-low-power
 
     # Setting big.LITTLE scheduler parameters
     write /proc/sys/kernel/sched_migration_fixup 1
-    write /proc/sys/kernel/sched_small_task 30
-    write /proc/sys/kernel/sched_mostly_idle_load 20
+    write /proc/sys/kernel/sched_small_task 32
+    write /proc/sys/kernel/sched_mostly_idle_load 18
     write /proc/sys/kernel/sched_mostly_idle_nr_run 3
-    write /proc/sys/kernel/sched_upmigrate 99
+    write /proc/sys/kernel/sched_upmigrate 98
     write /proc/sys/kernel/sched_downmigrate 85
     write /proc/sys/kernel/sched_freq_inc_notify 400000
     write /proc/sys/kernel/sched_freq_dec_notify 400000
