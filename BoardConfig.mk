@@ -29,15 +29,11 @@ PLATFORM_PATH := device/oneplus/oneplus2
 
 BOARD_VENDOR := oneplus
 
-# Firmware
-ADD_RADIO_FILES := true
-TARGET_RELEASETOOLS_EXTENSIONS := device/oneplus/oneplus2
+# Use Snapdragon LLVM, if available
+TARGET_USE_SDCLANG := true
 
 # Assertions
 TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
-
-# Use Snapdragon LLVM, if available
-TARGET_USE_SDCLANG := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8994
