@@ -59,7 +59,7 @@ ro.data.large_tcp_window_size=true
 dalvik.vm.boot-dex2oat-threads=12
 dalvik.vm.dex2oat-threads=8
 dalvik.vm.image-dex2oat-threads=12
-  		
+
 # GPS
 persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location

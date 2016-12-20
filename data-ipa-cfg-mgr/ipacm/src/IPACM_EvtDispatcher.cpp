@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (c) 2013, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -130,7 +130,7 @@ void IPACM_EvtDispatcher::ProcessEvt(ipacm_cmd_q_data *data)
 	}
 
 	IPACMDBG(" Finished process events\n");
-			
+
 	if(data->evt_data != NULL)
 	{
 		IPACMDBG("free the event:%d data: %p\n", data->event, data->evt_data);

@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (c) 2013, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,7 @@ bool IPACM_Filtering::AddFilteringRule(struct ipa_ioc_add_flt_rule const *ruleTa
 	for (int cnt=0; cnt<ruleTable->num_rules; cnt++)
 	{
 		IPACMDBG("Filter rule:%d attrib mask: 0x%x\n",
-						 cnt, 
+						 cnt,
 						 ruleTable->rules[cnt].rule.attrib.attrib_mask);
 	}
 
@@ -215,8 +215,8 @@ bool IPACM_Filtering::DeleteFilteringHdls
 			     res = false;
 			     goto fail;
 		        }
-		   
-		   }	   
+
+		   }
 	    }
 	}
 
@@ -271,7 +271,7 @@ bool IPACM_Filtering::AddWanDLFilteringRule(struct ipa_ioc_add_flt_rule const *r
 		qmi_rule_msg.source_pipe_index_valid = 0;
 
 		IPACMDBG_H("Get %d WAN DL filtering rules in total.\n", num_rules);
-		
+
 		if(rule_table_v4 != NULL)
 		{
 			for(cnt = rule_table_v4->num_rules - 1; cnt >= 0; cnt--)
@@ -286,7 +286,7 @@ bool IPACM_Filtering::AddWanDLFilteringRule(struct ipa_ioc_add_flt_rule const *r
 				qmi_rule_msg.filter_spec_list[pos].is_mux_id_valid = 1;
 				qmi_rule_msg.filter_spec_list[pos].mux_id = mux_id;
 
-				memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule, &rule_table_v4->rules[cnt].rule.eq_attrib, 
+				memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule, &rule_table_v4->rules[cnt].rule.eq_attrib,
 					sizeof(struct ipa_filter_rule_type_v01));
 				pos++;
 			}
@@ -311,7 +311,7 @@ bool IPACM_Filtering::AddWanDLFilteringRule(struct ipa_ioc_add_flt_rule const *r
 				qmi_rule_msg.filter_spec_list[pos].is_mux_id_valid = 1;
 				qmi_rule_msg.filter_spec_list[pos].mux_id = mux_id;
 
-				memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule, &rule_table_v6->rules[cnt].rule.eq_attrib, 
+				memcpy(&qmi_rule_msg.filter_spec_list[pos].filter_rule, &rule_table_v6->rules[cnt].rule.eq_attrib,
 					sizeof(struct ipa_filter_rule_type_v01));
 				pos++;
 			}

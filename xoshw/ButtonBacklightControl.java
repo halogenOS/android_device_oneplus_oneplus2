@@ -22,7 +22,7 @@ import org.halogenos.hardware.buttons.IButtonBacklightControl;
  * This class is supposed to control button backlight
  */
 public class ButtonBacklightControl extends IButtonBacklightControl {
-    
+
     public ButtonBacklightControl() {
         CONTROL_TYPE = CONTROL_TYPE_PARTIAL;
     }
