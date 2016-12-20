@@ -1,4 +1,4 @@
-/* 
+/*
 Copyright (c) 2013, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-  
+
 #define IPACM_ASSERT(a)                                            \
 if (!(a)) {                                             \
     fprintf(stderr, "%s, %d: assertion (a) failed!",    \
@@ -61,7 +61,7 @@ if (!(a)) {                                             \
             __LINE__);                                  \
     abort();                                         \
 }
-  
+
 /* Max allowed size of the XML file (2 MB) */
 #define IPACM_XML_MAX_FILESIZE               (2 << 20)
 #define IPACM_MAX_FIREWALL_ENTRIES            50
@@ -72,7 +72,7 @@ if (!(a)) {                                             \
 #define IPACM_XML_CLIP_SPACE_QUOTES  " '\""
 
 #define MAX_XML_STR_LEN                 120
-  
+
 /* IPA Config Entries */
 #define system_TAG                           "system"
 #define ODU_TAG                              "ODUCFG"
@@ -203,7 +203,7 @@ typedef enum
   IP_V4 = 4,
   IP_V6 = 6
 } firewall_ip_version_enum;
-  
+
 /*---------------------------------------------------------------------------
            Extended FireWall Entry Configuration.
 ---------------------------------------------------------------------------*/
@@ -229,9 +229,9 @@ typedef struct
   uint8_t    num_extd_firewall_entries;
   IPACM_extd_firewall_entry_conf_t extd_firewall_entries[IPACM_MAX_FIREWALL_ENTRIES];
 	bool     rule_action_accept;
-	bool     firewall_enable;	
+	bool     firewall_enable;
 } IPACM_firewall_conf_t;
-  
+
 
 
 typedef struct
@@ -258,7 +258,7 @@ typedef struct
   ipacm_alg alg_entries[IPA_MAX_ALG_ENTRIES];
 } ipacm_alg_conf_t;
 
- 
+
 typedef struct  _IPACM_conf_t
 {
   ipacm_iface_conf_t iface_config;
@@ -267,7 +267,7 @@ typedef struct  _IPACM_conf_t
 	int nat_max_entries;
   bool odu_enable;
   bool router_mode_enable;
-} IPACM_conf_t;  
+} IPACM_conf_t;
 
 /* This function read IPACM XML configuration*/
 int ipacm_read_cfg_xml
