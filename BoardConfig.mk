@@ -242,5 +242,7 @@ BOARD_USES_QC_TIME_SERVICES := true
 BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
+TARGET_OPTIMIZATION_LEVEL := 3
+
 # inherit from the proprietary version
 -include vendor/oneplus/oneplus2/BoardConfigVendor.mk
