@@ -22,10 +22,10 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
     echo 0 > big_core_up_delay
 
     # Turn on all cores on this load
-    echo 78 > fast_lane_load
+    echo 70 > fast_lane_load
 
     # When bigs should kick in
-    echo 60 > kick_in_load_big
+    echo 58 > kick_in_load_big
 
     # Display off
     echo 2 > max_cpus_online_susp
