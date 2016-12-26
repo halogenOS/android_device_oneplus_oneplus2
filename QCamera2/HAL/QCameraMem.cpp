@@ -1504,6 +1504,38 @@ native_handle_t *QCameraVideoMemory::updateNativeHandle(uint32_t index, bool met
 }
 
 /*===========================================================================
+ * FUNCTION   : closeNativeHandle
+ *
+ * DESCRIPTION: static function to close video native handle.
+ *
+ * PARAMETERS :
+ *   @data  : ptr to video frame to be returned
+ *
+ * RETURN     : int32_t type of status
+ *              NO_ERROR  -- success
+ *              none-zero failure code
+ *==========================================================================*/
+int QCameraVideoMemory::closeNativeHandle(const void *data)
+{
+    int32_t rc = NO_ERROR;
+
+#ifdef USE_MEDIA_EXTENSIONS
+    const media_metadata_buffer *packet =
+            (const media_metadata_buffer *)data;
+    if ((packet != NULL) && (packet->eType ==
+            kMetadataBufferTypeNativeHandleSource)
+            && (packet->pHandle)) {
+        native_handle_close(packet->pHandle);
+        native_handle_delete(packet->pHandle);
+    } else {
+        ALOGE("Invalid Data. Could not release");
+        return BAD_VALUE;
+    }
+#endif
+   return rc;
+}
+
+/*===========================================================================
 * FUNCTION   : closeNativeHandle
 *
 * DESCRIPTION: close video native handle
@@ -1540,6 +1572,8 @@ int QCameraVideoMemory::closeNativeHandle(const void *data, bool metadata)
         }
         if (packet != NULL && packet->eType ==
             kMetadataBufferTypeNativeHandleSource) {
+            native_handle_close(packet->pHandle);
+            native_handle_delete(packet->pHandle);
             packet->pHandle = NULL;
         } else {
             ALOGE("Invalid Data. Could not release");
