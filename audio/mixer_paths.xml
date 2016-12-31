@@ -1350,6 +1350,7 @@
     <!-- #ifdef VENDOR_EDIT-->
     <!-- zhiguang.su@MultiMedia.AudioDrv 2015-05-13 add for volte call speaker  -->
     <path name="volte-call speaker">
+        <ctl name="VOC_EXT_EC MUX" value="QUAT_MI2S_TX" />
         <ctl name="QUAT_MI2S_RX_Voice Mixer VoLTE" value="1" />
         <ctl name="VoLTE_Tx Mixer SLIM_0_TX_VoLTE" value="1" />
     </path>
