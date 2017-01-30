@@ -14,7 +14,8 @@ use.voice.path.for.pcm.voip=true
 audio.offload.multiple.enabled=true
 audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
-audio.offload.buffer.size.kb=256
+audio.offload.buffer.size.kb=768
+audio_hal.period_size=384
 audio.offload.video=true
 audio.offload.track.enable=true
 
@@ -132,7 +133,6 @@ persist.audio.DiracHeadset=2
 persist.dirac.acs.controller=qem
 persist.radio.custom_ecc=1
 af.fast_track_multiplier=2
-audio_hal.period_size=192
 mm.enable.qcom_parser=3253107
 
 # Hardware Info
