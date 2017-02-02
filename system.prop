@@ -15,11 +15,13 @@ audio.offload.passthrough=false
 audio.offload.multiple.enabled=true
 audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
-audio.offload.buffer.size.kb=1024
-audio_hal.period_size=512
+audio.offload.buffer.size.kb=256
+audio_hal.period_size=192
 audio.offload.video=true
 audio.offload.track.enable=true
 av.debug.disable.pers.cache=true
+af.fast_track_multiplier=1
+af.resampler.quality=255
 
 # Bluetooth
 bluetooth.hfp.client=1
@@ -134,7 +136,6 @@ persist.audio.DiracEnable=true
 persist.audio.DiracHeadset=2
 persist.dirac.acs.controller=qem
 persist.radio.custom_ecc=1
-af.fast_track_multiplier=1
 mm.enable.qcom_parser=3253107
 
 # Hardware Info
