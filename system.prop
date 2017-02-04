@@ -23,6 +23,7 @@ audio.offload.track.enable=true
 av.debug.disable.pers.cache=true
 af.fast_track_multiplier=3
 af.resampler.quality=255
+af.thread.throttle=false
 
 # Bluetooth
 bluetooth.hfp.client=1
