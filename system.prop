@@ -4,7 +4,7 @@
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=false
 persist.audio.fluence.speaker=true
-ro.qc.sdk.audio.fluencetype=fluencepro
+ro.qc.sdk.audio.fluencetype=fluence
 ro.qc.sdk.audio.ssr=false
 persist.audio.ssr.3mic=false
 media.aac_51_output_enabled=true
@@ -15,12 +15,13 @@ audio.offload.passthrough=false
 audio.offload.multiple.enabled=true
 audio.offload.gapless.enabled=true
 mm.enable.smoothstreaming=true
-audio.offload.buffer.size.kb=256
+audio.offload.multiaac.enable=true
+audio.offload.buffer.size.kb=768
 audio_hal.period_size=192
 audio.offload.video=true
 audio.offload.track.enable=true
 av.debug.disable.pers.cache=true
-af.fast_track_multiplier=1
+af.fast_track_multiplier=3
 af.resampler.quality=255
 
 # Bluetooth
@@ -128,7 +129,7 @@ dev.pm.dyn_samplingrate=1
 debug.sf.hw=1
 debug.egl.hw=1
 persist.mdpcomp.4k2kSplit=1
-persist.hwc.mdpcomp.maxpermixer=5
+persist.hwc.mdpcomp.maxpermixer=6
 persist.mdpcomp_perfhint=60
 mmp.enable.3g2=true
 ro.fm.transmitter=false
