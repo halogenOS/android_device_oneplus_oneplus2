@@ -124,6 +124,7 @@ ro.telephony.sim_unlocked=1
 ro.qc.sdk.sensors.gestures=true
 ro.qc.sdk.gestures.camera=false
 ro.qc.sdk.camera.facialproc=false
+sensor.sm.force.nowakeup=1
 
 # Tethering
 net.tethering.noprovisioning=true
