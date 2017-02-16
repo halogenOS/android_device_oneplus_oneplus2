@@ -177,6 +177,7 @@ USE_SENSOR_MULTI_HAL := true
 SENSORS_PREVENT_SIGNIFICANT_MOTION_WAKE := true # fix battery drain
 
 TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
