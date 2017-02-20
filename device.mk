@@ -290,8 +290,5 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/wifi/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
 
-# Qualcomm BT aptX & aptX HD codecs in N
-$(call inherit-product, vendor/qcom/binaries/bluetooth/bluetooth-vendor.mk)
-
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)
