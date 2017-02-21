@@ -1,0 +1,2 @@
+allow rmt_storage block_device:blk_file { open read write };
+allow rmt_storage self:capability { dac_override net_raw };
