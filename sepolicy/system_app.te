@@ -6,5 +6,6 @@ allow system_app dpmservice:service_manager add;
 allow system_app qtitetherservice_service:service_manager add;
 allow system_app dpmd_data_file:dir { search write add_name };
 allow system_app dpmd_data_file:file create;
-
 dontaudit system_app netd_service:service_manager find;
+allow system_app proc:file write;
+allow system_app sysfs:file write;
