@@ -4,3 +4,4 @@ type cam_sysfs, fs_type;
 type nv_data_file, file_type;
 type stm_sensor, file_type;
 type sysfs_fingerprintd_writable, fs_type, sysfs_type;
+file.te:type sysfs_fpc_irq, fs_type, sysfs_type;
