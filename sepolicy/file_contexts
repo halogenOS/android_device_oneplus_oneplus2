@@ -1,7 +1,6 @@
 # We have a couple of non-standard NV partitions
 /dev/block/bootdevice/by-name/oem_dycnvbk                       u:object_r:modem_efs_partition_device:s0
 /dev/block/bootdevice/by-name/oem_stanvbk                       u:object_r:modem_efs_partition_device:s0
-/dev/qseecom                                                    u:object_r:tee_device:s0
 
 # FRP partition
 /dev/block/bootdevice/by-name/config                                    u:object_r:frp_block_device:s0
@@ -27,5 +26,7 @@
 /sys/module/msm_performance(/.*)?                                       u:object_r:sysfs_performance:s0
 
 /sys/bus/spi/devices/spi12.0/clk_enable                         u:object_r:fingerprintd_sysfs:s0
+/data/fpc(/.*)?                                                 u:object_r:fpc_data_file:s0
+/data/fpc_images(/.*)?                                          u:object_r:fpc_images_file:s0
 /sys/devices/soc/soc:fpc_fpc1020/irq                            u:object_r:sysfs_fpc_irq:s0
 /sys/devices/soc/soc:fpc_fpc1020/proximity_state                u:object_r:sysfs_fpc_proximity:s0
