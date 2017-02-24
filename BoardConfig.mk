@@ -79,7 +79,7 @@ TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8994
-TARGET_KERNEL_CONFIG := cm_oneplus2_defconfig
+TARGET_KERNEL_CONFIG := oneplus2_defconfig
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
