@@ -528,4 +528,4 @@ etc/firmware/tp/14049/14049_FW_S3320_jdi.img
 # Wifi
 bin/cnss-daemon
 bin/cnss_diag
--lib64/libwpa_qmi_eap_proxy.so
+lib64/libwpa_qmi_eap_proxy.so
