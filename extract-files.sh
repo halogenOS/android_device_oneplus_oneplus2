@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -e
 
 export DEVICE=oneplus2
 export VENDOR=oneplus
