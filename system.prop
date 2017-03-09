@@ -70,7 +70,7 @@ ro.data.large_tcp_window_size=true
 
 # Dex2oat limits
 dalvik.vm.boot-dex2oat-threads=12
-dalvik.vm.dex2oat-threads=8
+dalvik.vm.dex2oat-threads=12
 dalvik.vm.image-dex2oat-threads=12
 
 # GPS
