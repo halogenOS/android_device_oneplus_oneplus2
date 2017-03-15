@@ -143,6 +143,12 @@ mmp.enable.3g2=true
 persist.radio.custom_ecc=1
 mm.enable.qcom_parser=3379827
 
+# VoLTE
+persist.dbg.ims_volte_enable=1
+persist.dbg.volte_avail_ovr=1
+persist.dbg.vt_avail_ovr=0
+persist.dbg.wfc_avail_ovr=0
+
 # Hardware Info
 ro.device.chipset=Qualcomm MSM8994 Snapdragon 810
 ro.device.cpu=Quad-core 1.56 GHz Cortex-A53 & Quad-core 1.78 GHz Cortex-A57
