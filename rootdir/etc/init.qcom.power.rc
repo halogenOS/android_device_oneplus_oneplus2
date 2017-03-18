@@ -8,17 +8,28 @@ on boot
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
 
-    # update foreground cpuset now that processors are up
-    # reserve CPU 3 for the top app and camera daemon
-    write /dev/cpuset/foreground/cpus 0-3,5,7
-    write /dev/cpuset/foreground/boost/cpus 4-7
-    write /dev/cpuset/background/cpus 0,7
-    write /dev/cpuset/system-background/cpus 0-2,6
+    write /dev/cpuset/camera-daemon/cpus 0-2,4
+
+    # Burn the CPU until boot is done
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/foreground/boost/cpus 0-7
+    write /dev/cpuset/background/cpus 0-7
+    write /dev/cpuset/system-background/cpus 0-7
     write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/camera-daemon/cpus 0-3
+
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "performance"
+    # LITTLE, all cores online
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    # big, all cores online
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
 
 on enable-low-power
-
     # Ensure at most one A57 is online when thermal hotplug is disabled
     write /sys/devices/system/cpu/cpu5/online 0
     write /sys/devices/system/cpu/cpu6/online 0
@@ -99,10 +110,20 @@ on enable-low-power
     write /sys/module/cpu_boost/parameters/input_boost_ms 50
 
     # Configure core_ctl module parameters
+
+    # LITTLE
+    write /sys/devices/system/cpu/cpu0/core_ctl/max_cpus 4
+    write /sys/devices/system/cpu/cpu0/core_ctl/min_cpus 1
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres 80
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres "0 10 30 40"
+    write /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms 200
+    write /sys/devices/system/cpu/cpu0/core_ctl/is_big_cluster 0
+    write /sys/devices/system/cpu/cpu0/core_ctl/task_thres 3
+    # big
     write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 4
     write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 1
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 70
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres 16
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 80
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres "0 30 40 40"
     write /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 100
     write /sys/devices/system/cpu/cpu4/core_ctl/is_big_cluster 1
     write /sys/devices/system/cpu/cpu4/core_ctl/task_thres 4
@@ -117,11 +138,11 @@ on enable-low-power
 
     # Setting big.LITTLE scheduler parameters
     write /proc/sys/kernel/sched_migration_fixup 1
-    write /proc/sys/kernel/sched_small_task 32
-    write /proc/sys/kernel/sched_mostly_idle_load 18
+    write /proc/sys/kernel/sched_small_task 20
+    write /proc/sys/kernel/sched_mostly_idle_load 10
     write /proc/sys/kernel/sched_mostly_idle_nr_run 3
-    write /proc/sys/kernel/sched_upmigrate 96
-    write /proc/sys/kernel/sched_downmigrate 80
+    write /proc/sys/kernel/sched_upmigrate 80
+    write /proc/sys/kernel/sched_downmigrate 70
     write /proc/sys/kernel/sched_freq_inc_notify 400000
     write /proc/sys/kernel/sched_freq_dec_notify 400000
     write /proc/sys/kernel/sched_boost 0
@@ -142,6 +163,20 @@ on enable-low-power
     setprop ro.min_freq_4 384000
     start perfd
 
+on superb
+    setprop sys.io.scheduler "sio"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /dev/cpuset/foreground/cpus 0-3,5,7
+    write /dev/cpuset/foreground/boost/cpus 0-5
+    write /dev/cpuset/background/cpus 0,7
+    write /dev/cpuset/system-background/cpus 1-2,4
+    write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/camera-daemon/cpus 0-2,4
+
+on all-cpu-power-mgm
+    trigger enable-low-power
+    trigger superb
+
 service charger /charger
     class charger
     group log
@@ -149,22 +184,22 @@ service charger /charger
 
 on charger
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+    # LITTLE, 1 core online
+    write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu1/online 0
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
+    # big, all cores offline
+    write /sys/devices/system/cpu/cpu4/online 0
+    write /sys/devices/system/cpu/cpu5/online 0
+    write /sys/devices/system/cpu/cpu6/online 0
+    write /sys/devices/system/cpu/cpu7/online 0
+
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
-on property:sys.boot_completed=1
-    trigger enable-low-power
+on property:dev.bootcomplete=1
+    trigger all-cpu-power-mgm
 
 on property:init.svc.recovery=running
     trigger enable-low-power
 
-on property:dev.bootcomplete=1
-    setprop sys.io.scheduler "sio"
-    write /dev/cpuset/foreground/cpus 0-3,5,7
-    write /dev/cpuset/foreground/boost/cpus 4-7
-    write /dev/cpuset/background/cpus 0,7
-    write /dev/cpuset/system-background/cpus 0-2,6
-    write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/camera-daemon/cpus 0-3
