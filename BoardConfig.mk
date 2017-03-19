@@ -29,6 +29,11 @@ PLATFORM_PATH := device/oneplus/oneplus2
 
 BOARD_VENDOR := oneplus
 
+# Optimizations
+POLLY_OPTS := true
+LOCAL_CLANG_LTO := true
+TARGET_USE_SDCLANG := true
+
 # Use Snapdragon LLVM, if available
 TARGET_USE_SDCLANG := true
 
