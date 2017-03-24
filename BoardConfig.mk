@@ -32,7 +32,6 @@ BOARD_VENDOR := oneplus
 # Optimizations
 POLLY_OPTS := true
 LOCAL_CLANG_LTO := true
-TARGET_USE_SDCLANG := true
 
 # Use Snapdragon LLVM, if available
 TARGET_USE_SDCLANG := true
@@ -74,7 +73,7 @@ KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/a
 TARGET_TOOLCHAIN_ROOT := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)4.9/bin
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=29 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=29 msm_rtb.filter=0x37 ehci-hcd.park=3 boot_cpus=0-7 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -112,10 +111,6 @@ AUDIO_FINE_TUNED_OPTIMIZATIONS := true
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 BOARD_USES_ALSA_AUDIO := true
 
-# Qualcomm Audio/Video Enhancements (DASH & QCMediaPlayer)
-#TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-# Disabled for now. Breaks many music players.
-
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_PATH)/bluetooth
 BOARD_HAS_QCA_BT_ROME := true
@@ -148,15 +143,15 @@ USE_DEVICE_SPECIFIC_GPS := true
 # Graphics
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_ION := true
-TARGET_USES_NEW_ION_API :=true
+TARGET_USES_NEW_ION_API := true
 TARGET_USES_C2D_COMPOSITION := true
 USE_OPENGL_RENDERER := true
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
-HAVE_ADRENO_SOURCE:= false
-OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
+HAVE_ADRENO_SOURCE := false
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
