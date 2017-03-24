@@ -109,15 +109,14 @@ PRODUCT_BUTTON_GESTURES_PACKAGES := \
 	oppo-keyhandler \
 	ConfigPanel
 
-PRODUCT_PACKAGES  += $(PRODUCT_BUTTON_GESTURES_PACKAGES)
+PRODUCT_PACKAGES += $(PRODUCT_BUTTON_GESTURES_PACKAGES)
 
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8994 \
     sensors.hal.tof \
     libshim_camera \
-    libshim_ims-camera \
-    Snap
+    libshim_ims-camera
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -189,10 +188,6 @@ PRODUCT_COPY_FILES += \
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8994
-
-# LiveDisplay native
-PRODUCT_PACKAGES += \
-    libjni_livedisplay
 
 # Media
 PRODUCT_COPY_FILES += \
