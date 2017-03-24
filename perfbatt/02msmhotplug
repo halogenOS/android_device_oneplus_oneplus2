@@ -12,7 +12,7 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
 
     # LITTLE or all
     echo 8 > max_cpus_online
-    echo 1 > min_cpus_online
+    echo 2 > min_cpus_online
     echo 8 > offline_load
     # big
     echo 4 > max_cpus_online_big
