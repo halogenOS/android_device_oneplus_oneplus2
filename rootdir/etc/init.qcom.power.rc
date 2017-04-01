@@ -2,13 +2,10 @@ on boot
     # add a cpuset for the camera daemon
     # we want all the little cores for camera
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0
     write /dev/cpuset/camera-daemon/mems 0
     chown system system /dev/cpuset/camera-daemon
     chown system system /dev/cpuset/camera-daemon/tasks
     chmod 0664 /dev/cpuset/camera-daemon/tasks
-
-    write /dev/cpuset/camera-daemon/cpus 0-2,4
 
     # Burn the CPU until boot is done
     write /dev/cpuset/foreground/cpus 0-7
@@ -16,6 +13,7 @@ on boot
     write /dev/cpuset/background/cpus 0-7
     write /dev/cpuset/system-background/cpus 0-7
     write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/camera-daemon/cpus 0-2,4
 
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     # LITTLE, all cores online
@@ -93,12 +91,6 @@ on enable-low-power
     # change GPU initial power level from 305MHz(level 4) to 180MHz(level 5) for power savings
     write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 5
 
-    # Configure foreground and background cpuset
-    write /dev/cpuset/foreground/cpus 0-7
-    write /dev/cpuset/foreground/boost/cpus 4-7
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-3
-
     # Enable low power modes
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
@@ -114,16 +106,16 @@ on enable-low-power
     # LITTLE
     write /sys/devices/system/cpu/cpu0/core_ctl/max_cpus 4
     write /sys/devices/system/cpu/cpu0/core_ctl/min_cpus 1
-    write /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres 80
-    write /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres "0 10 30 40"
-    write /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms 200
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres 78
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres "0 10 40 30"
+    write /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms 300
     write /sys/devices/system/cpu/cpu0/core_ctl/is_big_cluster 0
     write /sys/devices/system/cpu/cpu0/core_ctl/task_thres 3
     # big
     write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 4
     write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 1
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 80
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres "0 30 40 40"
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 78
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres "0 30 30 45"
     write /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 100
     write /sys/devices/system/cpu/cpu4/core_ctl/is_big_cluster 1
     write /sys/devices/system/cpu/cpu4/core_ctl/task_thres 4
@@ -194,7 +186,7 @@ on charger
     write /sys/devices/system/cpu/cpu5/online 0
     write /sys/devices/system/cpu/cpu6/online 0
     write /sys/devices/system/cpu/cpu7/online 0
-
+    # sleep disabled
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
 on property:dev.bootcomplete=1
