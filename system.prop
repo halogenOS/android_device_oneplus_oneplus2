@@ -84,7 +84,7 @@ ro.pip.gated=0
 persist.hwc.mdpcomp.enable=true
 persist.demo.hdmirotationlock=false
 ro.qualcomm.cabl=0
-ro.sf.lcd_density=480
+ro.sf.lcd_density=401
 ro.opengles.version=196610
 
 # Time services
