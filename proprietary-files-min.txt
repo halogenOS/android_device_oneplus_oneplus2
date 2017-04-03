@@ -25,6 +25,7 @@ framework/qcnvitems.jar
 framework/qcrilhook.jar
 framework/qti-telephony-common.jar
 lib/hw/fingerprint.msm8994.so
+lib/modules/hcube.ko
 lib/lib_fpc_tac_shared.so
 lib/libloc_api_v02.so
 lib/libloc_ds_api.so
