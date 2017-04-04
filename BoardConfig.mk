@@ -174,6 +174,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # RIL
 TARGET_RIL_VARIANT := caf
+TARGET_NO_WEAKENED_RILD_SYMBOLS := true
 
 # Enable peripheral manager
 TARGET_PER_MGR_ENABLED := true
