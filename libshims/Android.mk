@@ -13,6 +13,7 @@
 # limitations under the License.
 
 CAMERA_CLIENT_LOCAL_PATH:= $(call my-dir)
+include $(call all-subdir-makefiles)
 include $(CLEAR_VARS)
 
 LOCAL_PATH := $(CAMERA_CLIENT_LOCAL_PATH)
@@ -53,17 +54,6 @@ LOCAL_C_INCLUDES += \
 	system/media/camera/include \
 	system/media/private/camera/include
 
-LOCAL_MODULE:= libshim_ims-camera
-
-include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := camera.cpp
-LOCAL_MODULE := libshim_camera
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_32_BIT_ONLY := true
-LOCAL_SHARED_LIBRARIES := libgui libui
+LOCAL_MODULE:= libshim_camera
 
 include $(BUILD_SHARED_LIBRARY)
