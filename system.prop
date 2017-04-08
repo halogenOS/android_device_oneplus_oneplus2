@@ -44,7 +44,6 @@ ro.bluetooth.emb_wp_mode=true
 persist.bt.enableAptXHD=true
 
 # Camera
-camera.hal1.packagelist=com.skype.raider,com.whatsapp,com.tencent.mm,com.google.android.GoogleCamera
 persist.camera.cpp.duplication=false
 vidc.debug.perf.mode=2
 vidc.enc.dcvs.extra-buff-count=2

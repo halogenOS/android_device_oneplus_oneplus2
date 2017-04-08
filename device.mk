@@ -114,6 +114,7 @@ PRODUCT_PACKAGES += $(PRODUCT_BUTTON_GESTURES_PACKAGES)
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8994 \
+    libshim_mmcamera2_sensor_modules \
     mm-qcamera-app \
     libshim_camera \
     libmm-qcamera \

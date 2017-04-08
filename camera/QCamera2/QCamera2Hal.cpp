@@ -35,7 +35,7 @@ static hw_module_t camera_common = {
     module_api_version: CAMERA_MODULE_API_VERSION_2_3,
     hal_api_version: HARDWARE_HAL_API_VERSION,
     id: CAMERA_HARDWARE_MODULE_ID,
-    name: "QCamera Module",
+    name: "QCamera Module for OnePlus 2",
     author: "Qualcomm Innovation Center Inc",
     methods: &qcamera::QCamera2Factory::mModuleMethods,
     dso: NULL,

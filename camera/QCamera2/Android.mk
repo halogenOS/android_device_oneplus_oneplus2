@@ -21,7 +21,7 @@ LOCAL_SRC_FILES += \
         HAL3/QCamera3PostProc.cpp \
         HAL3/QCamera3CropRegionMapper.cpp
 
-#HAL 1.0 source
+#HAL source
 LOCAL_SRC_FILES += \
         HAL/QCamera2HWI.cpp \
         HAL/QCameraMem.cpp \
@@ -36,11 +36,11 @@ LOCAL_SRC_FILES += \
 LOCAL_CFLAGS := -Wall -Wextra -Werror
 LOCAL_CFLAGS += -DHAS_MULTIMEDIA_HINTS
 
-#HAL 1.0 Flags
+#HAL 3.0 Flags
 LOCAL_CFLAGS += -DDEFAULT_DENOISE_MODE_ON -DHAL3
 
 # OnePlus
-LOCAL_CFLAGS += -DVENDOR_EDIT
+LOCAL_CFLAGS += -DVENDOR_EDIT -O3
 
 LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/stack/common \
