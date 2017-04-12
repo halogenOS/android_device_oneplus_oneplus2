@@ -47,6 +47,18 @@ persist.bt.enableAptXHD=true
 persist.camera.cpp.duplication=false
 vidc.debug.perf.mode=2
 vidc.enc.dcvs.extra-buff-count=2
+persist.camera.hal.debug.mask=0
+persist.camera.imglib.fddsp=1
+persist.camera.llc=1
+persist.camera.llnoise=1
+media.camera.ts.monotonic=1
+camera2.portability.force_api=1
+persist.camera.HAL3.enabled=1
+# Enable RAW support and camera modes
+ro.camcorder.videoModes=true
+persist.camera.promode=true
+ro.config.hw_camera_hdr=true
+ro.config.hw_camera_bestShot=true
 
 # CEC
 ro.hdmi.device_type=4
