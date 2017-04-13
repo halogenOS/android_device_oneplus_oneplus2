@@ -12,9 +12,11 @@ persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=false
 persist.audio.fluence.speaker=true
 tunnel.audio.encode=false
+audio.offload.disable=false
 audio.offload.gapless.enabled=true
-audio.offload.buffer.size.kb=32
+audio.offload.buffer.size.kb=64
 audio.offload.video=true
+audio.offload.pcm.enable=true
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
 audio.offload.passthrough=false
@@ -28,8 +30,9 @@ audio.offload.min.duration.secs=30
 persist.audio.DiracEnable=true
 persist.audio.DiracHeadset=2
 persist.dirac.acs.controller=qem
+av.offload.enable=true
 af.fast_track_multiplier=2
-audio_hal.period_size=192
+audio_hal.period_size=240
 
 # Bluetooth
 bluetooth.hfp.client=1
