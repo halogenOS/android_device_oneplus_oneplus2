@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2017 The halogenOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +29,7 @@
 #include <hardware/hardware.h>
 
 
-// OnePlus2 has two inflight numbers. By default, inflight=15 and inflight_low_latency=4.
+// OnePlus 2 has two inflight numbers. By default, inflight=15 and inflight_low_latency=4.
 // Inflight is only used when there is a single GL context, when there is more than one
 // context, inflight_low_latency is used. Since we are only interested in affecting
 // performance when there is context preemption, we only have to modify the low latency
@@ -138,7 +139,7 @@ vr_module_t HAL_MODULE_INFO_SYM = {
         .module_api_version = VR_MODULE_API_VERSION_1_0,
         .hal_api_version    = HARDWARE_HAL_API_VERSION,
         .id                 = VR_HARDWARE_MODULE_ID,
-        .name               = "OnePlus2 VR HAL",
+        .name               = "OnePlus 2 Virtual Reality HAL",
         .author             = "The Android Open Source Project",
         .methods            = &vr_module_methods,
     },
