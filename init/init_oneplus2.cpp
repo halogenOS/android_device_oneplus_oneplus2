@@ -56,7 +56,7 @@ void init_variant_properties() {
         property_set("ro.telephony.default_network", "10,10");
     } else {
         /* Who knows? Could happen. */
-        property_set("ro.product.model", "OnePlus Two");
+        property_set("ro.product.model", "OnePlus 2");
         property_set("ro.rf_version", "TDD_FDD_Eu");
         property_set("ro.telephony.default_network", "10,10");
     }
