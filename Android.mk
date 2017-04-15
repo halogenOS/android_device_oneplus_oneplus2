@@ -1,3 +1,6 @@
+ifeq ($(BOARD_BUILD_OP2_CAMERA),true)
+ifneq ($(strip $(USE_DEVICE_SPECIFIC_CAMERA)),true)
+
 MM_V4L2_DRIVER_LIST += msm8960
 MM_V4L2_DRIVER_LIST += msm8974
 MM_V4L2_DRIVER_LIST += msm8916
@@ -17,4 +20,7 @@ ifneq (,$(filter $(MM_V4L2_DRIVER_LIST),$(TARGET_BOARD_PLATFORM)))
       include $(call all-subdir-makefiles)
     endif
   endif
+endif
+
+endif
 endif
