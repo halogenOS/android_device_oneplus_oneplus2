@@ -15,6 +15,11 @@
     "branch":       "XOS-7.1"
   },
   {
+    "repository": "android_hardware_qcom_camera-op2",
+    "target_path": "hardware/qcom/camera-op2",
+    "branch": "XOS-7.1"
+  },
+  {
     "repository": "aarch64-linux-android-4.9-kernel",
     "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9-kernel-uber",
     "branch": "master"
