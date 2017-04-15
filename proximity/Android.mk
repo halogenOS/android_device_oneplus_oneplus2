@@ -28,7 +28,7 @@ LOCAL_MODULE := sensors.hal.tof
 LOCAL_C_INCLUDES:= \
         kernel/include/linux/input/ \
 
-LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+LOCAL_MODULE_RELATIVE_PATH := hw
 
 LOCAL_MODULE_TAGS := optional
 

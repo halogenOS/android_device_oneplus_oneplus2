@@ -5965,18 +5965,12 @@ camera_metadata_t* QCamera3HardwareInterface::translateCapabilityToMetadata(int 
     uint8_t vsMode;
     uint8_t optStabMode;
     uint8_t cacMode = ANDROID_COLOR_CORRECTION_ABERRATION_MODE_OFF;
-    uint8_t edge_mode;
-    uint8_t noise_red_mode;
-    uint8_t tonemap_mode;
     vsMode = ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_OFF;
     switch (type) {
       case CAMERA3_TEMPLATE_PREVIEW:
         controlIntent = ANDROID_CONTROL_CAPTURE_INTENT_PREVIEW;
         focusMode = ANDROID_CONTROL_AF_MODE_CONTINUOUS_PICTURE;
         optStabMode = ANDROID_LENS_OPTICAL_STABILIZATION_MODE_ON;
-        edge_mode = ANDROID_EDGE_MODE_FAST;
-        noise_red_mode = ANDROID_NOISE_REDUCTION_MODE_FAST;
-        tonemap_mode = ANDROID_TONEMAP_MODE_FAST;
         cacMode = ANDROID_COLOR_CORRECTION_ABERRATION_MODE_FAST;
         break;
       case CAMERA3_TEMPLATE_STILL_CAPTURE:
@@ -5984,9 +5978,7 @@ camera_metadata_t* QCamera3HardwareInterface::translateCapabilityToMetadata(int 
         focusMode = ANDROID_CONTROL_AF_MODE_CONTINUOUS_PICTURE;
         optStabMode = ANDROID_LENS_OPTICAL_STABILIZATION_MODE_ON;
         cacMode = ANDROID_COLOR_CORRECTION_ABERRATION_MODE_HIGH_QUALITY;
-        edge_mode = ANDROID_EDGE_MODE_HIGH_QUALITY;
-        noise_red_mode = ANDROID_NOISE_REDUCTION_MODE_HIGH_QUALITY;
-        tonemap_mode = ANDROID_TONEMAP_MODE_HIGH_QUALITY;
+        settings.update(ANDROID_COLOR_CORRECTION_ABERRATION_MODE, &cacMode, 1);
         break;
       case CAMERA3_TEMPLATE_VIDEO_RECORD:
         controlIntent = ANDROID_CONTROL_CAPTURE_INTENT_VIDEO_RECORD;
