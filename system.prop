@@ -189,3 +189,6 @@ ro.device.screen_res=1080x1920
 # and provide better responsiveness
 ro.min.fling_velocity=160
 ro.max.fling_velocity=20000
+
+# Da SN
+ro.boot.verifiedbootstate=green
