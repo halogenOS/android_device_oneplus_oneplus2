@@ -41,6 +41,7 @@ ro.bluetooth.a4wp=true
 ro.bluetooth.wipower=true
 bluetooth.enable_timeout_ms=12000
 ro.bluetooth.emb_wp_mode=true
+persist.bt.enableAptXHD=true
 
 # Camera
 persist.camera.HAL3.enabled=0
