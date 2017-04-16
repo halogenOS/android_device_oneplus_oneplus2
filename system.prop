@@ -160,7 +160,6 @@ persist.oem.dump=0
 persist.sys.assert.enable=false
 persist.sys.cfu_auto=1
 sys.foreground_process=android
-vidc.enc.dcvs.extra-buff-count=2
 ro.data.large_tcp_window_size=true
 
 # VoLTE
