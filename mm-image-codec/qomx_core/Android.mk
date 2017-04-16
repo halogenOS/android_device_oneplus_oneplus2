@@ -9,7 +9,7 @@ LOCAL_PATH := $(OMX_CORE_PATH)
 LOCAL_MODULE_TAGS := optional
 
 omx_core_defines:= -Werror \
-                   -g -O0
+                   -g -O3
 
 LOCAL_CFLAGS := $(omx_core_defines)
 
