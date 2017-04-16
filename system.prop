@@ -127,6 +127,9 @@ ro.telephony.sim_unlocked=1
 persist.radio.ignore_dom_time=5
 persist.sys.modem=yes
 
+# SDCardFS
+ro.sys.sdcardfs=true
+
 # Sensors
 ro.qc.sdk.sensors.gestures=true
 ro.qc.sdk.gestures.camera=false
