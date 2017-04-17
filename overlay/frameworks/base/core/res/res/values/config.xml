@@ -393,9 +393,6 @@
     <!-- VoLTE preferred -->
     <bool name="config_volte_preferred">true</bool>
 
-    <bool name="config_proximityCheckOnWake">true</bool>
-    <integer name="config_proximityCheckTimeout">200</integer>
-
     <!-- Enable NightLight -->
     <bool name="config_nightDisplayAvailable">true</bool>
 
