@@ -20,6 +20,10 @@ audio.offload.pcm.enable=true
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
 audio.offload.passthrough=false
+#########################################
+# QTI Quality (192 kHz Qualcomm Resampler)
+af.resampler.quality=8
+#########################################
 audio.offload.multiple.enabled=true
 audio.deep_buffer.media=true
 use.voice.path.for.pcm.voip=true
