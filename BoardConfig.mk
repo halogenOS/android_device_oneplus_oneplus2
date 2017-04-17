@@ -54,7 +54,7 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := cortex-a53.a57
+TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
@@ -69,10 +69,7 @@ TARGET_CPU_CORTEX_A57 := true
 
 #Link Toolchain
 TARGET_GCC_VERSION := 4.9
-TARGET_GCC_VERSION_ARM64 := 4.9-kernel-uber
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)4.9-kernel-uber/bin
-TARGET_TOOLCHAIN_ROOT := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)4.9/bin
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=29 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=permissive
@@ -128,9 +125,6 @@ TARGET_USES_MEDIA_EXTENSIONS := true
 BOARD_BUILD_OP2_CAMERA := true
 # For the flag above
 USE_DEVICE_SPECIFIC_CAMERA := true
-
-# CFlags
-BOARD_GLOBAL_CFLAGS += -DUSE_RIL_VERSION_11
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
