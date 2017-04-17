@@ -106,8 +106,7 @@ PRODUCT_PACKAGES += \
 
 # Buttons & Gestures
 PRODUCT_BUTTON_GESTURES_PACKAGES := \
-	oppo-keyhandler \
-	ConfigPanel
+	oppo-keyhandler
 
 PRODUCT_PACKAGES += $(PRODUCT_BUTTON_GESTURES_PACKAGES)
 
