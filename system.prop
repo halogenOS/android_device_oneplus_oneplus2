@@ -35,8 +35,8 @@ persist.audio.DiracEnable=true
 persist.audio.DiracHeadset=2
 persist.dirac.acs.controller=qem
 av.offload.enable=true
-af.fast_track_multiplier=2
-audio_hal.period_size=240
+af.fast_track_multiplier=1
+audio_hal.period_size=192
 
 # Bluetooth
 bluetooth.hfp.client=1
