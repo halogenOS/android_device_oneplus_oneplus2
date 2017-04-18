@@ -60,8 +60,6 @@ ro.hdmi.device_type=4
 persist.sys.hdmi.addr.playback=4
 ro.hdmi.enable=true
 persist.speaker.prot.enable=false
-persist.spkr.cal.duration=0
-qcom.hw.aac.encoder=true
 
 # CNE
 persist.cne.feature=1
