@@ -2917,13 +2917,6 @@ int32_t QCameraParameters::setVideoRotation(const QCameraParameters& params)
         int value = lookupAttr(VIDEO_ROTATION_MODES_MAP,
                 PARAM_MAP_SIZE(VIDEO_ROTATION_MODES_MAP), str);
         if (value != NAME_NOT_FOUND) {
-            if (value == 90 || value == 180 || value == 270) {
-                if (!(m_pCapability->qcom_supported_feature_mask &
-                        CAM_QCOM_FEATURE_ROTATION)) {
-                    ALOGE("Video Rotation not supported for %d", value);
-                    return BAD_VALUE;
-                }
-            }
             updateParamEntry(KEY_QC_VIDEO_ROTATION, str);
             ALOGV("setVideoRotation: %s:  %d: ", str, value);
         } else {
