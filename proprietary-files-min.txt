@@ -42,9 +42,7 @@ lib64/libloc_api_v02.so
 lib64/libloc_ds_api.so
 lib64/libopbaselib.so
 lib64/libopcamera.so
-priv-app/CNEService/CNEService.apk
 priv-app/OnePlusCamera/OnePlusCamera.apk
-priv-app/QtiTetherService/QtiTetherService.apk
 priv-app/com.qualcomm.location/com.qualcomm.location.apk
 priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 vendor/app/ims/ims.apk
