@@ -1502,13 +1502,6 @@ int32_t QCamera2HardwareInterface::updateMetadata(metadata_buffer_t *pMetaData)
     }
     ADD_SET_PARAM_ENTRY_TO_BATCH(pMetaData, CAM_INTF_PARM_ROTATION, rotation_info);
 
-    IF_META_AVAILABLE(cam_crop_data_t, crop_data, CAM_INTF_META_CROP_DATA, pMetaData) {
-        if (rotation_info.rotation == ROTATE_90 ||
-                rotation_info.rotation == ROTATE_270) {
-            crop_data->ignore_crop = 1; // CPP ignores the crop in this special zone
-        }
-    }
-
     return rc;
 }
 
