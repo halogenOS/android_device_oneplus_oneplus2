@@ -2220,7 +2220,6 @@ typedef struct {
  *
  * SUCCESS
  * RADIO_NOT_AVAILABLE (radio resetting)
- * GENERIC_FAILURE
  * PASSWORD_INCORRECT
  * INTERNAL_ERR
  * NO_MEMORY
@@ -3647,8 +3646,6 @@ typedef struct {
  *
  * Note: Returns ILLEGAL_SIM_OR_ME when the failure is permanent and
  *       no retries needed, such as illegal SIM or ME.
- *       Returns GENERIC_FAILURE for all other causes that might be
- *       fixed by retries.
  *
  */
 #define RIL_REQUEST_SET_NETWORK_SELECTION_AUTOMATIC 46
@@ -6072,7 +6069,6 @@ typedef struct {
  *
  * SUCCESS
  * RADIO_NOT_AVAILABLE (radio resetting)
- * GENERIC_FAILURE
  *  RIL_E_SUCCESS
  *  RIL_E_INVALID_ARGUMENTS
  *  RIL_E_RADIO_NOT_AVAILABLE
