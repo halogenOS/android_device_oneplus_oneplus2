@@ -1276,7 +1276,7 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
        srcChannel->getStreamByIndex(0)->getFrameDimension(dst_dim);
     }
 
-    needJpegRotation = hal_obj->needJpegRotation();
+    needJpegRotation = true;
     CDBG_HIGH("%s: Need new session?:%d",__func__, needNewSess);
     if (needNewSess) {
         //creating a new session, so we must destroy the old one
@@ -1295,30 +1295,17 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
         getJpegEncodeConfig(encodeParam, main_stream, jpeg_settings);
         CDBG_HIGH("%s: #src bufs:%d # tmb bufs:%d #dst_bufs:%d", __func__,
                      encodeParam.num_src_bufs,encodeParam.num_tmb_bufs,encodeParam.num_dst_bufs);
-        if (!needJpegRotation &&
-            (jpeg_settings->jpeg_orientation == 90 ||
-            jpeg_settings->jpeg_orientation == 270)) {
-           //swap src width and height, stride and scanline due to rotation
-           encodeParam.main_dim.src_dim.width = src_dim.height;
-           encodeParam.main_dim.src_dim.height = src_dim.width;
-           encodeParam.thumb_dim.src_dim.width = src_dim.height;
-           encodeParam.thumb_dim.src_dim.height = src_dim.width;
 
-           int32_t temp = encodeParam.src_main_buf[0].offset.mp[0].stride;
-           encodeParam.src_main_buf[0].offset.mp[0].stride =
-              encodeParam.src_main_buf[0].offset.mp[0].scanline;
-           encodeParam.src_main_buf[0].offset.mp[0].scanline = temp;
-
-           temp = encodeParam.src_thumb_buf[0].offset.mp[0].stride;
-           encodeParam.src_thumb_buf[0].offset.mp[0].stride =
-              encodeParam.src_thumb_buf[0].offset.mp[0].scanline;
-           encodeParam.src_thumb_buf[0].offset.mp[0].scanline = temp;
-        } else {
-           encodeParam.main_dim.src_dim  = src_dim;
-           encodeParam.thumb_dim.src_dim = src_dim;
-        }
+        encodeParam.main_dim.src_dim  = src_dim;
         encodeParam.main_dim.dst_dim = dst_dim;
+        //swap src width and height, stride and scanline due to rotation
         encodeParam.thumb_dim.dst_dim = jpeg_settings->thumbnail_size;
+        encodeParam.thumb_dim.src_dim.width = src_dim.height;
+        encodeParam.thumb_dim.src_dim.height = src_dim.width;
+        int32_t temp = encodeParam.src_thumb_buf[0].offset.mp[0].stride;
+        encodeParam.src_thumb_buf[0].offset.mp[0].stride =
+            encodeParam.src_thumb_buf[0].offset.mp[0].scanline;
+        encodeParam.src_thumb_buf[0].offset.mp[0].scanline = temp;
         if (needJpegRotation) {
            encodeParam.rotation = (uint32_t)jpeg_settings->jpeg_orientation;
         }
@@ -1349,26 +1336,16 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
     //TBD_later - Zoom event removed in stream
     //main_stream->getCropInfo(crop);
 
-    // Set main dim job parameters and handle rotation
-    if (!needJpegRotation && (jpeg_settings->jpeg_orientation == 90 ||
-            jpeg_settings->jpeg_orientation == 270)) {
+    jpg_job.encode_job.main_dim.src_dim.width = src_dim.height;
+    jpg_job.encode_job.main_dim.src_dim.height = src_dim.width;
 
-        jpg_job.encode_job.main_dim.src_dim.width = src_dim.height;
-        jpg_job.encode_job.main_dim.src_dim.height = src_dim.width;
+    jpg_job.encode_job.main_dim.dst_dim.width = dst_dim.height;
+    jpg_job.encode_job.main_dim.dst_dim.height = dst_dim.width;
 
-        jpg_job.encode_job.main_dim.dst_dim.width = dst_dim.height;
-        jpg_job.encode_job.main_dim.dst_dim.height = dst_dim.width;
-
-        jpg_job.encode_job.main_dim.crop.width = crop.height;
-        jpg_job.encode_job.main_dim.crop.height = crop.width;
-        jpg_job.encode_job.main_dim.crop.left = crop.top;
-        jpg_job.encode_job.main_dim.crop.top = crop.left;
-    } else {
-        jpg_job.encode_job.main_dim.src_dim = src_dim;
-        jpg_job.encode_job.main_dim.dst_dim = dst_dim;
-        jpg_job.encode_job.main_dim.crop = crop;
-    }
-
+    jpg_job.encode_job.main_dim.crop.width = crop.height;
+    jpg_job.encode_job.main_dim.crop.height = crop.width;
+    jpg_job.encode_job.main_dim.crop.left = crop.top;
+    jpg_job.encode_job.main_dim.crop.top = crop.left;
 
     // get exif data
     QCamera3Exif *pJpegExifObj = m_parent->getExifData(metadata, jpeg_settings);
@@ -1386,22 +1363,24 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
         jpg_job.encode_job.thumb_dim.dst_dim =
                 jpeg_settings->thumbnail_size;
 
-      if (!needJpegRotation &&
-          (jpeg_settings->jpeg_orientation  == 90 ||
-           jpeg_settings->jpeg_orientation == 270)) {
-            //swap the thumbnail destination width and height if it has
-            //already been rotated
-            int temp = jpg_job.encode_job.thumb_dim.dst_dim.width;
-            jpg_job.encode_job.thumb_dim.dst_dim.width =
-                    jpg_job.encode_job.thumb_dim.dst_dim.height;
-            jpg_job.encode_job.thumb_dim.dst_dim.height = temp;
+         // Set main dim job parameters and handle rotation
+         if (jpeg_settings->jpeg_orientation == 90 ||
+                 jpeg_settings->jpeg_orientation == 270) {
+            jpg_job.encode_job.main_dim.src_dim.width = src_dim.height;
+            jpg_job.encode_job.main_dim.src_dim.height = src_dim.width;
 
-            jpg_job.encode_job.thumb_dim.src_dim.width = src_dim.height;
-            jpg_job.encode_job.thumb_dim.src_dim.height = src_dim.width;
+            jpg_job.encode_job.main_dim.dst_dim.width = dst_dim.height;
+            jpg_job.encode_job.main_dim.dst_dim.height = dst_dim.width;
+
+            jpg_job.encode_job.main_dim.crop.width = crop.height;
+            jpg_job.encode_job.main_dim.crop.height = crop.width;
+            jpg_job.encode_job.main_dim.crop.left = crop.top;
+            jpg_job.encode_job.main_dim.crop.top = crop.left;
         } else {
-           jpg_job.encode_job.thumb_dim.src_dim = src_dim;
+            jpg_job.encode_job.main_dim.src_dim = src_dim;
+            jpg_job.encode_job.main_dim.dst_dim = dst_dim;
+            jpg_job.encode_job.main_dim.crop = crop;
         }
-        jpg_job.encode_job.thumb_dim.crop = crop;
         jpg_job.encode_job.thumb_index = main_frame->buf_idx;
     }
 
