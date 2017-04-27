@@ -55,16 +55,7 @@ case $soc_id in
     ;;
 esac
 
-usbcurrentlimit=`getprop persist.usb.currentlimit`
-case "$usbcurrentlimit" in
-    "") ;; #Do nothing here
-    * )
-    case $target in
-        "msm8960")
-        echo "$usbcurrentlimit" > /sys/module/pm8921_charger/parameters/usb_max_current
-	;;
-    esac
-esac
+echo -n 2000 > /sys/module/pm8921_charger/parameters/usb_max_current
 
 #
 # Check ESOC for external MDM
