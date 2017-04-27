@@ -1,5 +1,6 @@
 #!/system/bin/sh
 # Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+# Copyright (C) 2017 The halogenOS Project
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -52,25 +53,6 @@ case $soc_id in
     "253")
         target="apq8094"
     ;;
-esac
-
-#
-# Allow persistent usb charging disabling
-# User needs to set usb charging disabled in persist.usb.chgdisabled
-#
-usbchgdisabled=`getprop persist.usb.chgdisabled`
-case "$usbchgdisabled" in
-    "") ;; #Do nothing here
-    * )
-    case $target in
-        "msm8660")
-        echo "$usbchgdisabled" > /sys/module/pmic8058_charger/parameters/disabled
-        echo "$usbchgdisabled" > /sys/module/smb137b/parameters/disabled
-	;;
-        "msm8960")
-        echo "$usbchgdisabled" > /sys/module/pm8921_charger/parameters/disabled
-	;;
-    esac
 esac
 
 usbcurrentlimit=`getprop persist.usb.currentlimit`
@@ -180,30 +162,7 @@ usb_config=`getprop persist.sys.usb.config`
 echo "AFTER: $usb_config" > /dev/kmsg
 #VENDOR_EDIT end
 
-#
-# Do target specific things
-#
-case "$target" in
-    "msm8974")
-# Select USB BAM - 2.0 or 3.0
-        echo ssusb > /sys/bus/platform/devices/usb_bam/enable
-    ;;
-    "apq8084")
-	if [ "$baseband" == "apq" ]; then
-		echo "msm_hsic_host" > /sys/bus/platform/drivers/xhci_msm_hsic/unbind
-	fi
-    ;;
-    "msm8226")
-         if [ -e /sys/bus/platform/drivers/msm_hsic_host ]; then
-             if [ ! -L /sys/bus/usb/devices/1-1 ]; then
-                 echo msm_hsic_host > /sys/bus/platform/drivers/msm_hsic_host/unbind
-             fi
-         fi
-    ;;
-    "msm8994" | "msm8992")
-        echo BAM2BAM_IPA > /sys/class/android_usb/android0/f_rndis_qc/rndis_transports
-    ;;
-esac
+echo BAM2BAM_IPA > /sys/class/android_usb/android0/f_rndis_qc/rndis_transports
 
 #
 # set module params for embedded rmnet devices
@@ -246,22 +205,6 @@ case "$baseband" in
           # Allow QMUX daemon to assign port open wait time
           chown -h radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
     ;;
-esac
-
-#
-# Add support for exposing lun0 as cdrom in mass-storage
-#
-cdromname="/system/etc/cdrom_install.iso"
-case "$target" in
-	"msm8226" | "msm8610" | "msm8916")
-		case $soc_hwplatform in
-			"QRD")
-				echo "mounting usbcdrom lun"
-				echo $cdromname > /sys/class/android_usb/android0/f_mass_storage/rom/file
-				chmod 0444 /sys/class/android_usb/android0/f_mass_storage/rom/file
-				;;
-		esac
-		;;
 esac
 
 #
