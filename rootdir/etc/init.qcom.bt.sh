@@ -1,5 +1,6 @@
 #!/system/bin/sh
 # Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
+# Copyright (C) 2017 The halogenOS Project
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -35,24 +36,20 @@ LOG_NAME="${0}:"
 
 hciattach_pid=""
 
-loge ()
-{
+loge() {
   /system/bin/log -t $LOG_TAG -p e "$LOG_NAME $@"
 }
 
-logi ()
-{
+logi() {
   /system/bin/log -t $LOG_TAG -p i "$LOG_NAME $@"
 }
 
-failed ()
-{
+failed() {
   loge "$1: exit code $2"
   exit $2
 }
 
-program_bdaddr ()
-{
+program_bdaddr() {
   /system/bin/btnvtool -O
   logi "Bluetooth Address programmed successfully"
 }
@@ -60,8 +57,7 @@ program_bdaddr ()
 #
 # enable bluetooth profiles dynamically
 #
-config_bt ()
-{
+config_bt() {
   baseband=`getprop ro.baseband`
   target=`getprop ro.board.platform`
   if [ -f /sys/devices/soc0/soc_id ]; then
@@ -144,67 +140,41 @@ config_bt ()
         ;;
   esac
 
-  #Enable Bluetooth Profiles specific to target Dynamically
-  case $target in
-    "msm8960")
-       if [ "$btsoc" != "ath3k" ] && [ "$soc_hwid" != "130" ]
-       then
-           setprop ro.bluetooth.hfp.ver 1.6
-           setprop ro.qualcomm.bt.hci_transport smd
-       fi
-       ;;
-    "msm8974" | "msm8226" | "msm8610" | "msm8916" | "msm8909" )
-       if [ "$btsoc" != "ath3k" ]
-       then
-           setprop ro.bluetooth.hfp.ver 1.6
-           setprop ro.qualcomm.bt.hci_transport smd
-       fi
-       ;;
-    "apq8084" | "mpq8092" | "msm8994" | "msm8992" )
-       if [ "$btsoc" != "rome" ]
-       then
-           setprop ro.qualcomm.bt.hci_transport smd
-       elif [ "$btsoc" = "rome" ]
-       then
-           setprop ro.bluetooth.hfp.ver 1.6
-       fi
-       ;;
-    *)
-       ;;
-  esac
+  if [ "$btsoc" != "rome" ]; then
+     setprop ro.qualcomm.bt.hci_transport smd
+  else
+     setprop ro.bluetooth.hfp.ver 1.6
+  fi
 
-if [ -f /system/etc/bluetooth/stack.conf ]; then
-stack=`cat /system/etc/bluetooth/stack.conf`
-fi
+  if [ -f /system/etc/bluetooth/stack.conf ]; then
+    stack=`cat /system/etc/bluetooth/stack.conf`
+  fi
 
-case "$stack" in
+  case "$stack" in
     "bluez")
-	   logi "Bluetooth stack is $stack"
-	   setprop ro.qc.bluetooth.stack $stack
-	   reason=`getprop vold.decrypt`
-	   case "$reason" in
-	       "trigger_restart_framework")
-	           start dbus
-	           ;;
-	   esac
+      logi "Bluetooth stack is $stack"
+      setprop ro.qc.bluetooth.stack $stack
+      reason=`getprop vold.decrypt`
+      case "$reason" in
+        "trigger_restart_framework")
+          start dbus
         ;;
+      esac
+    ;;
     *)
-	   logi "Bluetooth stack is Bluedroid"
-        ;;
-esac
-
+      logi "Bluetooth stack is Bluedroid"
+    ;;
+  esac
 }
 
-start_hciattach ()
-{
+start_hciattach() {
   /system/bin/hciattach -n $BTS_DEVICE $BTS_TYPE $BTS_BAUD &
   hciattach_pid=$!
   logi "start_hciattach: pid = $hciattach_pid"
   echo 1 > $BLUETOOTH_SLEEP_PATH
 }
 
-kill_hciattach ()
-{
+kill_hciattach() {
   echo 0 > $BLUETOOTH_SLEEP_PATH
   logi "kill_hciattach: pid = $hciattach_pid"
   ## careful not to kill zero or null!
@@ -218,9 +188,8 @@ case "$config" in
         program_bdaddr
         config_bt
         exit 0
-        ;;
-    *)
-        ;;
+      ;;
+    *);;
 esac
 
 # mimic hciattach options parsing -- maybe a waste of effort
