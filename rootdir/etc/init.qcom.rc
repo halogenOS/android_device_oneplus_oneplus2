@@ -34,6 +34,7 @@ on early-init
 
     # Swappiness 4. Enough + more performance without battery drain
     write /proc/sys/vm/swappiness 4
+    write /proc/sys/vm/vfs_cache_pressure 48
 
 on early-fs
     mkdir /firmware 0771 system system
