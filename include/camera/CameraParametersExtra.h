@@ -15,7 +15,9 @@
  */
 
 #define CAMERA_PARAMETERS_EXTRA_C \
-const char CameraParameters::KEY_APP_MASK[] = "app-mask";
+const char CameraParameters::KEY_APP_MASK[] = "app-mask"; \
+const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "nv21";
 
 #define CAMERA_PARAMETERS_EXTRA_H \
-    static const char KEY_APP_MASK[];
+    static const char KEY_APP_MASK[]; \
+    static const char PIXEL_FORMAT_YUV420SP_NV21[];
