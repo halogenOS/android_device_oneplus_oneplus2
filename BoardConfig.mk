@@ -212,6 +212,9 @@ ifeq ($(HOST_OS),linux)
   endif # TARGET_BUILD_VARIANT = user
 endif
 
+# Wearables
+TARGET_SUPPORTS_WEARABLES := true
+
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
