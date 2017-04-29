@@ -116,9 +116,13 @@ PRODUCT_PACKAGES += $(PRODUCT_BUTTON_GESTURES_PACKAGES)
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8994 \
-    sensors.hal.tof \
+    mm-qcamera-app \
     libshim_camera \
-    libshim_ims-camera
+    libmm-qcamera \
+    sensors.hal.tof
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/init.d/10opcamsanitize.sh:system/etc/init.d/10opcamsanitize.sh
 
 # Charger
 PRODUCT_PACKAGES += \
