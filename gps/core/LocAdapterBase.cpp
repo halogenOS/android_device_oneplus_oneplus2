@@ -140,3 +140,15 @@ void LocAdapterBase::
     reportGpsMeasurementData(GpsData &gpsMeasurementData)
 DEFAULT_IMPL()
 } // namespace loc_core
+
+const char *_ZN7android6SensorC1Ev;
+
+extern "C" {
+    extern ssize_t _ZN7android13SensorManager13getSensorListEPPKPKNS_6SensorE(
+                void*, void*);
+
+    ssize_t _ZNK7android13SensorManager13getSensorListEPPKPKNS_6SensorE(
+                void* a, void* b) {
+        return _ZN7android13SensorManager13getSensorListEPPKPKNS_6SensorE(a, b);
+    }
+}
