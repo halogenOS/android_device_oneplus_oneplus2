@@ -30,6 +30,7 @@
 #define ULP_PROXY_BASE_H
 
 #include <gps_extended.h>
+#include "mod_gps.h"
 #include "fused_location_extended.h"
 
 namespace loc_core {
@@ -59,7 +60,7 @@ public:
                                        LocPosTechMask loc_technology_mask) {
         return false;
     }
-    inline virtual bool reportSv(QcomSvStatus &svStatus,
+    inline virtual bool reportSv(GnssSvStatus &svStatus,
                                  GpsLocationExtended &locationExtended,
                                  void* svExt) {
         return false;

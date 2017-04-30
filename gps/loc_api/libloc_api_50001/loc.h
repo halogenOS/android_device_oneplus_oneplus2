@@ -36,7 +36,7 @@ extern "C" {
 
 #include <ctype.h>
 #include <cutils/properties.h>
-#include <hardware/gps.h>
+#include "mod_gps.h"
 #include <gps_extended.h>
 
 #define XTRA_DATA_MAX_SIZE 100000 /*bytes*/
