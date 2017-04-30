@@ -29,7 +29,6 @@
 #ifndef IZAT_PROXY_BASE_H
 #define IZAT_PROXY_BASE_H
 #include <gps_extended.h>
-#include "mod_gps.h"
 #include <MsgTask.h>
 
 namespace loc_core {

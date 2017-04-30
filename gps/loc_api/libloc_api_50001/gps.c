@@ -27,7 +27,7 @@
  *
  */
 
-#include "mod_gps.h"
+#include <hardware/gps.h>
 
 #include <stdlib.h>
 #include <string.h>

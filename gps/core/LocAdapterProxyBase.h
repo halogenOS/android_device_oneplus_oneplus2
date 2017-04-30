@@ -32,7 +32,6 @@
 
 #include <ContextBase.h>
 #include <gps_extended.h>
-#include "mod_gps.h"
 
 namespace loc_core {
 
