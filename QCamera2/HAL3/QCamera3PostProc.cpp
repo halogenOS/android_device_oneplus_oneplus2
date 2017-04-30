@@ -294,13 +294,10 @@ int32_t QCamera3PostProcessor::getFWKJpegEncodeConfig(
     encode_parm.color_format = getColorfmtFromImgFmt(img_fmt);
 
     // get jpeg quality
-    encode_parm.quality = jpeg_settings->jpeg_quality;
-    if (encode_parm.quality <= 0) {
-        encode_parm.quality = 85;
-    }
+    encode_parm.quality = 100;
 
     // get jpeg thumbnail quality
-    encode_parm.thumb_quality = jpeg_settings->jpeg_thumb_quality;
+    encode_parm.thumb_quality = 95;
 
     cam_frame_len_offset_t main_offset =
             frame->reproc_config.input_stream_plane_info.plane_info;
@@ -383,13 +380,10 @@ int32_t QCamera3PostProcessor::getJpegEncodeConfig(
     encode_parm.color_format = getColorfmtFromImgFmt(img_fmt);
 
     // get jpeg quality
-    encode_parm.quality = jpeg_settings->jpeg_quality;
-    if (encode_parm.quality <= 0) {
-        encode_parm.quality = 85;
-    }
+    encode_parm.quality = 100;
 
     // get jpeg thumbnail quality
-    encode_parm.thumb_quality = jpeg_settings->jpeg_thumb_quality;
+    encode_parm.thumb_quality = 95;
 
     cam_frame_len_offset_t main_offset;
     memset(&main_offset, 0, sizeof(cam_frame_len_offset_t));
