@@ -1,0 +1,2 @@
+allow location_exec self:capability net_raw;
+allow location self:capability net_raw;
