@@ -253,7 +253,7 @@ void LocApiBase::reportPosition(UlpLocation &location,
     );
 }
 
-void LocApiBase::reportSv(QcomSvStatus &svStatus,
+void LocApiBase::reportSv(GnssSvStatus &svStatus,
                   GpsLocationExtended &locationExtended,
                   void* svExt)
 {
@@ -277,6 +277,24 @@ void LocApiBase::reportSv(QcomSvStatus &svStatus,
                                      locationExtended,
                                      svExt)
     );
+}
+
+void LocApiBase::
+    reportSv(QcomSvStatus &svStatus,
+             GpsLocationExtended &locationExtended,
+             void* svExt) {
+    GnssSvStatus sv;
+    sv.size = svStatus.size;
+    sv.num_svs = svStatus.num_svs;
+    for (int i = 0; i < GPS_MAX_SVS; i++) {
+        sv.sv_list[i] = svStatus.sv_list[i];
+    }
+    sv.ephemeris_mask = svStatus.ephemeris_mask;
+    sv.almanac_mask = svStatus.almanac_mask;
+    sv.gps_used_in_fix_mask = svStatus.gps_used_in_fix_mask;
+    sv.glo_used_in_fix_mask = svStatus.glo_used_in_fix_mask;
+    sv.bds_used_in_fix_mask = svStatus.bds_used_in_fix_mask;
+    reportSv(sv, locationExtended, svExt);
 }
 
 void LocApiBase::reportStatus(GpsStatusValue status)
@@ -551,3 +569,17 @@ bool LocApiBase::
 DEFAULT_IMPL(false)
 
 } // namespace loc_core
+
+extern "C" {
+    extern void _ZN8loc_core10LocApiBase8reportSvERNS0_12QcomSvStatusER19GpsLocationExtendedPv(
+                        loc_core::LocApiBase::QcomSvStatus &svStatus,
+                        GpsLocationExtended &locationExtended,
+                        void* svExt);
+
+    void _ZN8loc_core10LocApiBase8reportSvER12QcomSvStatusR19GpsLocationExtendedPv(
+                        loc_core::LocApiBase::QcomSvStatus &svStatus,
+                        GpsLocationExtended &locationExtended,
+                        void* svExt) {
+        _ZN8loc_core10LocApiBase8reportSvERNS0_12QcomSvStatusER19GpsLocationExtendedPv(svStatus, locationExtended, svExt);
+    }
+}

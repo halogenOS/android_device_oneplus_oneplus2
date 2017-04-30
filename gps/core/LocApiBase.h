@@ -32,6 +32,7 @@
 #include <stddef.h>
 #include <ctype.h>
 #include <gps_extended.h>
+#include "mod_gps.h"
 #include <MsgTask.h>
 #include <log_util.h>
 
@@ -97,6 +98,47 @@ protected:
     const LOC_API_ADAPTER_EVENT_MASK_T mExcludedMask;
 
 public:
+    /** Represents SV status. */
+    typedef struct {
+        /** set to sizeof(GnssSvStatus) */
+        size_t          size;
+    
+        /** Number of SVs currently visible. */
+        int         num_svs;
+    
+        /** Contains an array of SV information. */
+        GpsSvInfo   sv_list[GPS_MAX_SVS];
+    
+        /** Represents a bit mask indicating which SVs
+         * have ephemeris data.
+         */
+        uint32_t    ephemeris_mask;
+    
+        /** Represents a bit mask indicating which SVs
+         * have almanac data.
+         */
+        uint32_t    almanac_mask;
+    
+        /**
+         * Represents a bit mask indicating which GPS SVs
+         * were used for computing the most recent position fix.
+         */
+        uint32_t    gps_used_in_fix_mask;
+    
+        /**
+         * Represents a bit mask indicating which GLONASS SVs
+         * were used for computing the most recent position fix.
+         */
+        uint32_t    glo_used_in_fix_mask;
+    
+        /**
+         * Represents a bit mask indicating which BDS SVs
+         * were used for computing the most recent position fix.
+         */
+        uint64_t    bds_used_in_fix_mask;
+    
+    } QcomSvStatus;
+
     inline void sendMsg(const LocMsg* msg) const {
         mMsgTask->sendMsg(msg);
     }
@@ -113,6 +155,9 @@ public:
                         enum loc_sess_status status,
                         LocPosTechMask loc_technology_mask =
                                   LOC_POS_TECH_MASK_DEFAULT);
+    void reportSv(GnssSvStatus &svStatus,
+                  GpsLocationExtended &locationExtended,
+                  void* svExt);
     void reportSv(QcomSvStatus &svStatus,
                   GpsLocationExtended &locationExtended,
                   void* svExt);

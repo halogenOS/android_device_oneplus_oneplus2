@@ -37,6 +37,7 @@ extern "C"
 
 #include <ctype.h>
 #include <gps_extended.h>
+#include "mod_gps.h"
 
 const char* loc_get_gps_status_name(GpsStatusValue gps_status);
 const char* loc_get_position_mode_name(GpsPositionMode mode);

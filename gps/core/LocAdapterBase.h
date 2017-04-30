@@ -30,6 +30,7 @@
 #define LOC_API_ADAPTER_BASE_H
 
 #include <gps_extended.h>
+#include "mod_gps.h"
 #include <UlpProxyBase.h>
 #include <ContextBase.h>
 
@@ -49,6 +50,48 @@ protected:
         mEvtMask(0), mContext(NULL), mLocApi(NULL),
         mLocAdapterProxyBase(NULL), mMsgTask(msgTask) {}
 public:
+    
+    /** Represents SV status. */
+    typedef struct {
+        /** set to sizeof(GnssSvStatus) */
+        size_t          size;
+    
+        /** Number of SVs currently visible. */
+        int         num_svs;
+    
+        /** Contains an array of SV information. */
+        GpsSvInfo   sv_list[GPS_MAX_SVS];
+    
+        /** Represents a bit mask indicating which SVs
+         * have ephemeris data.
+         */
+        uint32_t    ephemeris_mask;
+    
+        /** Represents a bit mask indicating which SVs
+         * have almanac data.
+         */
+        uint32_t    almanac_mask;
+    
+        /**
+         * Represents a bit mask indicating which GPS SVs
+         * were used for computing the most recent position fix.
+         */
+        uint32_t    gps_used_in_fix_mask;
+    
+        /**
+         * Represents a bit mask indicating which GLONASS SVs
+         * were used for computing the most recent position fix.
+         */
+        uint32_t    glo_used_in_fix_mask;
+    
+        /**
+         * Represents a bit mask indicating which BDS SVs
+         * were used for computing the most recent position fix.
+         */
+        uint64_t    bds_used_in_fix_mask;
+    
+    } QcomSvStatus;
+
     inline virtual ~LocAdapterBase() { mLocApi->removeAdapter(this); }
     LocAdapterBase(const LOC_API_ADAPTER_EVENT_MASK_T mask,
                    ContextBase* context, LocAdapterProxyBase *adapterProxyBase = NULL);
@@ -92,6 +135,9 @@ public:
                                 void* locationExt,
                                 enum loc_sess_status status,
                                 LocPosTechMask loc_technology_mask);
+    virtual void reportSv(GnssSvStatus &svStatus,
+                          GpsLocationExtended &locationExtended,
+                          void* svExt);
     virtual void reportSv(QcomSvStatus &svStatus,
                           GpsLocationExtended &locationExtended,
                           void* svExt);
