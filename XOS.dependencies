@@ -20,13 +20,15 @@
     "branch": "XOS-7.1"
   },
   {
-    "repository": "aarch64-linux-android-4.9-kernel",
-    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9-kernel-uber",
+    "repository": "UBERTC/aarch64-linux-android-7.0-kernel",
+    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-7.0-kernel-uber",
+    "remote": "bitbucket",
     "branch": "master"
   },
   {
-    "repository": "aarch64-linux-android-4.9",
-    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+    "repository": "UBERTC/aarch64-linux-android-7.0-kernel",
+    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-7.0-uber",
+    "remote": "bitbucket",
     "branch": "master"
   }
 ]
