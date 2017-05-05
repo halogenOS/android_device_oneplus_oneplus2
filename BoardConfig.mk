@@ -68,12 +68,12 @@ TARGET_CPU_CORTEX_A53 := true
 TARGET_CPU_CORTEX_A57 := true
 
 #Link Toolchain
-TARGET_GCC_VERSION := 7.0
+TARGET_GCC_VERSION := 7.0-uber
 TARGET_GCC_VERSION_EXP := $(TARGET_GCC_VERSION)
 TARGET_GCC_VERSION_ARM64 := 5.3-kernel-uber
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION_ARM64)/bin
-TARGET_TOOLCHAIN_ROOT := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION)-uber/bin
+TARGET_TOOLCHAIN_ROOT := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION)/bin
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=enforcing androidboot.verifiedbootstate=green androidboot.veritymode=enforcing
