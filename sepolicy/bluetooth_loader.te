@@ -5,7 +5,8 @@ type bluetooth_loader_exec, exec_type, file_type;
 # Start bdAddrLoader from init
 init_daemon_domain(bluetooth_loader)
 
-allow bluetooth_loader self:capability dac_override;
+allow bluetooth_loader self:capability { dac_override fsetid };
+allow bluetooth_loader self:socket create;
 allow bluetooth_loader btnvtool_exec:file { execute execute_no_trans getattr open read };
 allow bluetooth_loader persist_bluetooth_file:dir search;
 allow bluetooth_loader persist_bluetooth_file:file { getattr open read };
