@@ -23,7 +23,7 @@
     "repository": "xanaxdroid/aarch64-6.3",
     "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-6.3.1-kernel-linaro",
     "remote": "bitbucket",
-    "branch": "master"
+    "branch": "linaro"
   },
   {
     "repository": "xdevs23/aarch64-linux-android-7.0",
