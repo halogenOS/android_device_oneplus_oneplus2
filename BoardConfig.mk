@@ -72,10 +72,11 @@ TARGET_GCC_VERSION := 7.0
 TARGET_GCC_VERSION_EXP := 4.9
 TARGET_GCC_VERSION_EXP_ARM64 := $(TARGET_GCC_VERSION)
 TARGET_GCC_VERSION_ARM64 := 6.3.1-kernel-linaro
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-
+TARGET_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 KERNEL_TOOLCHAIN := $(realpath $(TOP))/prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION_ARM64)/bin
-TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION_EXP_ARM64)-uber
-TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)
+TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION_EXP_ARM64)-uber
+TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/$(TARGET_CROSS_COMPILE_PREFIX)
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=enforcing androidboot.verifiedbootstate=green androidboot.veritymode=enforcing
