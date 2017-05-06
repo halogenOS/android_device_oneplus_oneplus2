@@ -146,7 +146,7 @@ persist.radio.ignore_dom_time=5
 persist.sys.modem=yes
 
 # SDCardFS
-ro.sys.sdcardfs=true
+ro.sys.sdcardfs=false
 
 # Sensors
 ro.qc.sdk.sensors.gestures=true
