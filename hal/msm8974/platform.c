@@ -1015,26 +1015,26 @@ static void set_platform_defaults(struct platform_data * my_data)
     // will help in avoiding strdups here
 #ifdef VENDOR_EDIT
     //zhiguang.su@MultiMedia.AudioDrv, 2015-03-25, add for smart pa
-    backend_table[SND_DEVICE_OUT_SPEAKER] = strdup("speaker");
-	backend_table[SND_DEVICE_OUT_VOICE_SPEAKER] = strdup("speaker");
+    backend_tag_table[SND_DEVICE_OUT_SPEAKER] = strdup("speaker");
+	backend_tag_table[SND_DEVICE_OUT_VOICE_SPEAKER] = strdup("speaker");
 
     /*wangdongdong@MultiMedia.AudioDrv,2015-03-30, add for speaker and headphone play ring*/
-    backend_table[SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES] = strdup("speaker-and-headphones");
+    backend_tag_table[SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES] = strdup("speaker-and-headphones");
 #endif
-    backend_table[SND_DEVICE_IN_BT_SCO_MIC] = strdup("bt-sco");
-    backend_table[SND_DEVICE_IN_BT_SCO_MIC_WB] = strdup("bt-sco-wb");
-    backend_table[SND_DEVICE_IN_BT_SCO_MIC_NREC] = strdup("bt-sco");
-    backend_table[SND_DEVICE_IN_BT_SCO_MIC_WB_NREC] = strdup("bt-sco-wb");
-    backend_table[SND_DEVICE_OUT_BT_SCO] = strdup("bt-sco");
-    backend_table[SND_DEVICE_OUT_BT_SCO_WB] = strdup("bt-sco-wb");
-    backend_table[SND_DEVICE_OUT_HDMI] = strdup("hdmi");
-    backend_table[SND_DEVICE_OUT_SPEAKER_AND_HDMI] = strdup("speaker-and-hdmi");
-    backend_table[SND_DEVICE_OUT_VOICE_TX] = strdup("afe-proxy");
-    backend_table[SND_DEVICE_IN_VOICE_RX] = strdup("afe-proxy");
+    backend_tag_table[SND_DEVICE_IN_BT_SCO_MIC] = strdup("bt-sco");
+    backend_tag_table[SND_DEVICE_IN_BT_SCO_MIC_WB] = strdup("bt-sco-wb");
+    backend_tag_table[SND_DEVICE_IN_BT_SCO_MIC_NREC] = strdup("bt-sco");
+    backend_tag_table[SND_DEVICE_IN_BT_SCO_MIC_WB_NREC] = strdup("bt-sco-wb");
+    backend_tag_table[SND_DEVICE_OUT_BT_SCO] = strdup("bt-sco");
+    backend_tag_table[SND_DEVICE_OUT_BT_SCO_WB] = strdup("bt-sco-wb");
+    backend_tag_table[SND_DEVICE_OUT_HDMI] = strdup("hdmi");
+    backend_tag_table[SND_DEVICE_OUT_SPEAKER_AND_HDMI] = strdup("speaker-and-hdmi");
+    backend_tag_table[SND_DEVICE_OUT_VOICE_TX] = strdup("afe-proxy");
+    backend_tag_table[SND_DEVICE_IN_VOICE_RX] = strdup("afe-proxy");
 
-    backend_table[SND_DEVICE_OUT_AFE_PROXY] = strdup("afe-proxy");
-    backend_table[SND_DEVICE_OUT_USB_HEADSET] = strdup("usb-headphones");
-    backend_table[SND_DEVICE_OUT_SPEAKER_AND_USB_HEADSET] =
+    backend_tag_table[SND_DEVICE_OUT_AFE_PROXY] = strdup("afe-proxy");
+    backend_tag_table[SND_DEVICE_OUT_USB_HEADSET] = strdup("usb-headphones");
+    backend_tag_table[SND_DEVICE_OUT_SPEAKER_AND_USB_HEADSET] =
         strdup("speaker-and-usb-headphones");
     backend_tag_table[SND_DEVICE_IN_USB_HEADSET_MIC] = strdup("usb-headset-mic");
     backend_tag_table[SND_DEVICE_IN_CAPTURE_FM] = strdup("capture-fm");
