@@ -2,6 +2,8 @@ ifeq ($(BOARD_BUILD_OP2_AUDIO),true)
 
 MY_LOCAL_PATH := $(call my-dir)
 
+$(info Welcome to the perfect audio party!)
+
 ifneq ($(BOARD_USES_LEGACY_ALSA_AUDIO),true)
 ifneq ($(filter mpq8092,$(TARGET_BOARD_PLATFORM)),)
 include $(MY_LOCAL_PATH)/hal_mpq/Android.mk
