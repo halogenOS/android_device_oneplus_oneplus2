@@ -1,4 +1,4 @@
-ifeq ($(BOARD_BUILD_OP2_AUDIO),)
+ifeq ($(BOARD_BUILD_OP2_AUDIO),true)
 
 MY_LOCAL_PATH := $(call my-dir)
 

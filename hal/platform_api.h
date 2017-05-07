@@ -21,7 +21,7 @@
 #define AUDIO_PLATFORM_API_H
 #include <sound/voice_params.h>
 
-#define CODEC_BACKEND_DEFAULT_BIT_WIDTH 16
+#define CODEC_BACKEND_DEFAULT_BIT_WIDTH 24
 #define CODEC_BACKEND_DEFAULT_SAMPLE_RATE 48000
 
 void *platform_init(struct audio_device *adev);

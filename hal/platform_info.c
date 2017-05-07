@@ -38,7 +38,7 @@
 #include "platform_api.h"
 #include <platform.h>
 
-#define BUF_SIZE                    1024
+#define BUF_SIZE                    64
 
 typedef enum {
     ROOT,

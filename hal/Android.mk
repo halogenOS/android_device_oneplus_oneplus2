@@ -259,6 +259,8 @@ endif
 
 LOCAL_CFLAGS += -DVENDOR_EDIT
 LOCAL_CFLAGS += -Wall -Werror
+LOCAL_CFLAGS += -O2
+LOCAL_CLANG := true
 
 LOCAL_COPY_HEADERS_TO   := mm-audio
 LOCAL_COPY_HEADERS      := audio_extn/audio_defs.h

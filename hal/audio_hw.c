@@ -78,7 +78,7 @@
 /*DIRECT PCM has same buffer sizes as DEEP Buffer*/
 #define DIRECT_PCM_NUM_FRAGMENTS 2
 /* ToDo: Check and update a proper value in msec */
-#define COMPRESS_OFFLOAD_PLAYBACK_LATENCY 50
+#define COMPRESS_OFFLOAD_PLAYBACK_LATENCY 80
 #define COMPRESS_PLAYBACK_VOLUME_MAX 0x2000
 
 #define PROXY_OPEN_RETRY_COUNT           100
@@ -137,8 +137,8 @@ struct pcm_config pcm_config_audio_capture = {
 #define AFE_PROXY_CHANNEL_COUNT 2
 #define AFE_PROXY_SAMPLING_RATE 48000
 
-#define AFE_PROXY_PLAYBACK_PERIOD_SIZE  768
-#define AFE_PROXY_PLAYBACK_PERIOD_COUNT 4
+#define AFE_PROXY_PLAYBACK_PERIOD_SIZE  192
+#define AFE_PROXY_PLAYBACK_PERIOD_COUNT 2
 
 struct pcm_config pcm_config_afe_proxy_playback = {
     .channels = AFE_PROXY_CHANNEL_COUNT,
@@ -151,8 +151,8 @@ struct pcm_config pcm_config_afe_proxy_playback = {
     .avail_min = AFE_PROXY_PLAYBACK_PERIOD_SIZE,
 };
 
-#define AFE_PROXY_RECORD_PERIOD_SIZE  768
-#define AFE_PROXY_RECORD_PERIOD_COUNT 4
+#define AFE_PROXY_RECORD_PERIOD_SIZE  192
+#define AFE_PROXY_RECORD_PERIOD_COUNT 2
 
 struct pcm_config pcm_config_afe_proxy_record = {
     .channels = AFE_PROXY_CHANNEL_COUNT,

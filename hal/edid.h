@@ -74,7 +74,8 @@ typedef enum edid_audio_format_id {
     DTS_HD,
     MAT,
     DST,
-    WMA_PRO
+    WMA_PRO,
+    FLAC
 } edid_audio_format_id;
 
 typedef struct edid_audio_block_info {

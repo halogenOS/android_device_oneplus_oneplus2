@@ -80,6 +80,9 @@ static const char * edid_format_to_str(unsigned char format)
     case WMA_PRO:
         format_str = "Format:WMA Pro";
         break;
+    case FLAC:
+        format_str = "Format:FLAC";
+        break;
     default:
         break;
     }
