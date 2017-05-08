@@ -61,7 +61,7 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_CFLAGS += -O2 -fvisibility=hidden
+LOCAL_CFLAGS += -O3 -fvisibility=hidden
 
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_DTS_EAGLE)), true)
 LOCAL_CFLAGS += -DHW_ACC_HPX

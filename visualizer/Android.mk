@@ -19,7 +19,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES:= \
 	offload_visualizer.c
 
-LOCAL_CFLAGS+= -O2 -fvisibility=hidden
+LOCAL_CFLAGS+= -O3 -fvisibility=hidden
 
 LOCAL_SHARED_LIBRARIES := \
 	libcutils \

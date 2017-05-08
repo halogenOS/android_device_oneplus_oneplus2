@@ -3,6 +3,7 @@
  * Not a Contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2017 The halogenOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,12 +78,11 @@
 #define COMPRESS_OFFLOAD_NUM_FRAGMENTS 4
 /*DIRECT PCM has same buffer sizes as DEEP Buffer*/
 #define DIRECT_PCM_NUM_FRAGMENTS 2
-/* ToDo: Check and update a proper value in msec */
 #define COMPRESS_OFFLOAD_PLAYBACK_LATENCY 80
 #define COMPRESS_PLAYBACK_VOLUME_MAX 0x2000
 
 #define PROXY_OPEN_RETRY_COUNT           100
-#define PROXY_OPEN_WAIT_TIME             20
+#define PROXY_OPEN_WAIT_TIME             22
 
 #ifdef USE_LL_AS_PRIMARY_OUTPUT
 #define USECASE_AUDIO_PLAYBACK_PRIMARY USECASE_AUDIO_PLAYBACK_LOW_LATENCY
@@ -136,9 +136,10 @@ struct pcm_config pcm_config_audio_capture = {
 
 #define AFE_PROXY_CHANNEL_COUNT 2
 #define AFE_PROXY_SAMPLING_RATE 48000
-
 #define AFE_PROXY_PLAYBACK_PERIOD_SIZE  192
 #define AFE_PROXY_PLAYBACK_PERIOD_COUNT 2
+#define AFE_PROXY_RECORD_PERIOD_SIZE  192
+#define AFE_PROXY_RECORD_PERIOD_COUNT 2
 
 struct pcm_config pcm_config_afe_proxy_playback = {
     .channels = AFE_PROXY_CHANNEL_COUNT,
@@ -150,9 +151,6 @@ struct pcm_config pcm_config_afe_proxy_playback = {
     .stop_threshold = INT_MAX,
     .avail_min = AFE_PROXY_PLAYBACK_PERIOD_SIZE,
 };
-
-#define AFE_PROXY_RECORD_PERIOD_SIZE  192
-#define AFE_PROXY_RECORD_PERIOD_COUNT 2
 
 struct pcm_config pcm_config_afe_proxy_record = {
     .channels = AFE_PROXY_CHANNEL_COUNT,
@@ -4309,7 +4307,7 @@ struct audio_module HAL_MODULE_INFO_SYM = {
         .module_api_version = AUDIO_MODULE_API_VERSION_0_1,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = AUDIO_HARDWARE_MODULE_ID,
-        .name = "QCOM Audio HAL",
+        .name = "QCOM Audio HAL for OnePlus 2",
         .author = "The Linux Foundation",
         .methods = &hal_module_methods,
     },

@@ -3,6 +3,7 @@
  * Not a Contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2017 The halogenOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -422,9 +423,11 @@ void audio_extn_utils_update_stream_app_type_cfg(void *platform,
 int audio_extn_utils_send_app_type_cfg(struct audio_usecase *usecase);
 void audio_extn_utils_send_audio_calibration(struct audio_device *adev,
                                              struct audio_usecase *usecase);
+
 #ifdef DS2_DOLBY_DAP_ENABLED
 #define LIB_DS2_DAP_HAL "vendor/lib/libhwdaphal.so"
 #define SET_HW_INFO_FUNC "dap_hal_set_hw_info"
+
 typedef enum {
     SND_CARD            = 0,
     HW_ENDPOINT         = 1,
@@ -432,6 +435,7 @@ typedef enum {
     DEVICE_BE_ID_MAP    = 3,
     DAP_BYPASS          = 4,
 } dap_hal_hw_info_t;
+
 typedef int (*dap_hal_set_hw_info_t)(int32_t hw_info, void* data);
 typedef struct {
      int (*device_id_to_be_id)[2];
@@ -454,10 +458,12 @@ void audio_extn_ds2_set_parameters(struct audio_device *adev,
 #define audio_extn_dolby_set_dap_bypass(adev, state)                  (0)
 #define audio_extn_ds2_set_parameters(adev, parms);                   (0)
 #endif
+
 typedef enum {
     DAP_STATE_ON = 0,
     DAP_STATE_BYPASS,
 } dap_state;
+
 #ifndef AUDIO_FORMAT_E_AC3_JOC
 #define AUDIO_FORMAT_E_AC3_JOC  0x19000000UL
 #endif
@@ -473,6 +479,7 @@ int b64encode(uint8_t *inp, int ilen, char* outp);
 #define audio_extn_perf_lock_acquire(handle, duration, opts, size) (0)
 #define audio_extn_perf_lock_release(handle) (0)
 #else
+
 int audio_extn_perf_lock_init(void);
 void audio_extn_perf_lock_acquire(int *handle, int duration,
                                  int *opts, int size);

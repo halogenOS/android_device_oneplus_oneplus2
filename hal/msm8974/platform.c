@@ -3,6 +3,7 @@
  * Not a Contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2017 The halogenOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +57,7 @@
 #define CVD_VERSION_MIXER_CTL "CVD Version"
 
 #define MAX_COMPRESS_OFFLOAD_FRAGMENT_SIZE (256 * 1024)
-#define MIN_COMPRESS_OFFLOAD_FRAGMENT_SIZE (2 * 1024)
+#define MIN_COMPRESS_OFFLOAD_FRAGMENT_SIZE (1 * 1024)
 #define COMPRESS_OFFLOAD_FRAGMENT_SIZE_FOR_AV_STREAMING (2 * 1024)
 #define COMPRESS_OFFLOAD_FRAGMENT_SIZE (32 * 1024)
 
@@ -73,7 +74,7 @@
 /*
  * Offload buffer size for compress passthrough
  */
-#define MIN_COMPRESS_PASSTHROUGH_FRAGMENT_SIZE (2 * 1024)
+#define MIN_COMPRESS_PASSTHROUGH_FRAGMENT_SIZE (1 * 1024)
 #define MAX_COMPRESS_PASSTHROUGH_FRAGMENT_SIZE (8 * 1024)
 
 #define DIV_ROUND_UP(x, y) (((x) + (y) - 1)/(y))
@@ -3510,6 +3511,7 @@ int platform_set_codec_backend_cfg(struct audio_device* adev,
             case 32000:
             case 44100:
             case 48000:
+            default:
                 rate_str = "KHZ_48";
                 break;
             case 64000:
@@ -3520,9 +3522,6 @@ int platform_set_codec_backend_cfg(struct audio_device* adev,
             case 176400:
             case 192000:
                 rate_str = "KHZ_192";
-                break;
-            default:
-                rate_str = "KHZ_48";
                 break;
             }
 

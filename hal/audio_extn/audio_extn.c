@@ -3,6 +3,7 @@
  * Not a Contribution.
  *
  * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2017 The halogenOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -133,9 +134,9 @@ void audio_extn_customstereo_set_parameters(struct audio_device *adev,
 #endif /* CUSTOM_STEREO_ENABLED */
 
 #ifndef DTS_EAGLE
-#define audio_extn_hpx_set_parameters(adev, parms)         (0)
-#define audio_extn_hpx_get_parameters(query, reply)  (0)
-#define audio_extn_check_and_set_dts_hpx_state(adev)       (0)
+#define audio_extn_hpx_set_parameters(adev, parms)          (0)
+#define audio_extn_hpx_get_parameters(query, reply)         (0)
+#define audio_extn_check_and_set_dts_hpx_state(adev)        (0)
 #else
 void audio_extn_hpx_set_parameters(struct audio_device *adev,
                                    struct str_parms *parms)
@@ -183,10 +184,8 @@ static int audio_extn_hpx_get_parameters(struct str_parms *query,
     ret = str_parms_get_str(query, AUDIO_PARAMETER_HPX, value,
                             sizeof(value));
     if (ret >= 0) {
-        if (aextnmod.hpx_enabled)
-            str_parms_add_str(reply, AUDIO_PARAMETER_HPX, "ON");
-        else
-            str_parms_add_str(reply, AUDIO_PARAMETER_HPX, "OFF");
+        str_parms_add_str(reply, AUDIO_PARAMETER_HPX,
+                                    aextnmod.hpx_enabled ? "ON" : "OFF");
     }
     return ret;
 }

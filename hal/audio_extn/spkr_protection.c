@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013 - 2016, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2017 The halogenOS Project
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -48,18 +49,18 @@
 
 #ifdef SPKR_PROT_ENABLED
 
-/*Range of spkr temparatures -30C to 80C*/
-#define MIN_SPKR_TEMP_Q6 (-30 * (1 << 6))
-#define MAX_SPKR_TEMP_Q6 (80 * (1 << 6))
+/*Range of spkr temparatures -35C to 90C*/
+#define MIN_SPKR_TEMP_Q6 (-35 * (1 << 6))
+#define MAX_SPKR_TEMP_Q6 (90 * (1 << 6))
 #define VI_FEED_CHANNEL "VI_FEED_TX Channels"
 
-/*Set safe temp value to 40C*/
-#define SAFE_SPKR_TEMP 40
+/*Set safe temp value to 45C*/
+#define SAFE_SPKR_TEMP 45
 #define SAFE_SPKR_TEMP_Q6 (SAFE_SPKR_TEMP * (1 << 6))
 
-/*Range of resistance values 2ohms to 40 ohms*/
+/*Range of resistance values 2ohms to 44 ohms*/
 #define MIN_RESISTANCE_SPKR_Q24 (2 * (1 << 24))
-#define MAX_RESISTANCE_SPKR_Q24 (40 * (1 << 24))
+#define MAX_RESISTANCE_SPKR_Q24 (44 * (1 << 24))
 
 /*Path where the calibration file will be stored*/
 #define CALIB_FILE "/data/misc/audio/audio.cal"
