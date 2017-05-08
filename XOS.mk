@@ -39,4 +39,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_SYSTEM_PROPERTY_BLACKLIST += ro.product.model
 
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BUILD_FINGERPRINT=OnePlus/OnePlus2/OnePlus2:6.0.1/MMB29M/1447841200:user/release-keys \
+    PRIVATE_BUILD_DESC="OnePlus2-user 6.0.1 MMB29M 15 dev-keys"
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.oemfingerprint=6.0.1/MMB29M/1447841200:user/release-keys
+
 TARGET_VENDOR := oneplus
