@@ -8,7 +8,7 @@ if [ -e "/sys/module/msm_hotplug/" ] && \
     cd /sys/module/msm_hotplug/
 
     # Turn on
-    echo -n '1'>msm_enabled
+    echo -n '0'>msm_enabled
 
     # LITTLE
     echo 4 > max_cpus_online
