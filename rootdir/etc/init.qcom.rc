@@ -632,15 +632,8 @@ service energy-awareness /system/bin/energy-awareness
     group system
     oneshot
 
-# MSM Hotplug default settings are applied here
-service msmhotplug_def /system/bin/sh /system/etc/msmhotplug-default.sh
-    user root
-    oneshot
-    disabled
-
 on property:sys.boot_completed=1
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
-    start msmhotplug_def
     write /dev/kmsg "Boot completed"
 
 # corefile limit and ETB enabling
