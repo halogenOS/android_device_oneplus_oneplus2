@@ -430,6 +430,7 @@ static const char* portrait = "portrait";
 static const char* landscape = "landscape";
 
 const cam_dimension_t QCameraParameters::THUMBNAIL_SIZES_MAP[] = {
+    { 512, 512 },
     { 512, 288 }, //1.777778
     { 288, 512 },
     { 480, 288 }, //1.666667
