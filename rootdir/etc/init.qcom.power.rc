@@ -154,7 +154,7 @@ on enable-low-power
     start perfd
 
 on superb
-    setprop sys.io.scheduler "sio"
+    setprop sys.io.scheduler "maple"
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /dev/cpuset/foreground/cpus 0-3,5,7
     write /dev/cpuset/foreground/boost/cpus 0-5
