@@ -16,9 +16,9 @@ audio.offload.disable=false
 audio.offload.gapless.enabled=true
 audio.offload.buffer.size.kb=64
 audio.offload.video=true
-audio.offload.pcm.enable=false
-audio.offload.pcm.16bit.enable=false
-audio.offload.pcm.24bit.enable=false
+audio.offload.pcm.enable=true
+audio.offload.pcm.16bit.enable=true
+audio.offload.pcm.24bit.enable=true
 audio.offload.passthrough=false
 #########################################
 # QTI Quality (192 kHz Qualcomm Resampler)
