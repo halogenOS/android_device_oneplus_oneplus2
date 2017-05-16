@@ -146,6 +146,7 @@ ro.ril.enable.amr.wideband=1
 ro.telephony.sim_unlocked=1
 persist.radio.ignore_dom_time=5
 persist.sys.modem=yes
+ro.ril.hsxpa=3
 
 # SDCardFS
 ro.sys.sdcardfs=false
