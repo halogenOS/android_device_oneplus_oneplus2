@@ -51,6 +51,7 @@ ro.config.hw_camera_bestShot=true
 persist.camera.tintless=enable
 persist.camera.4k2k.enable=1
 vidc.dec.120fps.enabled=1
+ro.media.enc.jpeg.quality=100
 
 # CEC
 ro.hdmi.device_type=4
