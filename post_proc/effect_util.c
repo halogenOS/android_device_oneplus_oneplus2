@@ -171,7 +171,7 @@ void update_effects_node(int device_id, int effect_type, int enable_or_set, int 
                 } else {
                     fclose(fp);
                 }
-            } else
+            }
         }
     }
 }
