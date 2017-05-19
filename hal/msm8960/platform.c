@@ -216,11 +216,9 @@ void platform_set_echo_reference(void *platform, bool enable)
             audio_route_reset_and_update_path(adev->audio_route, "echo-reference");
             my_data->ec_ref_enabled = enable;
         } else {
-            ALOGV("EC Reference is already disabled: %d", my_data->ec_ref_enabled);
         }
     }
 
-    ALOGV("Setting EC Reference: %d", enable);
 }
 
 void *platform_init(struct audio_device *adev)
@@ -285,7 +283,6 @@ void *platform_init(struct audio_device *adev)
     if (my_data->acdb_handle == NULL) {
         ALOGE("%s: DLOPEN failed for %s", __func__, LIB_ACDB_LOADER);
     } else {
-        ALOGV("%s: DLOPEN successful for %s", __func__, LIB_ACDB_LOADER);
         my_data->acdb_deallocate = (acdb_deallocate_t)dlsym(my_data->acdb_handle,
                                                     "acdb_loader_deallocate_ACDB");
         my_data->acdb_send_audio_cal = (acdb_send_audio_cal_t)dlsym(my_data->acdb_handle,
@@ -316,7 +313,6 @@ void *platform_init(struct audio_device *adev)
     }
 
     if (my_data->csd_client) {
-        ALOGV("%s: DLOPEN successful for %s", __func__, LIB_CSD_CLIENT);
         my_data->csd_client_deinit = (csd_client_deinit_t)dlsym(my_data->csd_client,
                                                     "csd_client_deinit");
         my_data->csd_disable_device = (csd_disable_device_t)dlsym(my_data->csd_client,
@@ -653,10 +649,8 @@ snd_device_t platform_get_output_snd_device(void *platform, audio_devices_t devi
     audio_mode_t mode = adev->mode;
     snd_device_t snd_device = SND_DEVICE_NONE;
 
-    ALOGV("%s: enter: output devices(%#x)", __func__, devices);
     if (devices == AUDIO_DEVICE_NONE ||
         devices & AUDIO_DEVICE_BIT_IN) {
-        ALOGV("%s: Invalid output devices (%#x)", __func__, devices);
         goto exit;
     }
 
@@ -731,7 +725,6 @@ snd_device_t platform_get_output_snd_device(void *platform, audio_devices_t devi
         ALOGE("%s: Unknown device(s) %#x", __func__, devices);
     }
 exit:
-    ALOGV("%s: exit: snd_device(%s)", __func__, device_table[snd_device]);
     return snd_device;
 }
 
@@ -750,8 +743,6 @@ snd_device_t platform_get_input_snd_device(void *platform, audio_devices_t out_d
                                 AUDIO_CHANNEL_IN_MONO : adev->active_input->channel_mask;
     snd_device_t snd_device = SND_DEVICE_NONE;
 
-    ALOGV("%s: enter: out_device(%#x) in_device(%#x)",
-          __func__, out_device, in_device);
     if ((out_device != AUDIO_DEVICE_NONE) && voice_is_in_call(adev)) {
         if (adev->voice.tty_mode != TTY_MODE_OFF) {
             if (out_device & AUDIO_DEVICE_OUT_WIRED_HEADPHONE ||
@@ -889,7 +880,6 @@ snd_device_t platform_get_input_snd_device(void *platform, audio_devices_t out_d
         }
     }
 exit:
-    ALOGV("%s: exit: in_snd_device(%s)", __func__, device_table[snd_device]);
     return snd_device;
 }
 
@@ -922,7 +912,6 @@ int platform_set_hdmi_channels(void *platform,  int channel_count)
               __func__, mixer_ctl_name);
         return -EINVAL;
     }
-    ALOGV("HDMI channel count: %s", channel_cnt_str);
     mixer_ctl_set_enum_by_string(ctl, channel_cnt_str);
     return 0;
 }
@@ -1028,7 +1017,6 @@ int64_t platform_render_latency(audio_usecase_t usecase)
 
 int platform_update_usecase_from_source(int source, int usecase)
 {
-    ALOGV("%s: input source :%d", __func__, source);
     return usecase;
 }
 

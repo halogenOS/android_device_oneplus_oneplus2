@@ -148,7 +148,6 @@ void add_effect_to_output(output_context_t * output, effect_context_t *context)
 {
     struct listnode *fx_node;
 
-    ALOGV("%s: e_ctxt %p, o_ctxt %p", __func__, context, output);
     list_for_each(fx_node, &output->effects_list) {
         effect_context_t *fx_ctxt = node_to_item(fx_node,
                                                  effect_context_t,
@@ -167,7 +166,6 @@ void remove_effect_from_output(output_context_t * output,
 {
     struct listnode *fx_node;
 
-    ALOGV("%s: e_ctxt %p, o_ctxt %p", __func__, context, output);
     list_for_each(fx_node, &output->effects_list) {
         effect_context_t *fx_ctxt = node_to_item(fx_node,
                                                  effect_context_t,
@@ -215,7 +213,6 @@ int offload_effects_bundle_hal_start_output(audio_io_handle_t output, int pcm_id
     char mixer_string[128];
     output_context_t * out_ctxt = NULL;
 
-    ALOGV("%s output %d pcm_id %d", __func__, output, pcm_id);
 
 #ifdef DTS_EAGLE
     create_effect_state_node(pcm_id);
@@ -290,7 +287,6 @@ int offload_effects_bundle_hal_stop_output(audio_io_handle_t output, int pcm_id)
     struct listnode *fx_node;
     output_context_t *out_ctxt;
 
-    ALOGV("%s output %d pcm_id %d", __func__, output, pcm_id);
 
     if (lib_init() != 0)
         return init_status;
@@ -331,7 +327,6 @@ int offload_effects_bundle_set_hpx_state(bool hpx_state)
     int ret = 0;
     struct listnode *node;
 
-    ALOGV("%s hpx state: %d", __func__, hpx_state);
 
     if (lib_init() != 0)
         return init_status;
@@ -480,7 +475,6 @@ int effect_lib_create(const effect_uuid_t *uuid,
     int ret;
     int i;
 
-    ALOGV("%s: sessionId: %d, ioId: %d", __func__, sessionId, ioId);
     if (lib_init() != 0)
         return init_status;
 
@@ -651,7 +645,6 @@ int effect_lib_create(const effect_uuid_t *uuid,
 
     *pHandle = (effect_handle_t)context;
 
-    ALOGV("%s created context %p", __func__, context);
 
     return 0;
 
@@ -665,7 +658,6 @@ int effect_lib_release(effect_handle_t handle)
     if (lib_init() != 0)
         return init_status;
 
-    ALOGV("%s context %p", __func__, handle);
     pthread_mutex_lock(&lock);
     status = -EINVAL;
     if (effect_exists(context)) {
@@ -692,7 +684,6 @@ int effect_lib_get_descriptor(const effect_uuid_t *uuid,
         return init_status;
 
     if (descriptor == NULL || uuid == NULL) {
-        ALOGV("%s called with NULL pointer", __func__);
         return -EINVAL;
     }
 
@@ -720,7 +711,6 @@ int effect_process(effect_handle_t self,
     effect_context_t * context = (effect_context_t *)self;
     int status = 0;
 
-    ALOGV("%s", __func__);
 
     pthread_mutex_lock(&lock);
     if (!effect_exists(context)) {
@@ -755,7 +745,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
         goto exit;
     }
 
-    ALOGV("%s: ctxt %p, cmd %d", __func__, context, cmdCode);
     if (context == NULL || context->state == EFFECT_STATE_UNINITIALIZED) {
         status = -ENOSYS;
         goto exit;
@@ -866,7 +855,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
         } break;
     case EFFECT_CMD_SET_DEVICE: {
         uint32_t device;
-        ALOGV("\t EFFECT_CMD_SET_DEVICE start");
         if (pCmdData == NULL || cmdSize < sizeof(uint32_t)) {
             status = -EINVAL;
             ALOGW("EFFECT_CMD_SET_DEVICE invalid command cmdSize %d", cmdSize);
@@ -892,8 +880,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
 
         effect_offload_param_t* offload_param = (effect_offload_param_t*)pCmdData;
 
-        ALOGV("%s EFFECT_CMD_OFFLOAD offload %d output %d", __func__,
-              offload_param->isOffload, offload_param->ioHandle);
 
         *(int *)pReplyData = 0;
 
@@ -914,8 +900,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
 
 #ifdef HW_ACCELERATED_EFFECTS
     case EFFECT_CMD_HW_ACC: {
-        ALOGV("EFFECT_CMD_HW_ACC cmdSize %d pCmdData %p, *replySize %d, pReplyData %p",
-              cmdSize, pCmdData, *replySize, pReplyData);
         if (cmdSize != sizeof(uint32_t) || pCmdData == NULL
                 || pReplyData == NULL || *replySize != sizeof(int)) {
             return -EINVAL;

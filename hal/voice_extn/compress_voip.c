@@ -109,7 +109,6 @@ static int voip_set_volume(struct audio_device *adev, int volume)
     uint32_t set_values[ ] = {0,
                               DEFAULT_VOLUME_RAMP_DURATION_MS};
 
-    ALOGV("%s: enter", __func__);
 
     /* Voice volume levels are mapped to adsp volume levels as follows.
      * 100 -> 5, 80 -> 4, 60 -> 3, 40 -> 2, 20 -> 1  0 -> 0
@@ -124,10 +123,8 @@ static int voip_set_volume(struct audio_device *adev, int volume)
               __func__, mixer_ctl_name);
         return -EINVAL;
     }
-    ALOGV("%s: Setting voip volume index: %d", __func__, set_values[0]);
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
-    ALOGV("%s: exit", __func__);
     return 0;
 }
 
@@ -138,7 +135,6 @@ static int voip_set_mic_mute(struct audio_device *adev, bool state)
     uint32_t set_values[ ] = {0,
                               DEFAULT_VOLUME_RAMP_DURATION_MS};
 
-    ALOGV("%s: enter, state=%d", __func__, state);
 
     if (adev->mode == AUDIO_MODE_IN_COMMUNICATION) {
         set_values[0] = state;
@@ -151,7 +147,6 @@ static int voip_set_mic_mute(struct audio_device *adev, bool state)
         mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
     }
 
-    ALOGV("%s: exit", __func__);
     return 0;
 }
 
@@ -176,7 +171,6 @@ static int voip_set_mode(struct audio_device *adev, int format)
     }
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
-    ALOGV("%s: exit", __func__);
     return 0;
 }
 
@@ -197,7 +191,6 @@ static int voip_set_rate(struct audio_device *adev, int rate)
     }
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
-    ALOGV("%s: exit", __func__);
     return 0;
 }
 
@@ -218,7 +211,6 @@ static int voip_set_dtx(struct audio_device *adev, bool enable)
     }
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
-    ALOGV("%s: exit", __func__);
     return 0;
 }
 
@@ -259,11 +251,8 @@ static int voip_stop_call(struct audio_device *adev)
 
         list_remove(&uc_info->list);
         free(uc_info);
-    } else
-        ALOGV("%s: NO-OP because out_stream_count=%d, in_stream_count=%d",
-               __func__, voip_data.out_stream_count, voip_data.in_stream_count);
+    }
 
-    ALOGV("%s: exit: status(%d)", __func__, ret);
     return ret;
 }
 
@@ -279,7 +268,6 @@ static int voip_start_call(struct audio_device *adev,
 
     uc_info = get_usecase_from_list(adev, USECASE_COMPRESS_VOIP_CALL);
     if (uc_info == NULL) {
-        ALOGV("%s: voip usecase is added to the list", __func__);
         uc_info = (struct audio_usecase *)calloc(1, sizeof(struct audio_usecase));
 
         if (!uc_info) {
@@ -346,7 +334,6 @@ static int voip_start_call(struct audio_device *adev,
         voice_set_sidetone(adev, uc_info->out_snd_device, true);
         voice_extn_compress_voip_set_volume(adev, adev->voice.volume);
     } else {
-        ALOGV("%s: voip usecase is already enabled", __func__);
         if (voip_data.out_stream)
             uc_info->stream.out = voip_data.out_stream;
         else
@@ -359,7 +346,6 @@ static int voip_start_call(struct audio_device *adev,
 error_start_voip:
     voip_stop_call(adev);
 
-    ALOGV("%s: exit: status(%d)", __func__, ret);
     return ret;
 }
 
@@ -371,7 +357,6 @@ int voice_extn_compress_voip_set_parameters(struct audio_device *adev,
     bool flag;
     char *kv_pairs = str_parms_to_str(parms);
 
-    ALOGV_IF(kv_pairs != NULL, "%s: enter: %s", __func__, kv_pairs);
 
     err = str_parms_get_str(parms, AUDIO_PARAMETER_KEY_VOIP_RATE,
                             value, sizeof(value));
@@ -390,7 +375,6 @@ int voice_extn_compress_voip_set_parameters(struct audio_device *adev,
         voip_set_dtx(adev, flag);
     }
 
-    ALOGV("%s: exit", __func__);
     free(kv_pairs);
     return ret;
 }
@@ -434,7 +418,6 @@ void voice_extn_compress_voip_out_get_parameters(struct stream_out *out,
             str_parms_add_int(reply, AUDIO_PARAMETER_KEY_VOIP_CHECK, false);
     }
 
-    ALOGV("%s: exit", __func__);
 }
 
 void voice_extn_compress_voip_in_get_parameters(struct stream_in *in,
@@ -445,7 +428,6 @@ void voice_extn_compress_voip_in_get_parameters(struct stream_in *in,
     char value[32]={0};
     char *kv_pairs = NULL;
 
-    ALOGV("%s: enter", __func__);
 
     ret = str_parms_get_str(query, AUDIO_PARAMETER_KEY_VOIP_CHECK, value, sizeof(value));
 
@@ -508,7 +490,6 @@ int voice_extn_compress_voip_start_output_stream(struct stream_out *out)
     }
 
 error:
-    ALOGV("%s: exit: status(%d)", __func__, ret);
     return ret;
 }
 
@@ -534,7 +515,6 @@ int voice_extn_compress_voip_start_input_stream(struct stream_in *in)
     in->pcm = voip_data.pcm_tx;
 
 error:
-    ALOGV("%s: exit: status(%d)", __func__, ret);
     return ret;
 }
 
@@ -552,7 +532,6 @@ int voice_extn_compress_voip_close_output_stream(struct audio_stream *stream)
         out->pcm = NULL;
     }
 
-    ALOGV("%s: exit: status(%d)", __func__, ret);
     return ret;
 }
 
@@ -575,7 +554,6 @@ int voice_extn_compress_voip_open_output_stream(struct stream_out *out)
     voip_data.sample_rate = out->sample_rate;
     ret = voip_set_mode(out->dev, out->format);
 
-    ALOGV("%s: exit", __func__);
     return ret;
 }
 
@@ -594,7 +572,6 @@ int voice_extn_compress_voip_close_input_stream(struct audio_stream *stream)
        in->pcm = NULL;
     }
 
-    ALOGV("%s: exit: status(%d)", __func__, status);
     return status;
 }
 
@@ -625,7 +602,6 @@ int voice_extn_compress_voip_open_input_stream(struct stream_in *in)
     voip_data.in_stream_count++;
 
 done:
-    ALOGV("%s: exit, ret=%d", __func__, ret);
     return ret;
 }
 
@@ -633,7 +609,6 @@ int voice_extn_compress_voip_set_volume(struct audio_device *adev, float volume)
 {
     int vol, err = 0;
 
-    ALOGV("%s: enter", __func__);
 
     if (volume < 0.0) {
         volume = 0.0;
@@ -651,7 +626,6 @@ int voice_extn_compress_voip_set_volume(struct audio_device *adev, float volume)
 
     err = voip_set_volume(adev, vol);
 
-    ALOGV("%s: exit: status(%d)", __func__, err);
 
     return err;
 }
@@ -660,11 +634,9 @@ int voice_extn_compress_voip_set_mic_mute(struct audio_device *adev, bool state)
 {
     int err = 0;
 
-    ALOGV("%s: enter", __func__);
 
     err = voip_set_mic_mute(adev, state);
 
-    ALOGV("%s: exit: status(%d)", __func__, err);
     return err;
 }
 

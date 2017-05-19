@@ -450,7 +450,6 @@ int visualizer_hal_start_output(audio_io_handle_t output, int pcm_id) {
     int ret = 0;
     struct listnode *node;
 
-    ALOGV("%s output %d pcm_id %d", __func__, output, pcm_id);
 
     if (lib_init() != 0)
         return init_status;
@@ -503,7 +502,6 @@ int visualizer_hal_stop_output(audio_io_handle_t output, int pcm_id) {
     struct listnode *fx_node;
     output_context_t *out_ctxt;
 
-    ALOGV("%s output %d pcm_id %d", __func__, output, pcm_id);
 
     if (lib_init() != 0)
         return init_status;
@@ -675,19 +673,16 @@ int visualizer_get_parameter(effect_context_t *context, effect_param_t *p, uint3
     }
     switch (*(uint32_t *)p->data) {
     case VISUALIZER_PARAM_CAPTURE_SIZE:
-        ALOGV("%s get capture_size = %d", __func__, visu_ctxt->capture_size);
         *((uint32_t *)p->data + 1) = visu_ctxt->capture_size;
         p->vsize = sizeof(uint32_t);
         *size += sizeof(uint32_t);
         break;
     case VISUALIZER_PARAM_SCALING_MODE:
-        ALOGV("%s get scaling_mode = %d", __func__, visu_ctxt->scaling_mode);
         *((uint32_t *)p->data + 1) = visu_ctxt->scaling_mode;
         p->vsize = sizeof(uint32_t);
         *size += sizeof(uint32_t);
         break;
     case VISUALIZER_PARAM_MEASUREMENT_MODE:
-        ALOGV("%s get meas_mode = %d", __func__, visu_ctxt->meas_mode);
         *((uint32_t *)p->data + 1) = visu_ctxt->meas_mode;
         p->vsize = sizeof(uint32_t);
         *size += sizeof(uint32_t);
@@ -708,20 +703,16 @@ int visualizer_set_parameter(effect_context_t *context, effect_param_t *p, uint3
     switch (*(uint32_t *)p->data) {
     case VISUALIZER_PARAM_CAPTURE_SIZE:
         visu_ctxt->capture_size = *((uint32_t *)p->data + 1);
-        ALOGV("%s set capture_size = %d", __func__, visu_ctxt->capture_size);
         break;
     case VISUALIZER_PARAM_SCALING_MODE:
         visu_ctxt->scaling_mode = *((uint32_t *)p->data + 1);
-        ALOGV("%s set scaling_mode = %d", __func__, visu_ctxt->scaling_mode);
         break;
     case VISUALIZER_PARAM_LATENCY:
         /* Ignore latency as we capture at DSP output
          * visu_ctxt->latency = *((uint32_t *)p->data + 1); */
-        ALOGV("%s set latency = %d", __func__, visu_ctxt->latency);
         break;
     case VISUALIZER_PARAM_MEASUREMENT_MODE:
         visu_ctxt->meas_mode = *((uint32_t *)p->data + 1);
-        ALOGV("%s set meas_mode = %d", __func__, visu_ctxt->meas_mode);
         break;
     default:
         return -EINVAL;
@@ -824,7 +815,6 @@ int visualizer_process(effect_context_t *context,
     }
 
     if (context->state != EFFECT_STATE_ACTIVE) {
-        ALOGV("%s DONE inactive", __func__);
         return -ENODATA;
     }
 
@@ -839,8 +829,6 @@ int visualizer_command(effect_context_t * context, uint32_t cmdCode, uint32_t cm
     switch (cmdCode) {
     case VISUALIZER_CMD_CAPTURE:
         if (pReplyData == NULL || *replySize != visu_ctxt->capture_size) {
-            ALOGV("%s VISUALIZER_CMD_CAPTURE error *replySize %d context->capture_size %d",
-                  __func__, *replySize, visu_ctxt->capture_size);
             return -EINVAL;
         }
 
@@ -880,7 +868,6 @@ int visualizer_command(effect_context_t * context, uint32_t cmdCode, uint32_t cm
             if ((visu_ctxt->last_capture_idx == visu_ctxt->capture_idx) &&
                     (visu_ctxt->buffer_update_time.tv_sec != 0)) {
                 if (delta_ms > MAX_STALL_TIME_MS) {
-                    ALOGV("%s capture going to idle", __func__);
                     visu_ctxt->buffer_update_time.tv_sec = 0;
                     memset(pReplyData, 0x80, visu_ctxt->capture_size);
                 }
@@ -894,9 +881,6 @@ int visualizer_command(effect_context_t * context, uint32_t cmdCode, uint32_t cm
     case VISUALIZER_CMD_MEASURE: {
         if (pReplyData == NULL || replySize == NULL ||
                 *replySize < (sizeof(int32_t) * MEASUREMENT_COUNT)) {
-            ALOGV("%s VISUALIZER_CMD_MEASURE error *replySize %d <"
-                    "(sizeof(int32_t) * MEASUREMENT_COUNT) %d",
-                    __func__, *replySize, sizeof(int32_t) * MEASUREMENT_COUNT);
             android_errorWriteLog(0x534e4554, "30229821");
             return -EINVAL;
         }
@@ -908,7 +892,6 @@ int visualizer_command(effect_context_t * context, uint32_t cmdCode, uint32_t cm
         const int32_t delay_ms = visualizer_get_delta_time_ms_from_updated_time(visu_ctxt);
         if (delay_ms > DISCARD_MEASUREMENTS_TIME_MS) {
             uint32_t i;
-            ALOGV("Discarding measurements, last measurement is %dms old", delay_ms);
             for (i=0 ; i<visu_ctxt->meas_wndw_size_in_buffers ; i++) {
                 visu_ctxt->past_meas[i].is_valid = false;
                 visu_ctxt->past_meas[i].peak_u16 = 0;
@@ -943,9 +926,6 @@ int visualizer_command(effect_context_t * context, uint32_t cmdCode, uint32_t cm
         } else {
             p_int_reply_data[MEASUREMENT_IDX_PEAK] = (int32_t) (2000 * log10(peak_u16 / 32767.0f));
         }
-        ALOGV("VISUALIZER_CMD_MEASURE peak=%d (%dmB), rms=%.1f (%dmB)",
-                peak_u16, p_int_reply_data[MEASUREMENT_IDX_PEAK],
-                rms, p_int_reply_data[MEASUREMENT_IDX_RMS]);
         }
         break;
 
@@ -1024,7 +1004,6 @@ int effect_lib_create(const effect_uuid_t *uuid,
 
     *pHandle = (effect_handle_t)context;
 
-    ALOGV("%s created context %p", __func__, context);
 
     return 0;
 
@@ -1037,7 +1016,6 @@ int effect_lib_release(effect_handle_t handle) {
     if (lib_init() != 0)
         return init_status;
 
-    ALOGV("%s context %p", __func__, handle);
     pthread_mutex_lock(&lock);
     status = -EINVAL;
     if (effect_exists(context)) {
@@ -1063,7 +1041,6 @@ int effect_lib_get_descriptor(const effect_uuid_t *uuid,
         return init_status;
 
     if (descriptor == NULL || uuid == NULL) {
-        ALOGV("%s called with NULL pointer", __func__);
         return -EINVAL;
     }
 
@@ -1127,8 +1104,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
         goto exit;
     }
 
-//    ALOGV_IF(cmdCode != VISUALIZER_CMD_CAPTURE,
-//             "%s command %d cmdSize %d", __func__, cmdCode, cmdSize);
 
     switch (cmdCode) {
     case EFFECT_CMD_INIT:
@@ -1179,7 +1154,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
         if (context->ops.enable)
             context->ops.enable(context);
         pthread_cond_signal(&cond);
-        ALOGV("%s EFFECT_CMD_ENABLE", __func__);
         *(int *)pReplyData = 0;
         break;
     case EFFECT_CMD_DISABLE:
@@ -1195,7 +1169,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
         if (context->ops.disable)
             context->ops.disable(context);
         pthread_cond_signal(&cond);
-        ALOGV("%s EFFECT_CMD_DISABLE", __func__);
         *(int *)pReplyData = 0;
         break;
     case EFFECT_CMD_GET_PARAM: {
@@ -1238,15 +1211,12 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
 
         if (cmdSize != sizeof(effect_offload_param_t) || pCmdData == NULL
                 || pReplyData == NULL || *replySize != sizeof(int)) {
-            ALOGV("%s EFFECT_CMD_OFFLOAD bad format", __func__);
             status = -EINVAL;
             break;
         }
 
         effect_offload_param_t* offload_param = (effect_offload_param_t*)pCmdData;
 
-        ALOGV("%s EFFECT_CMD_OFFLOAD offload %d output %d",
-              __func__, offload_param->isOffload, offload_param->ioHandle);
 
         *(int *)pReplyData = 0;
 
@@ -1280,7 +1250,6 @@ int effect_command(effect_handle_t self, uint32_t cmdCode, uint32_t cmdSize,
 exit:
     pthread_mutex_unlock(&lock);
 
-//    ALOGV_IF(cmdCode != VISUALIZER_CMD_CAPTURE,"%s DONE", __func__);
     return status;
 }
 

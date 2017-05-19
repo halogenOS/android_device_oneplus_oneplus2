@@ -820,7 +820,6 @@ void platform_set_echo_reference(void *platform, bool enable)
 
     if (my_data->ec_ref_enabled) {
         my_data->ec_ref_enabled = false;
-        ALOGV("%s: disabling echo-reference", __func__);
         audio_route_reset_and_update_path(adev->audio_route, "echo-reference");
     }
 
@@ -846,7 +845,6 @@ static struct csd_data *open_csd_client(bool i2s_ext_modem)
         ALOGE("%s: DLOPEN failed for %s", __func__, LIB_CSD_CLIENT);
         goto error;
     } else {
-        ALOGV("%s: DLOPEN successful for %s", __func__, LIB_CSD_CLIENT);
 
         csd->deinit = (deinit_t)dlsym(csd->csd_client,
                                              "csd_client_deinit");
@@ -996,7 +994,6 @@ static bool platform_is_i2s_ext_modem(const char *snd_card_name,
                  sizeof("apq8084-taiko-i2s-cdp-snd-card"))) {
         plat_data->is_i2s_ext_modem = true;
     }
-    ALOGV("%s, is_i2s_ext_modem:%d",__func__, plat_data->is_i2s_ext_modem);
 
     return plat_data->is_i2s_ext_modem;
 }
@@ -1256,7 +1253,6 @@ void *platform_init(struct audio_device *adev)
             mixer_close(adev->mixer);
             return NULL;
         }
-        ALOGV("%s: snd_card_name: %s", __func__, snd_card_name);
 
         my_data->hw_info = hw_info_init(snd_card_name);
         if (!my_data->hw_info) {
@@ -1370,7 +1366,6 @@ void *platform_init(struct audio_device *adev)
     if (my_data->acdb_handle == NULL) {
         ALOGE("%s: DLOPEN failed for %s", __func__, LIB_ACDB_LOADER);
     } else {
-        ALOGV("%s: DLOPEN successful for %s", __func__, LIB_ACDB_LOADER);
         my_data->acdb_deallocate = (acdb_deallocate_t)dlsym(my_data->acdb_handle,
                                                     "acdb_loader_deallocate_ACDB");
         if (!my_data->acdb_deallocate)
@@ -1567,9 +1562,6 @@ bool platform_check_backends_match(snd_device_t snd_device1, snd_device_t snd_de
 {
     bool result = true;
 
-    ALOGV("%s: snd_device1 = %s, snd_device2 = %s", __func__,
-                platform_get_snd_device_name(snd_device1),
-                platform_get_snd_device_name(snd_device2));
 
     if ((snd_device1 < SND_DEVICE_MIN) || (snd_device1 >= SND_DEVICE_MAX)) {
         ALOGE("%s: Invalid snd_device = %s", __func__,
@@ -1589,7 +1581,6 @@ bool platform_check_backends_match(snd_device_t snd_device1, snd_device_t snd_de
             result = false;
     }
 
-    ALOGV("%s: be_itf1 = %s, be_itf2 = %s, match %d", __func__, be_itf1, be_itf2, result);
     return result;
 }
 
@@ -1646,13 +1637,11 @@ int platform_set_fluence_type(void *platform, char *value)
     struct platform_data *my_data = (struct platform_data *)platform;
     struct audio_device *adev = my_data->adev;
 
-    ALOGV("%s: fluence type:%d", __func__, my_data->fluence_type);
 
     /* only dual mic turn on and off is supported as of now through setparameters */
     if (!strncmp(AUDIO_PARAMETER_VALUE_DUALMIC,value, sizeof(AUDIO_PARAMETER_VALUE_DUALMIC))) {
         if (!strncmp("fluencepro", my_data->fluence_cap, sizeof("fluencepro")) ||
             !strncmp("fluence", my_data->fluence_cap, sizeof("fluence"))) {
-            ALOGV("fluence dualmic feature enabled \n");
             fluence_type = FLUENCE_DUAL_MIC;
             fluence_flag = DMIC_FLAG;
         } else {
@@ -1661,7 +1650,6 @@ int platform_set_fluence_type(void *platform, char *value)
             goto done;
         }
     } else if (!strncmp(AUDIO_PARAMETER_KEY_NO_FLUENCE, value, sizeof(AUDIO_PARAMETER_KEY_NO_FLUENCE))) {
-        ALOGV("fluence disabled");
         fluence_type = FLUENCE_NONE;
     } else {
         ALOGE("Invalid fluence value : %s",value);
@@ -1670,7 +1658,6 @@ int platform_set_fluence_type(void *platform, char *value)
     }
 
     if (fluence_type != my_data->fluence_type) {
-        ALOGV("%s: Updating fluence_type to :%d", __func__, fluence_type);
         my_data->fluence_type = fluence_type;
         adev->acdb_settings = (adev->acdb_settings & FLUENCE_MODE_CLEAR) | fluence_flag;
     }
@@ -1716,8 +1703,6 @@ int platform_set_snd_device_acdb_id(snd_device_t snd_device, unsigned int acdb_i
         goto done;
     }
 
-    ALOGV("%s: acdb_device_table[%s]: old = %d new = %d", __func__,
-          platform_get_snd_device_name(snd_device), acdb_device_table[snd_device], acdb_id);
     acdb_device_table[snd_device] = acdb_id;
 done:
     return ret;
@@ -1780,8 +1765,6 @@ int platform_send_audio_calibration(void *platform, snd_device_t snd_device,
         return -EINVAL;
     }
     if (my_data->acdb_send_audio_cal) {
-        ALOGV("%s: sending audio calibration for snd_device(%d) acdb_id(%d)",
-              __func__, snd_device, acdb_dev_id);
         if (snd_device >= SND_DEVICE_OUT_BEGIN &&
                 snd_device < SND_DEVICE_OUT_END)
             acdb_dev_type = ACDB_DEV_TYPE_OUT;
@@ -2022,7 +2005,6 @@ int platform_set_voice_volume(void *platform, int volume)
               __func__, mixer_ctl_name);
         return -EINVAL;
     }
-    ALOGV("Setting voice volume index: %d", set_values[0]);
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
     if (my_data->csd != NULL) {
@@ -2053,7 +2035,6 @@ int platform_set_mic_mute(void *platform, bool state)
               __func__, mixer_ctl_name);
         return -EINVAL;
     }
-    ALOGV("Setting voice mute state: %d", state);
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
     if (my_data->csd != NULL) {
@@ -2097,8 +2078,6 @@ int platform_set_device_mute(void *platform, bool state, char *dir)
         return -EINVAL;
     }
 
-    ALOGV("%s: Setting device mute state: %d, mixer ctrl:%s",
-          __func__,state, mixer_ctl_name);
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
     return ret;
@@ -2145,10 +2124,8 @@ snd_device_t platform_get_output_snd_device(void *platform, audio_devices_t devi
                                 AUDIO_CHANNEL_IN_MONO : adev->active_input->channel_mask;
     int channel_count = popcount(channel_mask);
 
-    ALOGV("%s: enter: output devices(%#x)", __func__, devices);
     if (devices == AUDIO_DEVICE_NONE ||
         devices & AUDIO_DEVICE_BIT_IN) {
-        ALOGV("%s: Invalid output devices (%#x)", __func__, devices);
         goto exit;
     }
 
@@ -2298,7 +2275,6 @@ snd_device_t platform_get_output_snd_device(void *platform, audio_devices_t devi
         ALOGE("%s: Unknown device(s) %#x", __func__, devices);
     }
 exit:
-    ALOGV("%s: exit: snd_device(%s)", __func__, device_table[snd_device]);
     return snd_device;
 }
 
@@ -2317,8 +2293,6 @@ snd_device_t platform_get_input_snd_device(void *platform, audio_devices_t out_d
     snd_device_t snd_device = SND_DEVICE_NONE;
     int channel_count = popcount(channel_mask);
 
-    ALOGV("%s: enter: out_device(%#x) in_device(%#x) channel_count (%d) channel_mask (0x%x)",
-          __func__, out_device, in_device, channel_count, channel_mask);
     if (my_data->external_mic) {
         if ((out_device != AUDIO_DEVICE_NONE && voice_is_in_call(adev)) ||
             voice_extn_compress_voip_is_active(adev) || audio_extn_hfp_is_active(adev)) {
@@ -2681,7 +2655,6 @@ snd_device_t platform_get_input_snd_device(void *platform, audio_devices_t out_d
         }
     }
 exit:
-    ALOGV("%s: exit: in_snd_device(%s)", __func__, device_table[snd_device]);
     return snd_device;
 }
 
@@ -2714,7 +2687,6 @@ int platform_set_hdmi_channels(void *platform,  int channel_count)
               __func__, mixer_ctl_name);
         return -EINVAL;
     }
-    ALOGV("HDMI channel count: %s", channel_cnt_str);
     mixer_ctl_set_enum_by_string(ctl, channel_cnt_str);
     return 0;
 }
@@ -2731,9 +2703,6 @@ int platform_edid_get_max_channels(void *platform)
 
     if(ret == 0 && info != NULL) {
         for (i = 0; i < info->audio_blocks && i < MAX_EDID_BLOCKS; i++) {
-            ALOGV("%s:format %d channel %d", __func__,
-                   info->audio_blocks_array[i].format_id,
-                   info->audio_blocks_array[i].channels);
             if (info->audio_blocks_array[i].format_id == LPCM) {
                 channel_count = info->audio_blocks_array[i].channels;
                 if (channel_count > max_channels) {
@@ -2761,7 +2730,6 @@ static int platform_set_slowtalk(struct platform_data *my_data, bool state)
               __func__, mixer_ctl_name);
         ret = -EINVAL;
     } else {
-        ALOGV("Setting slowtalk state: %d", state);
         ret = mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
         my_data->slowtalk = state;
     }
@@ -2792,7 +2760,6 @@ static int set_hd_voice(struct platform_data *my_data, bool state)
               __func__, mixer_ctl_name);
         return -EINVAL;
     } else {
-        ALOGV("Setting HD Voice state: %d", state);
         ret = mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
         my_data->hd_voice = state;
     }
@@ -2998,7 +2965,6 @@ int platform_set_parameters(void *platform, struct str_parms *parms)
     int ret = 0, err;
     char *kv_pairs = str_parms_to_str(parms);
 
-    ALOGV_IF(kv_pairs != NULL, "%s: enter: %s", __func__, kv_pairs);
 
     len = strlen(kv_pairs);
     value = (char*)calloc(len, sizeof(char));
@@ -3033,7 +2999,6 @@ int platform_set_parameters(void *platform, struct str_parms *parms)
             if (ret)
                 ALOGE("%s: Failed to set HD voice err: %d", __func__, ret);
         } else {
-            ALOGV("%s: HD Voice already set to %d", __func__, state);
         }
     }
 
@@ -3067,9 +3032,6 @@ int platform_set_parameters(void *platform, struct str_parms *parms)
             ALOGE("%s: event_name is NULL", __func__);
             goto done;
         }
-        ALOGV("%s: recieved update of external audio device %s %s",
-                         __func__,
-                         event_name, status_str);
         if (!strncmp(status_str, "ON", sizeof("ON")))
             status = true;
         else if (!strncmp(status_str, "OFF", sizeof("OFF")))
@@ -3081,7 +3043,6 @@ int platform_set_parameters(void *platform, struct str_parms *parms)
     set_audiocal(platform, parms, value, len);
     perf_lock_set_params(platform, parms, value, len);
 done:
-    ALOGV("%s: exit with code(%d)", __func__, ret);
     free(kv_pairs);
     if(value != NULL)
         free(value);
@@ -3108,7 +3069,6 @@ int platform_set_incall_recording_session_id(void *platform,
         num_ctl_values = mixer_ctl_get_num_values(ctl);
         for (i = 0; i < num_ctl_values; i++) {
             if (mixer_ctl_set_value(ctl, i, session_id)) {
-                ALOGV("Error: invalid session_id: %x", session_id);
                 ret = -EINVAL;
                 break;
             }
@@ -3319,7 +3279,6 @@ void platform_get_parameters(void *platform,
     get_audiocal(platform, query, reply);
 
     kv_pairs = str_parms_to_str(reply);
-    ALOGV_IF(kv_pairs != NULL, "%s: exit: returns - %s", __func__, kv_pairs);
     free(kv_pairs);
 }
 
@@ -3341,7 +3300,6 @@ int64_t platform_render_latency(audio_usecase_t usecase)
 
 int platform_update_usecase_from_source(int source, int usecase)
 {
-    ALOGV("%s: input source :%d", __func__, source);
     switch(source) {
         case AUDIO_SOURCE_VOICE_UPLINK:
             return USECASE_INCALL_REC_UPLINK;
@@ -3408,13 +3366,10 @@ uint32_t platform_get_compress_offload_buffer_size(audio_offload_info_t* info)
     if (info != NULL && !info->has_video &&
         info->format == AUDIO_FORMAT_FLAC) {
        fragment_size = MAX_COMPRESS_OFFLOAD_FRAGMENT_SIZE;
-       ALOGV("FLAC fragment size %d", fragment_size);
     }
 
     if (info != NULL && info->has_video && info->is_streaming) {
         fragment_size = COMPRESS_OFFLOAD_FRAGMENT_SIZE_FOR_AV_STREAMING;
-        ALOGV("%s: offload fragment size reduced for AV streaming to %d",
-               __func__, fragment_size);
     }
 
     fragment_size = ALIGN( fragment_size, 1024);
@@ -3423,7 +3378,6 @@ uint32_t platform_get_compress_offload_buffer_size(audio_offload_info_t* info)
         fragment_size = MIN_COMPRESS_OFFLOAD_FRAGMENT_SIZE;
     else if(fragment_size > MAX_COMPRESS_OFFLOAD_FRAGMENT_SIZE)
         fragment_size = MAX_COMPRESS_OFFLOAD_FRAGMENT_SIZE;
-    ALOGV("%s: fragment_size %d", __func__, fragment_size);
     return fragment_size;
 }
 
@@ -3462,7 +3416,6 @@ int platform_set_codec_backend_cfg(struct audio_device* adev,
                          unsigned int bit_width, unsigned int sample_rate,
                          audio_format_t format)
 {
-    ALOGV("%s bit width: %d, sample rate: %d\n", __func__, bit_width, sample_rate);
     int ret = 0;
 
     if (bit_width != adev->cur_codec_backend_bit_width) {
@@ -3532,7 +3485,6 @@ int platform_set_codec_backend_cfg(struct audio_device* adev,
                 return -EINVAL;
             }
 
-            ALOGV("Set sample rate as rate_str = %s", rate_str);
             mixer_ctl_set_enum_by_string(ctl, rate_str);
             adev->cur_codec_backend_samplerate = sample_rate;
     }
@@ -3573,8 +3525,6 @@ bool platform_check_codec_backend_cfg(struct audio_device* adev,
                 struct stream_out *out =
                            (struct stream_out*) curr_usecase->stream.out;
                 if (out != NULL ) {
-                    ALOGV("Offload playback running bw %d sr %d",
-                              out->bit_width, out->sample_rate);
                         if (bit_width < out->bit_width)
                             bit_width = out->bit_width;
                         if (sample_rate < out->sample_rate)
@@ -3611,12 +3561,10 @@ bool platform_check_codec_backend_cfg(struct audio_device* adev,
 
 bool platform_check_and_set_codec_backend_cfg(struct audio_device* adev, struct audio_usecase *usecase)
 {
-    ALOGV("platform_check_and_set_codec_backend_cfg usecase = %d",usecase->id );
 
     unsigned int new_bit_width, old_bit_width;
     unsigned int new_sample_rate, old_sample_rate;
 
-    ALOGV("%s: usecase = %d", __func__, usecase->id );
     audio_format_t format;
 
     new_bit_width = old_bit_width = adev->cur_codec_backend_bit_width;
@@ -3645,9 +3593,6 @@ int platform_set_snd_device_backend(snd_device_t device, const char *backend_tag
         goto done;
     }
 
-    ALOGV("%s: backend_tag_table[%s]: old = %s new = %s", __func__,
-          platform_get_snd_device_name(device),
-          backend_tag_table[device] != NULL ? backend_tag_table[device]: "null", backend_tag);
     if (backend_tag_table[device]) {
         free(backend_tag_table[device]);
     }
@@ -3656,7 +3601,6 @@ int platform_set_snd_device_backend(snd_device_t device, const char *backend_tag
     if (hw_interface != NULL) {
         if (hw_interface_table[device])
             free(hw_interface_table[device]);
-        ALOGV("%s: hw_interface_table[%d] = %s", __func__, device, hw_interface);
         hw_interface_table[device] = strdup(hw_interface);
     }
 done:
@@ -3676,7 +3620,6 @@ int platform_set_usecase_pcm_id(audio_usecase_t usecase, int32_t type, int32_t p
         ALOGE("%s: invalid usecase type", __func__);
         ret = -EINVAL;
     }
-    ALOGV("%s: pcm_device_table[%d][%d] = %d", __func__, usecase, type, pcm_id);
     pcm_device_table[usecase][type] = pcm_id;
 done:
     return ret;
@@ -3877,7 +3820,6 @@ int platform_set_channel_map(void *platform, int ch_count, char *ch_map, int snd
     int set_values[8] = {0};
     struct platform_data *my_data = (struct platform_data *)platform;
     struct audio_device *adev = my_data->adev;
-    ALOGV("%s channel_count:%d",__func__, ch_count);
     if (NULL == ch_map) {
         ALOGE("%s: Invalid channel mapping used", __func__);
         return -EINVAL;
@@ -3922,22 +3864,18 @@ unsigned char platform_map_to_edid_format(int audio_format)
     unsigned char format;
     switch (audio_format & AUDIO_FORMAT_MAIN_MASK) {
     case AUDIO_FORMAT_AC3:
-        ALOGV("%s: AC3", __func__);
         format = AC3;
         break;
     case AUDIO_FORMAT_AAC:
-        ALOGV("%s:AAC", __func__);
         format = AAC;
         break;
     case AUDIO_FORMAT_E_AC3:
-        ALOGV("%s:E_AC3", __func__);
         format = DOLBY_DIGITAL_PLUS;
         break;
     case AUDIO_FORMAT_PCM_16_BIT:
     case AUDIO_FORMAT_PCM_24_BIT_PACKED:
     case AUDIO_FORMAT_PCM_8_24_BIT:
     default:
-        ALOGV("%s:PCM", __func__);
         format =  LPCM;
         break;
     }
@@ -3956,10 +3894,8 @@ uint32_t platform_get_compress_passthrough_buffer_size(
 
 void platform_reset_edid_info(void *platform) {
 
-    ALOGV("%s:", __func__);
     struct platform_data *my_data = (struct platform_data *)platform;
     if (my_data->edid_info) {
-        ALOGV("%s :free edid", __func__);
         free(my_data->edid_info);
         my_data->edid_info = NULL;
     }
@@ -3982,14 +3918,10 @@ bool platform_is_edid_supported_format(void *platform, int format)
               *  & DOLBY_DIGITAL_PLUS
               */
             if (info->audio_blocks_array[i].format_id == format_id) {
-                ALOGV("%s:platform_is_edid_supported_format true %x",
-                      __func__, format);
                 return true;
             }
         }
     }
-    ALOGV("%s:platform_is_edid_supported_format false %x",
-           __func__, format);
     return false;
 }
 
@@ -4006,8 +3938,6 @@ int platform_set_edid_channels_configuration(void *platform, int channels) {
     if(ret == 0 && info != NULL) {
         if (channels > 2) {
 
-            ALOGV("%s:able to get HDMI sink capabilities multi channel playback",
-                   __func__);
             for (i = 0; i < info->audio_blocks && i < MAX_EDID_BLOCKS; i++) {
                 if (info->audio_blocks_array[i].format_id == LPCM &&
                       info->audio_blocks_array[i].channels > channel_count &&
@@ -4015,7 +3945,6 @@ int platform_set_edid_channels_configuration(void *platform, int channels) {
                     channel_count = info->audio_blocks_array[i].channels;
                 }
             }
-            ALOGVV("%s:channel_count:%d", __func__, channel_count);
             /*
              * Channel map is set for supported hdmi max channel count even
              * though the input channel count set on adm is less than or equal to
@@ -4125,8 +4054,6 @@ int platform_set_hdmi_config(struct stream_out *out)
      */
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
-        ALOGV("%s:disable: usecase type %d, devices 0x%x", __func__,
-               usecase->type, usecase->devices);
         if (usecase->type == PCM_PLAYBACK &&
                 usecase->devices & AUDIO_DEVICE_OUT_AUX_DIGITAL) {
             disable_audio_route(adev, usecase);
@@ -4139,8 +4066,6 @@ int platform_set_hdmi_config(struct stream_out *out)
      */
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
-        ALOGV("%s:enable: usecase type %d, devices 0x%x", __func__,
-               usecase->type, usecase->devices);
         if (usecase->type == PCM_PLAYBACK &&
                 usecase->devices & AUDIO_DEVICE_OUT_AUX_DIGITAL) {
             enable_audio_route(adev, usecase);
@@ -4169,8 +4094,6 @@ int platform_set_device_params(struct stream_out *out, int param, int value)
         goto end;
     }
 
-    ALOGV("%s: Setting device pp params param: %d, value %d mixer ctrl:%s",
-          __func__,param, value, mixer_ctl_name);
     mixer_ctl_set_array(ctl, set_values, ARRAY_SIZE(set_values));
 
 end:

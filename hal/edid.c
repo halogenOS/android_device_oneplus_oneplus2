@@ -33,86 +33,23 @@
 #include "platform_api.h"
 #include "edid.h"
 
-static const char * edid_format_to_str(unsigned char format)
-{
-    char * format_str = "??";
-
-    switch (format) {
-    case LPCM:
-        format_str = "Format:LPCM";
-        break;
-    case AC3:
-        format_str = "Format:AC-3";
-        break;
-    case MPEG1:
-        format_str = "Format:MPEG1 (Layers 1 & 2)";
-        break;
-    case MP3:
-        format_str = "Format:MP3 (MPEG1 Layer 3)";
-        break;
-    case MPEG2_MULTI_CHANNEL:
-        format_str = "Format:MPEG2 (multichannel)";
-        break;
-    case AAC:
-        format_str = "Format:AAC";
-        break;
-    case DTS:
-        format_str = "Format:DTS";
-        break;
-    case ATRAC:
-        format_str = "Format:ATRAC";
-        break;
-    case SACD:
-        format_str = "Format:One-bit audio aka SACD";
-        break;
-    case DOLBY_DIGITAL_PLUS:
-        format_str = "Format:Dolby Digital +";
-        break;
-    case DTS_HD:
-        format_str = "Format:DTS-HD";
-        break;
-    case MAT:
-        format_str = "Format:MAT (MLP)";
-        break;
-    case DST:
-        format_str = "Format:DST";
-        break;
-    case WMA_PRO:
-        format_str = "Format:WMA Pro";
-        break;
-    case FLAC:
-        format_str = "Format:FLAC";
-        break;
-    default:
-        break;
-    }
-    return format_str;
-}
-
 static int get_edid_sf(unsigned char byte)
 {
     int nfreq = 0;
 
     if (byte & BIT(6)) {
-        ALOGV("192kHz");
         nfreq = 192000;
     } else if (byte & BIT(5)) {
-        ALOGV("176kHz");
         nfreq = 176000;
     } else if (byte & BIT(4)) {
-        ALOGV("96kHz");
         nfreq = 96000;
     } else if (byte & BIT(3)) {
-        ALOGV("88.2kHz");
         nfreq = 88200;
     } else if (byte & BIT(2)) {
-        ALOGV("48kHz");
         nfreq = 48000;
     } else if (byte & BIT(1)) {
-        ALOGV("44.1kHz");
         nfreq = 44100;
     } else if (byte & BIT(0)) {
-        ALOGV("32kHz");
         nfreq = 32000;
     }
     return nfreq;
@@ -124,17 +61,13 @@ static int get_edid_bps(unsigned char byte,
     int bits_per_sample = 0;
     if (format == 1) {
         if (byte & BIT(2)) {
-            ALOGV("24bit");
             bits_per_sample = 24;
         } else if (byte & BIT(1)) {
-            ALOGV("20bit");
             bits_per_sample = 20;
         } else if (byte & BIT(0)) {
-            ALOGV("16bit");
             bits_per_sample = 16;
         }
     } else {
-        ALOGV("not lpcm format, return 0");
         return 0;
     }
     return bits_per_sample;
@@ -227,31 +160,8 @@ static void update_channel_map(edid_audio_info* info)
 
 static void dump_speaker_allocation(edid_audio_info* info)
 {
-    if (!info)
-        return;
-
-    if (info->speaker_allocation[0] & BIT(7))
-        ALOGV("FLW/FRW");
-    if (info->speaker_allocation[0] & BIT(6))
-        ALOGV("RLC/RRC");
-    if (info->speaker_allocation[0] & BIT(5))
-        ALOGV("FLC/FRC");
-    if (info->speaker_allocation[0] & BIT(4))
-        ALOGV("RC");
-    if (info->speaker_allocation[0] & BIT(3))
-        ALOGV("RL/RR");
-    if (info->speaker_allocation[0] & BIT(2))
-        ALOGV("FC");
-    if (info->speaker_allocation[0] & BIT(1))
-        ALOGV("LFE");
-    if (info->speaker_allocation[0] & BIT(0))
-        ALOGV("FL/FR");
-    if (info->speaker_allocation[1] & BIT(2))
-        ALOGV("FCH");
-    if (info->speaker_allocation[1] & BIT(1))
-        ALOGV("TC");
-    if (info->speaker_allocation[1] & BIT(0))
-        ALOGV("FLH/FRH");
+    // Simply get rid of this
+    (void)info;
 }
 
 static void update_channel_allocation(edid_audio_info* info)
@@ -266,9 +176,6 @@ static void update_channel_allocation(edid_audio_info* info)
      * and 7.1 SAD is 0x4F, ca 0x13 */
     spkr_alloc = ((info->speaker_allocation[1]) << 8) |
                (info->speaker_allocation[0]);
-    ALOGV("info->nSpeakerAllocation %x %x\n", info->speaker_allocation[0],
-                                              info->speaker_allocation[1]);
-    ALOGV("spkr_alloc: %x", spkr_alloc);
 
     /* The below switch case calculates channel allocation values
        as defined in CEA-861 section 6.6.2 */
@@ -337,7 +244,6 @@ static void update_channel_map_lpass(edid_audio_info* info)
         ALOGE("Channel allocation out of supported range");
         return;
     }
-    ALOGV("channel_allocation 0x%x", info->channel_allocation);
     memset(info->channel_map, 0, MAX_CHANNELS_SUPPORTED);
     switch(info->channel_allocation) {
     case 0x0:
@@ -590,27 +496,7 @@ static void dump_edid_data(edid_audio_info *info)
 
     int i;
     for (i = 0; i < info->audio_blocks && i < MAX_EDID_BLOCKS; i++) {
-        ALOGV("%s:FormatId:%d rate:%d bps:%d channels:%d", __func__,
-              info->audio_blocks_array[i].format_id,
-              info->audio_blocks_array[i].sampling_freq,
-              info->audio_blocks_array[i].bits_per_sample,
-              info->audio_blocks_array[i].channels);
     }
-    ALOGV("%s:no of audio blocks:%d", __func__, info->audio_blocks);
-    ALOGV("%s:speaker allocation:[%x %x %x]", __func__,
-           info->speaker_allocation[0], info->speaker_allocation[1],
-           info->speaker_allocation[2]);
-    ALOGV("%s:channel map:[%x %x %x %x %x %x %x %x]", __func__,
-           info->channel_map[0], info->channel_map[1],
-           info->channel_map[2], info->channel_map[3],
-           info->channel_map[4], info->channel_map[5],
-           info->channel_map[6], info->channel_map[7]);
-    ALOGV("%s:channel allocation:%d", __func__, info->channel_allocation);
-    ALOGV("%s:[%d %d %d %d %d %d %d %d ]", __func__,
-           info->channel_map[0], info->channel_map[1],
-           info->channel_map[2], info->channel_map[3],
-           info->channel_map[4], info->channel_map[5],
-           info->channel_map[6], info->channel_map[7]);
 }
 
 bool edid_get_sink_caps(edid_audio_info* info, char *edid_data)
@@ -628,7 +514,6 @@ bool edid_get_sink_caps(edid_audio_info* info, char *edid_data)
     }
 
     length = (int) *edid_data++;
-    ALOGV("Total length is %d",length);
 
     count_desc = length/MIN_AUDIO_DESC_LENGTH;
 
@@ -644,7 +529,6 @@ bool edid_get_sink_caps(edid_audio_info* info, char *edid_data)
         info->audio_blocks = MAX_EDID_BLOCKS;
     }
 
-    ALOGV("Total # of audio descriptors %d",count_desc);
 
     for (i=0; i<info->audio_blocks; i++) {
         // last block for speaker allocation;
@@ -662,27 +546,15 @@ bool edid_get_sink_caps(edid_audio_info* info, char *edid_data)
     update_channel_map_lpass(info);
 
     for (i=0; i<info->audio_blocks; i++) {
-        ALOGV("AUDIO DESC BLOCK # %d\n",i);
 
         info->audio_blocks_array[i].channels = channels[i];
-        ALOGV("info->audio_blocks_array[i].channels %d\n",
-              info->audio_blocks_array[i].channels);
 
-        ALOGV("Format Byte %d\n", formats[i]);
         info->audio_blocks_array[i].format_id = (edid_audio_format_id)formats[i];
-        ALOGV("info->audio_blocks_array[i].format_id %s",
-              edid_format_to_str(formats[i]));
 
-        ALOGV("Frequency Byte %d\n", frequency[i]);
         info->audio_blocks_array[i].sampling_freq = get_edid_sf(frequency[i]);
-        ALOGV("info->audio_blocks_array[i].sampling_freq %d",
-              info->audio_blocks_array[i].sampling_freq);
 
-        ALOGV("BitsPerSample Byte %d\n", bitrate[i]);
         info->audio_blocks_array[i].bits_per_sample =
                    get_edid_bps(bitrate[i],formats[i]);
-        ALOGV("info->audio_blocks_array[i].bits_per_sample %d",
-              info->audio_blocks_array[i].bits_per_sample);
     }
     dump_speaker_allocation(info);
     dump_edid_data(info);

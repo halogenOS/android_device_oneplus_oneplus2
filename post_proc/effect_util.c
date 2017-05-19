@@ -59,14 +59,11 @@ void create_effect_state_node(int device_id)
 
     property_get("use.dts_eagle", prop, "0");
     if (!strncmp("true", prop, sizeof("true")) || atoi(prop)) {
-        ALOGV("create_effect_node for - device_id: %d", device_id);
         strlcpy(path, EFFECT_FILE, sizeof(path));
         snprintf(value, sizeof(value), "%d", device_id);
         strlcat(path, value, sizeof(path));
         if ((fd=open(path, O_RDONLY)) < 0) {
-            ALOGV("No File exist");
         } else {
-            ALOGV("A file with the same name exist. So, not creating again");
             return;
         }
         if ((fd=creat(path, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)) < 0) {
@@ -76,7 +73,6 @@ void create_effect_state_node(int device_id)
         chmod(path, S_IRWXU|S_IRGRP|S_IXGRP|S_IROTH);
         snprintf(buf, sizeof(buf), "eq_enable=%d;virt_enable=%d;bb_enable=%d;eq_param_level0=%d;eq_param_level1=%d;eq_param_level2=%d;eq_param_level3=%d;eq_param_level4=%d;virt_param_strength=%d;bassboost_param_strength=%d", 0,0,0,0,0,0,0,0,0,0);
         int n = write(fd, buf, strlen(buf));
-        ALOGV("number of bytes written: %d", n);
         close(fd);
     }
 }
@@ -94,7 +90,6 @@ void update_effects_node(int device_id, int effect_type, int enable_or_set, int 
     char *s1, *s2;
     char resultBuf[1024];
     int index1 = -1;
-  //ALOGV("value of device_id and effect_type is %d and %d", device_id, effect_type);
     property_get("use.dts_eagle", prop, "0");
     if (!strncmp("true", prop, sizeof("true")) || atoi(prop)) {
         strlcpy(path, EFFECT_FILE, sizeof(path));
@@ -169,18 +164,14 @@ void update_effects_node(int device_id, int effect_type, int enable_or_set, int 
                         strncat(resultBuf, s2, sizeof(resultBuf)-strlen(resultBuf)-1);
                     fclose(fp);
                     if ((fd=open(path, O_TRUNC|O_WRONLY)) < 0) {
-                       ALOGV("opening file for writing failed");
                        return;
                     }
                     int n = write(fd, resultBuf, strlen(resultBuf));
                     close(fd);
-                    ALOGV("number of bytes written: %d", n);
                 } else {
-                    ALOGV("file could not be read");
                     fclose(fp);
                 }
             } else
-                ALOGV("file could not be opened");
         }
     }
 }
@@ -194,15 +185,11 @@ void remove_effect_state_node(int device_id)
 
     property_get("use.dts_eagle", prop, "0");
     if (!strncmp("true", prop, sizeof("true")) || atoi(prop)) {
-        ALOGV("remove_state_notifier_node: device_id - %d", device_id);
         strlcpy(path, EFFECT_FILE, sizeof(path));
         snprintf(value, sizeof(value), "%d", device_id);
         strlcat(path, value, sizeof(path));
         if ((fd=open(path, O_RDONLY)) < 0) {
-            ALOGV("open effect state node failed");
         } else {
-            ALOGV("open effect state node successful");
-            ALOGV("Remove the file");
             close(fd);
             remove(path);
         }

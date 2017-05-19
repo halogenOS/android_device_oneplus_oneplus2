@@ -172,7 +172,6 @@ static int32_t drc_init_lib(int num_chan, int sample_rate __unused)
         goto init_fail;
     }
 
-    ALOGV("%s: DLOPEN successful for %s", __func__, LIB_DRC);
     ssrmod.drc_init = (drc_init_t)
         dlsym(ssrmod.drc_handle, "DRC_init");
     ssrmod.drc_deinit = (drc_deinit_t)
@@ -196,7 +195,6 @@ static int32_t drc_init_lib(int num_chan, int sample_rate __unused)
         cfgFileName = "/system/etc/drc/drc_cfg_AZ.txt";
     }
 
-    ALOGV("%s: Calling drc_init: num ch: %d, period: %d, cfg file: %s", __func__, num_chan, SSR_PERIOD_SIZE, cfgFileName);
     ret = ssrmod.drc_init(&ssrmod.drc_obj, num_chan, SSR_PERIOD_SIZE, cfgFileName);
     if (ret) {
         ALOGE("drc_init failed with ret:%d",ret);
@@ -232,7 +230,6 @@ static int32_t ssr_init_surround_sound_3mic_lib(unsigned long buffersize, int nu
         ALOGE("%s: DLOPEN failed for %s", __func__, LIB_SURROUND_3MIC_PROC);
         goto init_fail;
     } else {
-        ALOGV("%s: DLOPEN successful for %s", __func__, LIB_SURROUND_3MIC_PROC);
         ssrmod.surround_rec_get_get_param_data = (surround_rec_get_get_param_data_t)
         dlsym(ssrmod.surround_rec_handle, "surround_rec_get_get_param_data");
 
@@ -279,8 +276,6 @@ static int32_t ssr_init_surround_sound_3mic_lib(unsigned long buffersize, int nu
         ALOGE("%s: No cfg file for num_out_chan: %d", __func__, num_out_chan);
     }
 
-    ALOGV("%s: Calling surround_rec_init: in ch: %d, out ch: %d, period: %d, sample rate: %d, cfg file: %s",
-          __func__, num_in_chan, num_out_chan, SSR_PERIOD_SIZE, sample_rate, cfgFileName);
      ret = ssrmod.surround_rec_init(&ssrmod.surround_obj,
         num_in_chan, num_out_chan, SSR_PERIOD_SIZE, sample_rate, cfgFileName);
     if (ret) {
@@ -323,7 +318,6 @@ void audio_extn_ssr_update_enabled()
 
 bool audio_extn_ssr_get_enabled()
 {
-    ALOGV("%s: is_ssr_enabled:%d is_ssr_mode_on:%d ", __func__, ssrmod.is_ssr_enabled, ssrmod.is_ssr_mode_on);
 
     if(ssrmod.is_ssr_enabled && ssrmod.is_ssr_mode_on)
         return true;
@@ -447,7 +441,6 @@ int32_t audio_extn_ssr_init(struct stream_in *in, int num_out_chan)
     ALOGD("%s: ssr case, sample rate %d", __func__, in->config.rate);
 
     if (ssrmod.surround_obj != NULL) {
-        ALOGV("%s: reinitializing surround sound library", __func__);
         audio_extn_ssr_deinit();
     }
 
@@ -460,7 +453,6 @@ int32_t audio_extn_ssr_init(struct stream_in *in, int num_out_chan)
 
     /* buffer size equals to  period_size * period_count */     
     buffer_size = SSR_PERIOD_SIZE * NUM_IN_CHANNELS * sizeof(int16_t);
-    ALOGV("%s: buffer_size: %d", __func__, buffer_size);
 
     if (ssrmod.ssr_3mic != 0) {
         ret = ssr_init_surround_sound_3mic_lib(buffer_size, NUM_IN_CHANNELS, num_out_chan, in->config.rate);
@@ -518,7 +510,6 @@ int32_t audio_extn_ssr_init(struct stream_in *in, int num_out_chan)
         }
 
         ssrmod.ssr_process_thread_stop = 0;
-        ALOGV("%s: creating thread", __func__);
         ret = pthread_create(&ssrmod.ssr_process_thread,
                              (const pthread_attr_t *) NULL,
                              ssr_process_thread, NULL);
@@ -530,7 +521,6 @@ int32_t audio_extn_ssr_init(struct stream_in *in, int num_out_chan)
         }
 
         ssrmod.ssr_process_thread_started = 1;
-        ALOGV("%s: done creating thread", __func__);
     }
 
     in->config.channels = NUM_IN_CHANNELS;
@@ -566,7 +556,6 @@ int32_t audio_extn_ssr_init(struct stream_in *in, int num_out_chan)
 
     ssrmod.in = in;
 
-    ALOGV("%s: exit", __func__);
     return 0;
 
 fail:
@@ -577,7 +566,6 @@ fail:
 int32_t audio_extn_ssr_deinit()
 {
 
-    ALOGV("%s: entry", __func__);
     deinit_ssr_process_thread();
 
     if (ssrmod.drc_obj) {
@@ -616,7 +604,6 @@ int32_t audio_extn_ssr_deinit()
     //Do not force reset ssr mode
 
     //ssrmod.is_ssr_mode_on = false;
-    ALOGV("%s: exit", __func__);
 
     return 0;
 }
@@ -625,7 +612,6 @@ static void *ssr_process_thread(void *context __unused)
 {
     int32_t ret;
 
-    ALOGV("%s: enter", __func__);
 
     setpriority(PRIO_PROCESS, 0, ANDROID_PRIORITY_URGENT_AUDIO);
     set_sched_policy(0, SP_FOREGROUND);
@@ -638,13 +624,11 @@ static void *ssr_process_thread(void *context __unused)
         while ((!ssrmod.ssr_process_thread_stop) &&
                ((ssrmod.out_buf_free == NULL) ||
                 (ssrmod.in_buf == NULL))) {
-            ALOGV("%s: waiting for buffers", __func__);
             pthread_cond_wait(&ssrmod.cond_process, &ssrmod.ssr_process_lock);
         }
         if (ssrmod.ssr_process_thread_stop) {
             break;
         }
-        ALOGV("%s: got buffers", __func__);
 
         out_buf = pcm_buffer_queue_pop(&ssrmod.out_buf_free);
         in_buf = pcm_buffer_queue_pop(&ssrmod.in_buf);
@@ -660,7 +644,6 @@ static void *ssr_process_thread(void *context __unused)
 
         /* Run DRC if initialized */
         if (ssrmod.drc_obj != NULL) {
-            ALOGV("%s: Running DRC", __func__);
             ret = ssrmod.drc_process(ssrmod.drc_obj, out_buf->buffer.data, out_buf->buffer.data);
             if (ret != 0) {
                 ALOGE("%s: drc_process returned %d", __func__, ret);
@@ -688,7 +671,6 @@ static void *ssr_process_thread(void *context __unused)
     }
     pthread_mutex_unlock(&ssrmod.ssr_process_lock);
 
-    ALOGV("%s: exit", __func__);
 
     pthread_exit(NULL);
 }
@@ -701,7 +683,6 @@ int32_t audio_extn_ssr_read(struct audio_stream_in *stream,
     struct pcm_buffer_queue *in_buf;
     struct pcm_buffer_queue *out_buf;
 
-    ALOGV("%s: entry", __func__);
 
     if (!ssrmod.surround_obj) {
         ALOGE("%s: surround_obj not initialized", __func__);
@@ -718,7 +699,6 @@ int32_t audio_extn_ssr_read(struct audio_stream_in *stream,
 
     if (!ssrmod.ssr_process_thread_started) {
         pthread_mutex_unlock(&ssrmod.ssr_process_lock);
-        ALOGV("%s: ssr_process_thread not initialized", __func__);
         return -EINVAL;
     }
 
@@ -745,7 +725,6 @@ int32_t audio_extn_ssr_read(struct audio_stream_in *stream,
 
     pthread_mutex_unlock(&ssrmod.ssr_process_lock);
 
-    ALOGV("%s: exit", __func__);
     return ret;
 }
 
@@ -776,7 +755,6 @@ void audio_extn_ssr_set_parameters(struct audio_device *adev __unused,
             while (set_params->name != NULL && set_params->set_param_fn != NULL) {
                 err = str_parms_get_str(parms, set_params->name, value, sizeof(value));
                 if (err >= 0) {
-                    ALOGV("Set %s to %s\n", set_params->name, value);
                     set_params->set_param_fn(ssrmod.surround_obj, value);
                 }
                 set_params++;
@@ -803,7 +781,6 @@ void audio_extn_ssr_get_parameters(const struct audio_device *adev __unused,
             while (get_params->name != NULL && get_params->get_param_fn != NULL) {
                 err = str_parms_get_str(parms, get_params->name, value, sizeof(value));
                 if (get_all || (err >= 0)) {
-                    ALOGV("Getting parameter %s", get_params->name);
                     char *val = get_params->get_param_fn(ssrmod.surround_obj);
                     if (val != NULL) {
                         str_parms_add_str(reply, get_params->name, val);

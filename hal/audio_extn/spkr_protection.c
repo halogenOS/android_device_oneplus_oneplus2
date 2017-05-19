@@ -150,7 +150,6 @@ void audio_extn_spkr_prot_calib_cancel(void *adev)
     pthread_t threadid;
     struct audio_usecase *uc_info;
     threadid = pthread_self();
-    ALOGV("%s: Entry", __func__);
     if (pthread_equal(handle.speaker_prot_threadid, threadid) || !adev) {
         ALOGE("%s: Invalid params", __func__);
         return;
@@ -166,7 +165,6 @@ void audio_extn_spkr_prot_calib_cancel(void *adev)
             &handle.spkr_calib_cancelack_mutex);
             pthread_mutex_unlock(&handle.spkr_calib_cancelack_mutex);
     }
-    ALOGV("%s: Exit", __func__);
 }
 
 static bool is_speaker_in_use(unsigned long *sec)
@@ -285,7 +283,6 @@ static int vi_feed_get_channels(struct audio_device *adev)
     const char *mixer_ctl_name = VI_FEED_CHANNEL;
     int value;
 
-    ALOGV("%s: entry", __func__);
     ctl = mixer_get_ctl_by_name(adev->mixer, mixer_ctl_name);
     if (!ctl) {
         ALOGE("%s: Could not get ctl for mixer cmd - %s",
@@ -352,7 +349,6 @@ static int spkr_calibrate(int t0)
     enable_audio_route(adev, uc_info_rx);
 
     pcm_dev_rx_id = platform_get_pcm_device_id(uc_info_rx->id, PCM_PLAYBACK);
-    ALOGV("%s: pcm device id %d", __func__, pcm_dev_rx_id);
     if (pcm_dev_rx_id < 0) {
         ALOGE("%s: Invalid pcm device for usecase (%d)",
               __func__, uc_info_rx->id);
@@ -614,7 +610,6 @@ static void* spkr_calibration_thread()
     }
 
     while (1) {
-        ALOGV("%s: start calibration", __func__);
         if (!handle.thermal_client_request("spkr",1)) {
             ALOGD("%s: wait for callback from thermal daemon", __func__);
             pthread_mutex_lock(&handle.spkr_prot_thermalsync_mutex);
@@ -811,7 +806,6 @@ int audio_extn_spkr_prot_start_processing(snd_device_t snd_device)
     struct audio_device *adev = handle.adev_handle;
     int32_t pcm_dev_tx_id = -1, ret = 0;
 
-    ALOGV("%s: Entry", __func__);
     /* cancel speaker calibration */
     if (!adev) {
        ALOGE("%s: Invalid params", __func__);
@@ -823,8 +817,6 @@ int audio_extn_spkr_prot_start_processing(snd_device_t snd_device)
     if (!uc_info_tx) {
         return -ENOMEM;
     }
-    ALOGV("%s: snd_device(%d: %s)", __func__, snd_device,
-           platform_get_snd_device_name(snd_device));
     audio_route_apply_and_update_path(adev->audio_route,
            platform_get_snd_device_name(snd_device));
 
@@ -876,7 +868,6 @@ exit:
     } else
         handle.spkr_processing_state = SPKR_PROCESSING_IN_PROGRESS;
     pthread_mutex_unlock(&handle.mutex_spkr_prot);
-    ALOGV("%s: Exit", __func__);
     return ret;
 }
 
@@ -885,7 +876,6 @@ void audio_extn_spkr_prot_stop_processing(snd_device_t snd_device)
     struct audio_usecase *uc_info_tx;
     struct audio_device *adev = handle.adev_handle;
 
-    ALOGV("%s: Entry", __func__);
     snd_device = audio_extn_get_spkr_prot_snd_device(snd_device);
     spkr_prot_set_spkrstatus(false);
     pthread_mutex_lock(&handle.mutex_spkr_prot);
@@ -906,7 +896,6 @@ void audio_extn_spkr_prot_stop_processing(snd_device_t snd_device)
     if (adev)
         audio_route_reset_and_update_path(adev->audio_route,
                                       platform_get_snd_device_name(snd_device));
-    ALOGV("%s: Exit", __func__);
 }
 
 bool audio_extn_spkr_prot_is_enabled()

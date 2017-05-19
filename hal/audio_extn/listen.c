@@ -170,10 +170,8 @@ void audio_extn_listen_update_stream_status(struct audio_usecase *uc_info,
 void audio_extn_listen_set_parameters(struct audio_device *adev,
                                struct str_parms *parms)
 {
-    ALOGV("%s: enter", __func__);
     if (listen_dev) {
          char *kv_pairs = str_parms_to_str(parms);
-         ALOGV_IF(kv_pairs != NULL, "%s: %s", __func__, kv_pairs);
          listen_dev->listen_set_parameters(&adev->device, kv_pairs);
          free(kv_pairs);
     }

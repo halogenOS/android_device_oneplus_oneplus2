@@ -213,8 +213,6 @@ int voice_start_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
     }
     ALOGD("voice_config.rate %d\n", voice_config.rate);
 
-    ALOGV("%s: Opening PCM capture device card_id(%d) device_id(%d)",
-          __func__, adev->snd_card, pcm_dev_tx_id);
     session->pcm_tx = pcm_open(adev->snd_card,
                                pcm_dev_tx_id,
                                PCM_IN, &voice_config);
@@ -224,8 +222,6 @@ int voice_start_usecase(struct audio_device *adev, audio_usecase_t usecase_id)
         goto error_start_voice;
     }
 
-    ALOGV("%s: Opening PCM playback device card_id(%d) device_id(%d)",
-          __func__, adev->snd_card, pcm_dev_rx_id);
     session->pcm_rx = pcm_open(adev->snd_card,
                                pcm_dev_rx_id,
                                PCM_OUT, &voice_config);
@@ -343,17 +339,13 @@ int voice_check_and_set_incall_rec_usecase(struct audio_device *adev,
             rec_mode = INCALL_REC_UPLINK_AND_DOWNLINK;
             break;
         default:
-            ALOGV("%s: Source type %d doesnt match incall recording criteria",
-                  __func__, in->source);
             return ret;
         }
 
         session_id = voice_get_active_session_id(adev);
         ret = platform_set_incall_recording_session_id(adev->platform,
                                                        session_id, rec_mode);
-        ALOGV("%s: Update usecase to %d",__func__, in->usecase);
     } else {
-        ALOGV("%s: voice call not active", __func__);
     }
 
     return ret;
@@ -368,7 +360,6 @@ int voice_check_and_stop_incall_rec_usecase(struct audio_device *adev,
         in->source == AUDIO_SOURCE_VOICE_DOWNLINK ||
         in->source == AUDIO_SOURCE_VOICE_CALL) {
         ret = platform_stop_incall_recording_usecase(adev->platform);
-        ALOGV("%s: Stop In-call recording", __func__);
     }
 
     return ret;
@@ -515,7 +506,6 @@ int voice_set_parameters(struct audio_device *adev, struct str_parms *parms)
     int ret = 0, err;
     char *kv_pairs = str_parms_to_str(parms);
 
-    ALOGV_IF(kv_pairs != NULL, "%s: enter: %s", __func__, kv_pairs);
 
     ret = voice_extn_set_parameters(adev, parms);
     if (ret != 0) {
@@ -569,7 +559,6 @@ int voice_set_parameters(struct audio_device *adev, struct str_parms *parms)
     }
 
 done:
-    ALOGV("%s: exit with code(%d)", __func__, ret);
     free(kv_pairs);
     return ret;
 }
@@ -602,8 +591,6 @@ void voice_update_devices_for_all_voice_usecases(struct audio_device *adev)
     list_for_each(node, &adev->usecase_list) {
         usecase = node_to_item(node, struct audio_usecase, list);
         if (usecase->type == VOICE_CALL) {
-            ALOGV("%s: updating device for usecase:%s", __func__,
-                  use_case_table[usecase->id]);
             usecase->stream.out = adev->current_call_output;
             select_devices(adev, usecase->id);
         }

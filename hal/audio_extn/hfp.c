@@ -92,7 +92,6 @@ static int32_t hfp_set_volume(struct audio_device *adev, float value)
     struct mixer_ctl *ctl;
     const char *mixer_ctl_name = HFP_RX_VOLUME;
 
-    ALOGV("%s: entry", __func__);
     ALOGD("%s: (%f)\n", __func__, value);
 
     hfpmod.hfp_volume = value;
@@ -106,7 +105,6 @@ static int32_t hfp_set_volume(struct audio_device *adev, float value)
     vol  = lrint((value * 0x2000) + 0.5);
 
     if (!hfpmod.is_hfp_running) {
-        ALOGV("%s: HFP not active, ignoring set_hfp_volume call", __func__);
         return -EIO;
     }
 
@@ -122,7 +120,6 @@ static int32_t hfp_set_volume(struct audio_device *adev, float value)
         return -EINVAL;
     }
 
-    ALOGV("%s: exit", __func__);
     return ret;
 }
 
@@ -163,11 +160,7 @@ static int32_t start_hfp(struct audio_device *adev,
         goto exit;
     }
 
-    ALOGV("%s: HFP PCM devices (hfp rx tx: %d pcm rx tx: %d) for the usecase(%d)",
-              __func__, pcm_dev_rx_id, pcm_dev_tx_id, uc_info->id);
 
-    ALOGV("%s: Opening PCM playback device card_id(%d) device_id(%d)",
-          __func__, adev->snd_card, pcm_dev_rx_id);
     hfpmod.hfp_sco_rx = pcm_open(adev->snd_card,
                                   pcm_dev_asm_rx_id,
                                   PCM_OUT, &pcm_config_hfp);
@@ -194,8 +187,6 @@ static int32_t start_hfp(struct audio_device *adev,
         ret = -EIO;
         goto exit;
     }
-    ALOGV("%s: Opening PCM capture device card_id(%d) device_id(%d)",
-          __func__, adev->snd_card, pcm_dev_tx_id);
     hfpmod.hfp_pcm_tx = pcm_open(adev->snd_card,
                                    pcm_dev_tx_id,
                                    PCM_IN, &pcm_config_hfp);
@@ -358,6 +349,6 @@ void audio_extn_hfp_set_parameters(struct audio_device *adev, struct str_parms *
         hfp_set_volume(adev, vol);
     }
 exit:
-    ALOGV("%s Exit",__func__);
+    return;
 }
 #endif /*HFP_ENABLED*/

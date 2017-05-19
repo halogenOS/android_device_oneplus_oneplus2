@@ -98,8 +98,6 @@ int audio_hw_call_back(sound_trigger_event_type_t event,
             break;
         }
         memcpy(&st_ses_info->st_ses, &config->st_ses, sizeof (config->st_ses));
-        ALOGV("%s: add capture_handle %d pcm %p", __func__,
-              st_ses_info->st_ses.capture_handle, st_ses_info->st_ses.pcm);
         list_add_tail(&st_dev->st_ses_list, &st_ses_info->list);
         break;
 
@@ -115,8 +113,6 @@ int audio_hw_call_back(sound_trigger_event_type_t event,
             status = -EINVAL;
             break;
         }
-        ALOGV("%s: remove capture_handle %d pcm %p", __func__,
-              st_ses_info->st_ses.capture_handle, st_ses_info->st_ses.pcm);
         list_remove(&st_ses_info->list);
         free(st_ses_info);
         break;
@@ -141,7 +137,6 @@ void audio_extn_sound_trigger_stop_lab(struct stream_in *in)
     pthread_mutex_unlock(&st_dev->lock);
     if (st_ses_info) {
         event.u.ses_info = st_ses_info->st_ses;
-        ALOGV("%s: AUDIO_EVENT_STOP_LAB pcm %p", __func__, st_ses_info->st_ses.pcm);
         st_dev->st_callback(AUDIO_EVENT_STOP_LAB, &event);
     }
 }
@@ -155,8 +150,6 @@ void audio_extn_sound_trigger_check_and_get_session(struct stream_in *in)
 
     pthread_mutex_lock(&st_dev->lock);
     in->is_st_session = false;
-    ALOGV("%s: list %d capture_handle %d", __func__,
-          list_empty(&st_dev->st_ses_list), in->capture_handle);
     list_for_each(node, &st_dev->st_ses_list) {
         st_ses_info = node_to_item(node, struct sound_trigger_info , list);
         if (st_ses_info->st_ses.capture_handle == in->capture_handle) {

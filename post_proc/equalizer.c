@@ -87,15 +87,12 @@ const uint16_t equalizer_band_presets_freq[NUM_EQ_BANDS] = {
 
 int equalizer_get_band_level(equalizer_context_t *context, int32_t band)
 {
-    ALOGV("%s: ctxt %p, band: %d level: %d", __func__, context, band,
-           context->band_levels[band] * 100);
     return context->band_levels[band] * 100;
 }
 
 int equalizer_set_band_level(equalizer_context_t *context, int32_t band,
                              int32_t level)
 {
-    ALOGV("%s: ctxt %p, band: %d, level: %d", __func__, context, band, level);
     if (level > 0) {
         level = (int)((level+50)/100);
     } else {
@@ -122,7 +119,6 @@ int equalizer_set_band_level(equalizer_context_t *context, int32_t band,
 
 int equalizer_get_center_frequency(equalizer_context_t *context, int32_t band)
 {
-    ALOGV("%s: ctxt %p, band: %d", __func__, context, band);
     return (equalizer_band_freq_range[band][0] +
             equalizer_band_freq_range[band][1]) / 2;
 }
@@ -130,7 +126,6 @@ int equalizer_get_center_frequency(equalizer_context_t *context, int32_t band)
 int equalizer_get_band_freq_range(equalizer_context_t *context, int32_t band,
                                   uint32_t *low, uint32_t *high)
 {
-    ALOGV("%s: ctxt %p, band: %d", __func__, context, band);
     *low = equalizer_band_freq_range[band][0];
     *high = equalizer_band_freq_range[band][1];
    return 0;
@@ -140,7 +135,6 @@ int equalizer_get_band(equalizer_context_t *context, uint32_t freq)
 {
     int i;
 
-    ALOGV("%s: ctxt %p, freq: %d", __func__, context, freq);
     for(i = 0; i < NUM_EQ_BANDS; i++) {
         if (freq <= equalizer_band_freq_range[i][1]) {
             return i;
@@ -151,7 +145,6 @@ int equalizer_get_band(equalizer_context_t *context, uint32_t freq)
 
 int equalizer_get_preset(equalizer_context_t *context)
 {
-    ALOGV("%s: ctxt %p, preset: %d", __func__, context, context->preset);
     return context->preset;
 }
 
@@ -159,7 +152,6 @@ int equalizer_set_preset(equalizer_context_t *context, int preset)
 {
     int i;
 
-    ALOGV("%s: ctxt %p, preset: %d", __func__, context, preset);
     context->preset = preset;
     for (i=0; i<NUM_EQ_BANDS; i++)
         context->band_levels[i] =
@@ -184,8 +176,6 @@ int equalizer_set_preset(equalizer_context_t *context, int preset)
 const char * equalizer_get_preset_name(equalizer_context_t *context,
                                        int32_t preset)
 {
-    ALOGV("%s: ctxt %p, preset: %s", __func__, context,
-                        equalizer_preset_names[preset]);
     if (preset == PRESET_CUSTOM) {
         return "Custom";
     } else {
@@ -195,8 +185,6 @@ const char * equalizer_get_preset_name(equalizer_context_t *context,
 
 int equalizer_get_num_presets(equalizer_context_t *context)
 {
-    ALOGV("%s: ctxt %p, presets_num: %d", __func__, context,
-           sizeof(equalizer_preset_names)/sizeof(char *));
     return sizeof(equalizer_preset_names)/sizeof(char *);
 }
 
@@ -212,7 +200,6 @@ int equalizer_get_parameter(effect_context_t *context, effect_param_t *p,
     void *value = p->data + voffset;
     int i;
 
-    ALOGV("%s: ctxt %p, param %d", __func__, eq_ctxt, param);
 
     p->status = 0;
 
@@ -327,7 +314,6 @@ int equalizer_get_parameter(effect_context_t *context, effect_param_t *p,
 
     case EQ_PARAM_GET_PRESET_NAME:
         param2 = *param_tmp;
-        ALOGV("%s: EQ_PARAM_GET_PRESET_NAME: param2: %d", __func__, param2);
         if ((param2 < 0 && param2 != PRESET_CUSTOM) ||
             param2 >= equalizer_get_num_presets(eq_ctxt)) {
                 p->status = -EINVAL;
@@ -373,7 +359,6 @@ int equalizer_set_parameter(effect_context_t *context, effect_param_t *p,
     int32_t level;
     int i;
 
-    ALOGV("%s: ctxt %p, param %d", __func__, eq_ctxt, param);
 
     p->status = 0;
 
@@ -428,7 +413,6 @@ int equalizer_set_parameter(effect_context_t *context, effect_param_t *p,
 
 int equalizer_set_device(effect_context_t *context,  uint32_t device)
 {
-    ALOGV("%s: ctxt %p, device: 0x%x", __func__, context, device);
     equalizer_context_t *eq_ctxt = (equalizer_context_t *)context;
     eq_ctxt->device = device;
     offload_eq_set_device(&(eq_ctxt->offload_eq), device);
@@ -444,7 +428,6 @@ int equalizer_reset(effect_context_t *context)
 
 int equalizer_init(effect_context_t *context)
 {
-    ALOGV("%s: ctxt %p", __func__, context);
     equalizer_context_t *eq_ctxt = (equalizer_context_t *)context;
 
     context->config.inputCfg.accessMode = EFFECT_BUFFER_ACCESS_READ;
@@ -477,7 +460,6 @@ int equalizer_enable(effect_context_t *context)
 {
     equalizer_context_t *eq_ctxt = (equalizer_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, context);
 
     if (!offload_eq_get_enable_flag(&(eq_ctxt->offload_eq))) {
         offload_eq_set_enable_flag(&(eq_ctxt->offload_eq), true);
@@ -497,7 +479,6 @@ int equalizer_disable(effect_context_t *context)
 {
     equalizer_context_t *eq_ctxt = (equalizer_context_t *)context;
 
-    ALOGV("%s:ctxt %p", __func__, eq_ctxt);
     if (offload_eq_get_enable_flag(&(eq_ctxt->offload_eq))) {
         offload_eq_set_enable_flag(&(eq_ctxt->offload_eq), false);
         if (eq_ctxt->ctl)
@@ -514,7 +495,6 @@ int equalizer_start(effect_context_t *context, output_context_t *output)
 {
     equalizer_context_t *eq_ctxt = (equalizer_context_t *)context;
 
-    ALOGV("%s: ctxt %p, ctl %p", __func__, eq_ctxt, output->ctl);
     eq_ctxt->ctl = output->ctl;
     if (offload_eq_get_enable_flag(&(eq_ctxt->offload_eq))) {
         if (eq_ctxt->ctl)
@@ -533,7 +513,6 @@ int equalizer_stop(effect_context_t *context, output_context_t *output __unused)
 {
     equalizer_context_t *eq_ctxt = (equalizer_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, eq_ctxt);
     if (offload_eq_get_enable_flag(&(eq_ctxt->offload_eq)) &&
         eq_ctxt->ctl) {
         struct eq_params eq;
@@ -548,7 +527,6 @@ int equalizer_set_mode(effect_context_t *context, int32_t hw_acc_fd)
 {
     equalizer_context_t *eq_ctxt = (equalizer_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, eq_ctxt);
     eq_ctxt->hw_acc_fd = hw_acc_fd;
     if ((eq_ctxt->hw_acc_fd > 0) &&
         (offload_eq_get_enable_flag(&(eq_ctxt->offload_eq))))

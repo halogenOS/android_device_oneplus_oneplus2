@@ -107,7 +107,6 @@ int offload_update_mixer_and_effects_ctl(int card, int device_id,
 
     snprintf(mixer_string, sizeof(mixer_string),
              "%s %d", "Audio Effects Config", device_id);
-    ALOGV("%s: mixer_string: %s", __func__, mixer_string);
     *mixer = mixer_open(card);
     if (!(*mixer)) {
         ALOGE("Failed to open mixer");
@@ -122,7 +121,6 @@ int offload_update_mixer_and_effects_ctl(int card, int device_id,
             return -EINVAL;
         }
     }
-    ALOGV("mixer: %p, ctl: %p", *mixer, *ctl);
     return 0;
 }
 
@@ -134,14 +132,12 @@ void offload_close_mixer(struct mixer **mixer)
 void offload_bassboost_set_device(struct bass_boost_params *bassboost,
                                   uint32_t device)
 {
-    ALOGVV("%s: device 0x%x", __func__, device);
     bassboost->device = device;
 }
 
 void offload_bassboost_set_enable_flag(struct bass_boost_params *bassboost,
                                        bool enable)
 {
-    ALOGVV("%s: enable=%d", __func__, (int)enable);
     bassboost->enable_flag = enable;
 
 #ifdef DTS_EAGLE
@@ -151,14 +147,12 @@ void offload_bassboost_set_enable_flag(struct bass_boost_params *bassboost,
 
 int offload_bassboost_get_enable_flag(struct bass_boost_params *bassboost)
 {
-    ALOGVV("%s: enable=%d", __func__, (int)bassboost->enable_flag);
     return bassboost->enable_flag;
 }
 
 void offload_bassboost_set_strength(struct bass_boost_params *bassboost,
                                     int strength)
 {
-    ALOGVV("%s: strength %d", __func__, strength);
     bassboost->strength = strength;
 
 #ifdef DTS_EAGLE
@@ -169,7 +163,6 @@ void offload_bassboost_set_strength(struct bass_boost_params *bassboost,
 void offload_bassboost_set_mode(struct bass_boost_params *bassboost,
                                 int mode)
 {
-    ALOGVV("%s: mode %d", __func__, mode);
     bassboost->mode = mode;
 }
 
@@ -180,7 +173,6 @@ static int bassboost_send_params(eff_mode_t mode, void *ctl,
     int param_values[128] = {0};
     int *p_param_values = param_values;
 
-    ALOGV("%s: flags 0x%x", __func__, param_send_flags);
     *p_param_values++ = BASS_BOOST_MODULE;
     *p_param_values++ = bassboost->device;
     *p_param_values++ = 0; /* num of commands*/
@@ -239,14 +231,12 @@ int hw_acc_bassboost_send_params(int fd, struct bass_boost_params *bassboost,
 void offload_virtualizer_set_device(struct virtualizer_params *virtualizer,
                                     uint32_t device)
 {
-    ALOGVV("%s: device=0x%x", __func__, device);
     virtualizer->device = device;
 }
 
 void offload_virtualizer_set_enable_flag(struct virtualizer_params *virtualizer,
                                          bool enable)
 {
-    ALOGVV("%s: enable=%d", __func__, (int)enable);
     virtualizer->enable_flag = enable;
 
 #ifdef DTS_EAGLE
@@ -256,14 +246,12 @@ void offload_virtualizer_set_enable_flag(struct virtualizer_params *virtualizer,
 
 int offload_virtualizer_get_enable_flag(struct virtualizer_params *virtualizer)
 {
-    ALOGVV("%s: enabled %d", __func__, (int)virtualizer->enable_flag);
     return virtualizer->enable_flag;
 }
 
 void offload_virtualizer_set_strength(struct virtualizer_params *virtualizer,
                                       int strength)
 {
-    ALOGVV("%s: strength %d", __func__, strength);
     virtualizer->strength = strength;
 
 #ifdef DTS_EAGLE
@@ -274,14 +262,12 @@ void offload_virtualizer_set_strength(struct virtualizer_params *virtualizer,
 void offload_virtualizer_set_out_type(struct virtualizer_params *virtualizer,
                                       int out_type)
 {
-    ALOGVV("%s: out_type %d", __func__, out_type);
     virtualizer->out_type = out_type;
 }
 
 void offload_virtualizer_set_gain_adjust(struct virtualizer_params *virtualizer,
                                          int gain_adjust)
 {
-    ALOGVV("%s: gain %d", __func__, gain_adjust);
     virtualizer->gain_adjust = gain_adjust;
 }
 
@@ -292,7 +278,6 @@ static int virtualizer_send_params(eff_mode_t mode, void *ctl,
     int param_values[128] = {0};
     int *p_param_values = param_values;
 
-    ALOGV("%s: flags 0x%x", __func__, param_send_flags);
     *p_param_values++ = VIRTUALIZER_MODULE;
     *p_param_values++ = virtualizer->device;
     *p_param_values++ = 0; /* num of commands*/
@@ -359,13 +344,11 @@ int hw_acc_virtualizer_send_params(int fd,
 
 void offload_eq_set_device(struct eq_params *eq, uint32_t device)
 {
-    ALOGVV("%s: device 0x%x", __func__, device);
     eq->device = device;
 }
 
 void offload_eq_set_enable_flag(struct eq_params *eq, bool enable)
 {
-    ALOGVV("%s: enable=%d", __func__, (int)enable);
     eq->enable_flag = enable;
 
 #ifdef DTS_EAGLE
@@ -375,13 +358,11 @@ void offload_eq_set_enable_flag(struct eq_params *eq, bool enable)
 
 int offload_eq_get_enable_flag(struct eq_params *eq)
 {
-    ALOGVV("%s: enabled=%d", __func__, (int)eq->enable_flag);
     return eq->enable_flag;
 }
 
 void offload_eq_set_preset(struct eq_params *eq, int preset)
 {
-    ALOGVV("%s: preset %d", __func__, preset);
     eq->config.preset_id = preset;
     eq->config.eq_pregain = Q27_UNITY;
 }
@@ -391,7 +372,6 @@ void offload_eq_set_bands_level(struct eq_params *eq, int num_bands,
                                 int *band_gain_list)
 {
     int i;
-    ALOGVV("%s", __func__);
     eq->config.num_bands = num_bands;
     for (i=0; i<num_bands; i++) {
         eq->per_band_cfg[i].band_idx = i;
@@ -413,10 +393,8 @@ static int eq_send_params(eff_mode_t mode, void *ctl, struct eq_params *eq,
     int *p_param_values = param_values;
     uint32_t i;
 
-    ALOGV("%s: flags 0x%x", __func__, param_send_flags);
     if ((eq->config.preset_id < -1) ||
             ((param_send_flags & OFFLOAD_SEND_EQ_PRESET) && (eq->config.preset_id == -1))) {
-        ALOGV("No Valid preset to set");
         return 0;
     }
     *p_param_values++ = EQ_MODULE;
@@ -487,85 +465,72 @@ int hw_acc_eq_send_params(int fd, struct eq_params *eq,
 
 void offload_reverb_set_device(struct reverb_params *reverb, uint32_t device)
 {
-    ALOGVV("%s: device 0x%x", __func__, device);
     reverb->device = device;
 }
 
 void offload_reverb_set_enable_flag(struct reverb_params *reverb, bool enable)
 {
-    ALOGVV("%s: enable=%d", __func__, (int)enable);
     reverb->enable_flag = enable;
 }
 
 int offload_reverb_get_enable_flag(struct reverb_params *reverb)
 {
-    ALOGVV("%s: enabled=%d", __func__, reverb->enable_flag);
     return reverb->enable_flag;
 }
 
 void offload_reverb_set_mode(struct reverb_params *reverb, int mode)
 {
-    ALOGVV("%s", __func__);
     reverb->mode = mode;
 }
 
 void offload_reverb_set_preset(struct reverb_params *reverb, int preset)
 {
-    ALOGVV("%s: preset %d", __func__, preset);
     if (preset && (preset <= NUM_OSL_REVERB_PRESETS_SUPPORTED))
         reverb->preset = map_reverb_opensl_preset_2_offload_preset[preset-1][1];
 }
 
 void offload_reverb_set_wet_mix(struct reverb_params *reverb, int wet_mix)
 {
-    ALOGVV("%s: wet_mix %d", __func__, wet_mix);
     reverb->wet_mix = wet_mix;
 }
 
 void offload_reverb_set_gain_adjust(struct reverb_params *reverb,
                                     int gain_adjust)
 {
-    ALOGVV("%s: gain %d", __func__, gain_adjust);
     reverb->gain_adjust = gain_adjust;
 }
 
 void offload_reverb_set_room_level(struct reverb_params *reverb, int room_level)
 {
-    ALOGVV("%s: level %d", __func__, room_level);
     reverb->room_level = room_level;
 }
 
 void offload_reverb_set_room_hf_level(struct reverb_params *reverb,
                                       int room_hf_level)
 {
-    ALOGVV("%s: level %d", __func__, room_hf_level);
     reverb->room_hf_level = room_hf_level;
 }
 
 void offload_reverb_set_decay_time(struct reverb_params *reverb, int decay_time)
 {
-    ALOGVV("%s: decay time %d", __func__, decay_time);
     reverb->decay_time = decay_time;
 }
 
 void offload_reverb_set_decay_hf_ratio(struct reverb_params *reverb,
                                        int decay_hf_ratio)
 {
-    ALOGVV("%s: decay_hf_ratio %d", __func__, decay_hf_ratio);
     reverb->decay_hf_ratio = decay_hf_ratio;
 }
 
 void offload_reverb_set_reflections_level(struct reverb_params *reverb,
                                           int reflections_level)
 {
-    ALOGVV("%s: ref level %d", __func__, reflections_level);
     reverb->reflections_level = reflections_level;
 }
 
 void offload_reverb_set_reflections_delay(struct reverb_params *reverb,
                                           int reflections_delay)
 {
-    ALOGVV("%s: ref delay", __func__, reflections_delay);
     reverb->reflections_delay = reflections_delay;
 }
 
@@ -578,19 +543,16 @@ void offload_reverb_set_reverb_level(struct reverb_params *reverb,
 
 void offload_reverb_set_delay(struct reverb_params *reverb, int delay)
 {
-    ALOGVV("%s: delay %d", __func__, delay);
     reverb->delay = delay;
 }
 
 void offload_reverb_set_diffusion(struct reverb_params *reverb, int diffusion)
 {
-    ALOGVV("%s: diffusion %d", __func__, diffusion);
     reverb->diffusion = diffusion;
 }
 
 void offload_reverb_set_density(struct reverb_params *reverb, int density)
 {
-    ALOGVV("%s: density %d", __func__, density);
     reverb->density = density;
 }
 
@@ -601,7 +563,6 @@ static int reverb_send_params(eff_mode_t mode, void *ctl,
     int param_values[128] = {0};
     int *p_param_values = param_values;
 
-    ALOGV("%s: flags 0x%x", __func__, param_send_flags);
     *p_param_values++ = REVERB_MODULE;
     *p_param_values++ = reverb->device;
     *p_param_values++ = 0; /* num of commands*/
@@ -756,20 +717,17 @@ int hw_acc_reverb_send_params(int fd, struct reverb_params *reverb,
 
 void offload_soft_volume_set_enable(struct soft_volume_params *vol, bool enable)
 {
-    ALOGV("%s", __func__);
     vol->enable_flag = enable;
 }
 
 void offload_soft_volume_set_gain_master(struct soft_volume_params *vol, int gain)
 {
-    ALOGV("%s", __func__);
     vol->master_gain = gain;
 }
 
 void offload_soft_volume_set_gain_2ch(struct soft_volume_params *vol,
                                       int l_gain, int r_gain)
 {
-    ALOGV("%s", __func__);
     vol->left_gain = l_gain;
     vol->right_gain = r_gain;
 }
@@ -782,7 +740,6 @@ int offload_soft_volume_send_params(struct mixer_ctl *ctl,
     int *p_param_values = param_values;
     uint32_t i;
 
-    ALOGV("%s", __func__);
     *p_param_values++ = SOFT_VOLUME_MODULE;
     *p_param_values++ = 0;
     *p_param_values++ = 0; /* num of commands*/
@@ -821,21 +778,18 @@ int offload_soft_volume_send_params(struct mixer_ctl *ctl,
 void offload_transition_soft_volume_set_enable(struct soft_volume_params *vol,
                                                bool enable)
 {
-    ALOGV("%s", __func__);
     vol->enable_flag = enable;
 }
 
 void offload_transition_soft_volume_set_gain_master(struct soft_volume_params *vol,
                                                     int gain)
 {
-    ALOGV("%s", __func__);
     vol->master_gain = gain;
 }
 
 void offload_transition_soft_volume_set_gain_2ch(struct soft_volume_params *vol,
                                                  int l_gain, int r_gain)
 {
-    ALOGV("%s", __func__);
     vol->left_gain = l_gain;
     vol->right_gain = r_gain;
 }
@@ -848,7 +802,6 @@ int offload_transition_soft_volume_send_params(struct mixer_ctl *ctl,
     int *p_param_values = param_values;
     uint32_t i;
 
-    ALOGV("%s", __func__);
     *p_param_values++ = SOFT_VOLUME2_MODULE;
     *p_param_values++ = 0;
     *p_param_values++ = 0; /* num of commands*/
@@ -891,7 +844,6 @@ static int hpx_send_params(eff_mode_t mode, void *ctl,
     int *p_param_values = param_values;
     uint32_t i;
 
-    ALOGV("%s", __func__);
     if (param_send_flags & OFFLOAD_SEND_HPX_STATE_OFF) {
         *p_param_values++ = DTS_EAGLE_MODULE_ENABLE;
         *p_param_values++ = 0; /* hpx off*/

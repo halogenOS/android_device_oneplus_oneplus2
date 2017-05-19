@@ -47,14 +47,11 @@ const effect_descriptor_t bassboost_descriptor = {
 
 int bassboost_get_strength(bassboost_context_t *context)
 {
-    ALOGV("%s: ctxt %p, strength: %d", __func__,
-                      context,  context->strength);
     return context->strength;
 }
 
 int bassboost_set_strength(bassboost_context_t *context, uint32_t strength)
 {
-    ALOGV("%s: ctxt %p, strength: %d", __func__, context, strength);
     context->strength = strength;
 
     offload_bassboost_set_strength(&(context->offload_bass), strength);
@@ -80,7 +77,6 @@ int bassboost_get_parameter(effect_context_t *context, effect_param_t *p,
     void *value = p->data + voffset;
     int i;
 
-    ALOGV("%s: ctxt %p, param %d", __func__, bass_ctxt, param);
 
     p->status = 0;
 
@@ -131,7 +127,6 @@ int bassboost_set_parameter(effect_context_t *context, effect_param_t *p,
     int32_t param = *param_tmp++;
     uint32_t strength;
 
-    ALOGV("%s: ctxt %p, param %d", __func__, bass_ctxt, param);
 
     p->status = 0;
 
@@ -152,7 +147,6 @@ int bassboost_set_device(effect_context_t *context, uint32_t device)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
 
-    ALOGV("%s: ctxt %p, device 0x%x", __func__, bass_ctxt, device);
     bass_ctxt->device = device;
     if((device == AUDIO_DEVICE_OUT_SPEAKER) ||
        (device == AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT) ||
@@ -209,7 +203,6 @@ int bassboost_init(effect_context_t *context)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, bass_ctxt);
     context->config.inputCfg.accessMode = EFFECT_BUFFER_ACCESS_READ;
     context->config.inputCfg.channels = AUDIO_CHANNEL_OUT_STEREO;
     context->config.inputCfg.format = AUDIO_FORMAT_PCM_16_BIT;
@@ -240,7 +233,6 @@ int bassboost_enable(effect_context_t *context)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
 
-    ALOGV("%s: ctxt %p, strength %d", __func__, bass_ctxt, bass_ctxt->strength);
 
     if (!offload_bassboost_get_enable_flag(&(bass_ctxt->offload_bass)) &&
         !(bass_ctxt->temp_disabled)) {
@@ -263,7 +255,6 @@ int bassboost_disable(effect_context_t *context)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, bass_ctxt);
     if (offload_bassboost_get_enable_flag(&(bass_ctxt->offload_bass))) {
         offload_bassboost_set_enable_flag(&(bass_ctxt->offload_bass), false);
         if (bass_ctxt->ctl)
@@ -282,8 +273,6 @@ int bassboost_start(effect_context_t *context, output_context_t *output)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
 
-    ALOGV("%s: ctxt %p, ctl %p, strength %d", __func__, bass_ctxt,
-                                   output->ctl, bass_ctxt->strength);
     bass_ctxt->ctl = output->ctl;
     if (offload_bassboost_get_enable_flag(&(bass_ctxt->offload_bass))) {
         if (bass_ctxt->ctl)
@@ -303,7 +292,6 @@ int bassboost_stop(effect_context_t *context, output_context_t *output __unused)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, bass_ctxt);
     if (offload_bassboost_get_enable_flag(&(bass_ctxt->offload_bass)) &&
         bass_ctxt->ctl) {
         struct bass_boost_params bassboost;
@@ -319,7 +307,6 @@ int bassboost_set_mode(effect_context_t *context, int32_t hw_acc_fd)
 {
     bassboost_context_t *bass_ctxt = (bassboost_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, bass_ctxt);
     bass_ctxt->hw_acc_fd = hw_acc_fd;
     if ((bass_ctxt->hw_acc_fd > 0) &&
         (offload_bassboost_get_enable_flag(&(bass_ctxt->offload_bass))))

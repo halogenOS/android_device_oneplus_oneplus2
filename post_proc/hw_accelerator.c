@@ -64,7 +64,6 @@ int hw_accelerator_get_parameter(effect_context_t *context,
     void *value = p->data + voffset;
     int i;
 
-    ALOGV("%s: ctxt %p, param %d", __func__, hw_acc_ctxt, param);
 
     p->status = 0;
 
@@ -85,7 +84,6 @@ int hw_accelerator_get_parameter(effect_context_t *context,
 
     switch (param) {
     case HW_ACCELERATOR_FD:
-        ALOGV("%s: HW_ACCELERATOR_FD", __func__);
         *(int32_t *)value = hw_acc_ctxt->fd;
         break;
 
@@ -106,7 +104,6 @@ int hw_accelerator_set_parameter(effect_context_t *context, effect_param_t *p,
     int32_t *param_tmp = (int32_t *)p->data;
     int32_t param = *param_tmp++;
 
-    ALOGV("%s: ctxt %p, param %d", __func__, hw_acc_ctxt, param);
 
     p->status = 0;
 
@@ -131,7 +128,6 @@ int hw_accelerator_set_device(effect_context_t *context, uint32_t device)
 {
     hw_accelerator_context_t *hw_acc_ctxt = (hw_accelerator_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, hw_acc_ctxt);
     hw_acc_ctxt->device = device;
     return 0;
 }
@@ -140,7 +136,6 @@ int hw_accelerator_init(effect_context_t *context)
 {
     hw_accelerator_context_t *hw_acc_ctxt = (hw_accelerator_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, hw_acc_ctxt);
     context->config.inputCfg.accessMode = EFFECT_BUFFER_ACCESS_READ;
     context->config.inputCfg.channels = AUDIO_CHANNEL_OUT_7POINT1;
     context->config.inputCfg.format = AUDIO_FORMAT_PCM_16_BIT;
@@ -169,7 +164,6 @@ int hw_accelerator_init(effect_context_t *context)
 
 int hw_accelerator_reset(effect_context_t *context)
 {
-    ALOGV("%s", __func__);
     return 0;
 }
 
@@ -177,7 +171,6 @@ int hw_accelerator_set_mode(effect_context_t *context, int32_t frame_count)
 {
     hw_accelerator_context_t *hw_acc_ctxt = (hw_accelerator_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, hw_acc_ctxt);
     hw_acc_ctxt->cfg.output.sample_rate = context->config.inputCfg.samplingRate;
     hw_acc_ctxt->cfg.input.sample_rate = context->config.outputCfg.samplingRate;
 
@@ -189,12 +182,6 @@ int hw_accelerator_set_mode(effect_context_t *context, int32_t frame_count)
     hw_acc_ctxt->cfg.input.bits_per_sample = 8 *
                                 audio_bytes_per_sample(context->config.outputCfg.format);
 
-    ALOGV("write: sample_rate: %d, channel: %d, bit_width: %d",
-           hw_acc_ctxt->cfg.output.sample_rate, hw_acc_ctxt->cfg.output.num_channels,
-           hw_acc_ctxt->cfg.output.bits_per_sample);
-    ALOGV("read: sample_rate: %d, channel: %d, bit_width: %d",
-           hw_acc_ctxt->cfg.input.sample_rate, hw_acc_ctxt->cfg.input.num_channels,
-           hw_acc_ctxt->cfg.input.bits_per_sample);
 
     hw_acc_ctxt->cfg.output.num_buf = 4;
     hw_acc_ctxt->cfg.input.num_buf = 2;
@@ -220,7 +207,6 @@ int hw_accelerator_enable(effect_context_t *context)
 {
     hw_accelerator_context_t *hw_acc_ctxt = (hw_accelerator_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, hw_acc_ctxt);
     hw_acc_ctxt->fd = open("/dev/msm_hweffects", O_RDWR | O_NONBLOCK);
     /* open driver */
     if (hw_acc_ctxt->fd < 0) {
@@ -250,7 +236,6 @@ int hw_accelerator_disable(effect_context_t *context)
 {
     hw_accelerator_context_t *hw_acc_ctxt = (hw_accelerator_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, hw_acc_ctxt);
     if (hw_acc_ctxt->fd > 0)
         if (close(hw_acc_ctxt->fd) < 0)
             ALOGE("releasing hardware accelerated effects driver failed");
@@ -262,7 +247,6 @@ int hw_accelerator_release(effect_context_t *context)
 {
     hw_accelerator_context_t *hw_acc_ctxt = (hw_accelerator_context_t *)context;
 
-    ALOGV("%s: ctxt %p", __func__, hw_acc_ctxt);
     if (hw_acc_ctxt->fd > 0)
         if (close(hw_acc_ctxt->fd) < 0)
             ALOGE("releasing hardware accelerated effects driver failed");
@@ -278,7 +262,6 @@ int hw_accelerator_process(effect_context_t *context, audio_buffer_t *in_buf,
     struct msm_hwacc_buf_avail buf_avail;
     int ret = 0;
 
-    ALOGV("%s: ctxt %p", __func__, hw_acc_ctxt);
     if (in_buf == NULL || in_buf->raw == NULL ||
         out_buf == NULL || out_buf->raw == NULL)
         return -EINVAL;
@@ -304,7 +287,6 @@ int hw_accelerator_process(effect_context_t *context, audio_buffer_t *in_buf,
             ALOGE("AUDIO_EFFECTS_WRITE failed");
             return -EFAULT;
         }
-        ALOGV("Request for more data");
         hw_acc_ctxt->intial_buffer_done = true;
         return -ENODATA;
     }

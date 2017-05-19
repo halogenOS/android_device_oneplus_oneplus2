@@ -357,9 +357,6 @@ static int32_t usb_playback_entry(void *adev)
     pcm_config_usbmod.period_size = USB_PERIOD_SIZE/4;
     pcm_config_usbmod.channels = usbmod->channels_playback;
     pcm_config_usbmod.rate = usbmod->sample_rate_playback;
-    ALOGV("%s: usb device %u:period %u:channels %u:sample", __func__,
-          pcm_config_usbmod.period_size, pcm_config_usbmod.channels,
-          pcm_config_usbmod.rate);
 
     usbmod->usb_pcm_playback_handle = pcm_open(usbmod->usb_card, \
                                     usbmod->usb_device_id, PCM_OUT |
@@ -476,9 +473,6 @@ static int32_t usb_record_entry(void *adev)
     pcm_config_usbmod.period_size = USB_PERIOD_SIZE/4;
     pcm_config_usbmod.channels = usbmod->channels_record;
     pcm_config_usbmod.rate = usbmod->sample_rate_record;
-    ALOGV("%s: usb device %u:period %u:channels %u:sample", __func__,
-          pcm_config_usbmod.period_size, pcm_config_usbmod.channels,
-          pcm_config_usbmod.rate);
 
     usbmod->usb_pcm_record_handle = pcm_open(usbmod->usb_card, \
                                     usbmod->usb_device_id, PCM_IN |
@@ -502,9 +496,6 @@ static int32_t usb_record_entry(void *adev)
     pcm_config_usbmod.channels = usbmod->channels_record;
     pcm_config_usbmod.period_count = AFE_PROXY_PERIOD_COUNT * 2;
     usbmod->proxy_device_id = AFE_PROXY_CAPTURE_DEVICE;
-    ALOGV("%s: proxy device %u:period %u:channels %u:sample", __func__,
-          pcm_config_usbmod.period_size, pcm_config_usbmod.channels,
-          pcm_config_usbmod.rate);
 
     while(proxy_open_retry_count){
         usbmod->proxy_pcm_record_handle = pcm_open(usbmod->proxy_card,

@@ -73,7 +73,6 @@ static int32_t fm_set_volume(struct audio_device *adev, float value)
     struct mixer_ctl *ctl;
     const char *mixer_ctl_name = FM_RX_VOLUME;
 
-    ALOGV("%s: entry", __func__);
     ALOGD("%s: (%f)\n", __func__, value);
 
     if (value < 0.0) {
@@ -93,7 +92,6 @@ static int32_t fm_set_volume(struct audio_device *adev, float value)
     }
 
     if (!fmmod.is_fm_running) {
-        ALOGV("%s: FM not active, ignoring set_fm_volume call", __func__);
         return -EIO;
     }
 
@@ -105,7 +103,6 @@ static int32_t fm_set_volume(struct audio_device *adev, float value)
         return -EINVAL;
     }
     mixer_ctl_set_value(ctl, 0, vol);
-    ALOGV("%s: exit", __func__);
     return ret;
 }
 
@@ -182,11 +179,7 @@ static int32_t fm_start(struct audio_device *adev)
         goto exit;
     }
 
-    ALOGV("%s: FM PCM devices (rx: %d tx: %d) for the usecase(%d)",
-              __func__, pcm_dev_rx_id, pcm_dev_tx_id, uc_info->id);
 
-    ALOGV("%s: Opening PCM playback device card_id(%d) device_id(%d)",
-          __func__, adev->snd_card, pcm_dev_rx_id);
     fmmod.fm_pcm_rx = pcm_open(adev->snd_card,
                                pcm_dev_rx_id,
                                PCM_OUT, &pcm_config_fm);
@@ -196,8 +189,6 @@ static int32_t fm_start(struct audio_device *adev)
         goto exit;
     }
 
-    ALOGV("%s: Opening PCM capture device card_id(%d) device_id(%d)",
-          __func__, adev->snd_card, pcm_dev_tx_id);
     fmmod.fm_pcm_tx = pcm_open(adev->snd_card,
                                pcm_dev_tx_id,
                                PCM_IN, &pcm_config_fm);
@@ -228,7 +219,6 @@ void audio_extn_fm_set_parameters(struct audio_device *adev,
     char value[32]={0};
     float vol =0.0;
 
-    ALOGV("%s: enter", __func__);
     ret = str_parms_get_str(parms, "SND_CARD_STATUS", value, sizeof(value));
     if (ret >= 0) {
         char *snd_card_status = value+2;
@@ -296,10 +286,8 @@ void audio_extn_fm_set_parameters(struct audio_device *adev,
             fmmod.is_fm_muted = true;
         else
             fmmod.is_fm_muted = false;
-        ALOGV("%s: set_fm_volume from param mute", __func__);
         fm_set_volume(adev, fmmod.fm_volume);
     }
 exit:
-    ALOGV("%s: exit", __func__);
 }
 #endif /* FM_POWER_OPT end */

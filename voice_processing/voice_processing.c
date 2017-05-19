@@ -168,7 +168,6 @@ static void session_set_fx_enabled(struct session_s *session, uint32_t id, bool 
 static int effect_set_state(struct effect_s *effect, uint32_t state)
 {
     int status = 0;
-    ALOGV("effect_set_state() id %d, new %d old %d", effect->id, state, effect->state);
     switch(state) {
     case EFFECT_STATE_INIT:
         switch(effect->state) {
@@ -288,8 +287,6 @@ static int session_create_effect(struct session_s *session,
 {
     int status = -ENOMEM;
 
-    ALOGV("session_create_effect() %s, created_msk %08x",
-          id == AEC_ID ? "AEC" : id == NS_ID ? "NS" : "?", session->created_msk);
 
     if (session->created_msk == 0) {
         session->config.inputCfg.samplingRate = 16000;
@@ -305,7 +302,6 @@ static int session_create_effect(struct session_s *session,
     if (status < 0)
         goto error;
 
-    ALOGV("session_create_effect() OK");
     session->created_msk |= (1<<id);
     return status;
 
@@ -321,7 +317,6 @@ static int session_release_effect(struct session_s *session,
     session->created_msk &= ~(1<<fx->id);
     if (session->created_msk == 0)
     {
-        ALOGV("session_release_effect() last effect: removing session");
         list_remove(&session->node);
         free(session);
     }
@@ -339,8 +334,6 @@ static int session_set_config(struct session_s *session, effect_config_t *config
             config->inputCfg.format != AUDIO_FORMAT_PCM_16_BIT)
         return -EINVAL;
 
-    ALOGV("session_set_config() sampling rate %d channels %08x",
-         config->inputCfg.samplingRate, config->inputCfg.channels);
 
     // if at least one process is enabled, do not accept configuration changes
     if (session->enabled_msk) {
@@ -380,8 +373,6 @@ static void session_set_fx_enabled(struct session_s *session, uint32_t id, bool 
             /* do last enable here */
         }
     }
-    ALOGV("session_set_fx_enabled() id %d, enabled %d enabled_msk %08x",
-         id, enabled, session->enabled_msk);
     session->processed_msk = 0;
 }
 
@@ -400,10 +391,8 @@ static struct session_s *get_session(int32_t id, int32_t  sessionId, int32_t  io
         session = node_to_item(node, struct session_s, node);
         if (session->io == ioId) {
             if (session->created_msk & (1 << id)) {
-                ALOGV("get_session() effect %d already created", id);
                 return NULL;
             }
-            ALOGV("get_session() found session %p", session);
             return session;
         }
     }
@@ -418,7 +407,6 @@ static struct session_s *get_session(int32_t id, int32_t  sessionId, int32_t  io
     session->io = ioId;
     list_add_tail(&session_list, &session->node);
 
-    ALOGV("get_session() created session %p", session);
 
     return session;
 }
@@ -435,7 +423,6 @@ static int init() {
         if (lib_handle == NULL) {
             ALOGE("%s: DLOPEN failed for %s", __func__, EFFECTS_DESCRIPTOR_LIBRARY_PATH);
         } else {
-            ALOGV("%s: DLOPEN successful for %s", __func__, EFFECTS_DESCRIPTOR_LIBRARY_PATH);
             desc = (const effect_descriptor_t *)dlsym(lib_handle,
                                                         "qcom_product_aec_descriptor");
             if (desc)
@@ -487,7 +474,6 @@ static int fx_process(effect_handle_t     self,
     struct session_s *session;
 
     if (effect == NULL) {
-        ALOGV("fx_process() ERROR effect == NULL");
         return -EINVAL;
     }
 
@@ -520,7 +506,6 @@ static int fx_command(effect_handle_t  self,
     if (effect == NULL)
         return -EINVAL;
 
-    //ALOGV("fx_command: command %d cmdSize %d",cmdCode, cmdSize);
 
     switch (cmdCode) {
         case EFFECT_CMD_INIT:
@@ -535,7 +520,6 @@ static int fx_command(effect_handle_t  self,
                     cmdSize     != sizeof(effect_config_t)||
                     pReplyData  == NULL||
                     *replySize  != sizeof(int)) {
-                ALOGV("fx_command() EFFECT_CMD_SET_CONFIG invalid args");
                 return -EINVAL;
             }
             *(int *)pReplyData = session_set_config(effect->session, (effect_config_t *)pCmdData);
@@ -550,7 +534,6 @@ static int fx_command(effect_handle_t  self,
         case EFFECT_CMD_GET_CONFIG:
             if (pReplyData == NULL ||
                     *replySize != sizeof(effect_config_t)) {
-                ALOGV("fx_command() EFFECT_CMD_GET_CONFIG invalid args");
                 return -EINVAL;
             }
 
@@ -567,7 +550,6 @@ static int fx_command(effect_handle_t  self,
                     *replySize < (int)sizeof(effect_param_t) ||
                     // constrain memcpy below
                     ((effect_param_t *)pCmdData)->psize > *replySize - sizeof(effect_param_t)) {
-                ALOGV("fx_command() EFFECT_CMD_GET_PARAM invalid args");
                 return -EINVAL;
             }
             effect_param_t *p = (effect_param_t *)pCmdData;
@@ -583,13 +565,11 @@ static int fx_command(effect_handle_t  self,
                     cmdSize < (int)sizeof(effect_param_t) ||
                     pReplyData == NULL ||
                     *replySize != sizeof(int32_t)) {
-                ALOGV("fx_command() EFFECT_CMD_SET_PARAM invalid args");
                 return -EINVAL;
             }
             effect_param_t *p = (effect_param_t *) pCmdData;
 
             if (p->psize != sizeof(int32_t)) {
-                ALOGV("fx_command() EFFECT_CMD_SET_PARAM invalid param format");
                 return -EINVAL;
             }
             *(int *)pReplyData = -ENOSYS;
@@ -597,7 +577,6 @@ static int fx_command(effect_handle_t  self,
 
         case EFFECT_CMD_ENABLE:
             if (pReplyData == NULL || *replySize != sizeof(int)) {
-                ALOGV("fx_command() EFFECT_CMD_ENABLE invalid args");
                 return -EINVAL;
             }
             *(int *)pReplyData = effect_set_state(effect, EFFECT_STATE_ACTIVE);
@@ -605,7 +584,6 @@ static int fx_command(effect_handle_t  self,
 
         case EFFECT_CMD_DISABLE:
             if (pReplyData == NULL || *replySize != sizeof(int)) {
-                ALOGV("fx_command() EFFECT_CMD_DISABLE invalid args");
                 return -EINVAL;
             }
             *(int *)pReplyData  = effect_set_state(effect, EFFECT_STATE_CONFIG);
@@ -617,21 +595,8 @@ static int fx_command(effect_handle_t  self,
         case EFFECT_CMD_SET_AUDIO_MODE:
             if (pCmdData == NULL ||
                     cmdSize != sizeof(uint32_t)) {
-                ALOGV("fx_command() %s invalid args",
-                      cmdCode == EFFECT_CMD_SET_DEVICE ? "EFFECT_CMD_SET_DEVICE" :
-                      cmdCode == EFFECT_CMD_SET_INPUT_DEVICE ? "EFFECT_CMD_SET_INPUT_DEVICE" :
-                      cmdCode == EFFECT_CMD_SET_VOLUME ? "EFFECT_CMD_SET_VOLUME" :
-                      cmdCode == EFFECT_CMD_SET_AUDIO_MODE ? "EFFECT_CMD_SET_AUDIO_MODE" :
-                       "");
                 return -EINVAL;
             }
-            ALOGV("fx_command() %s value %08x",
-                  cmdCode == EFFECT_CMD_SET_DEVICE ? "EFFECT_CMD_SET_DEVICE" :
-                  cmdCode == EFFECT_CMD_SET_INPUT_DEVICE ? "EFFECT_CMD_SET_INPUT_DEVICE" :
-                  cmdCode == EFFECT_CMD_SET_VOLUME ? "EFFECT_CMD_SET_VOLUME" :
-                  cmdCode == EFFECT_CMD_SET_AUDIO_MODE ? "EFFECT_CMD_SET_AUDIO_MODE":
-                  "",
-                  *(int *)pCmdData);
             break;
 
         default:
@@ -672,7 +637,6 @@ static int lib_create(const effect_uuid_t *uuid,
                             int32_t             ioId,
                             effect_handle_t  *pInterface)
 {
-    ALOGV("lib_create: uuid: %08x session %d IO: %d", uuid->timeLow, sessionId, ioId);
 
     int status;
     const effect_descriptor_t *desc;
@@ -715,7 +679,6 @@ static int lib_release(effect_handle_t interface)
     struct listnode *node;
     struct session_s *session;
 
-    ALOGV("lib_release %p", interface);
     if (init() != 0)
         return init_status;
 
@@ -745,11 +708,9 @@ static int lib_get_descriptor(const effect_uuid_t *uuid,
 
     desc = get_descriptor(uuid);
     if (desc == NULL) {
-        ALOGV("lib_get_descriptor() not found");
         return  -EINVAL;
     }
 
-    ALOGV("lib_get_descriptor() got fx %s", desc->name);
 
     *pDescriptor = *desc;
     return 0;

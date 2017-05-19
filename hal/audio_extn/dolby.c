@@ -154,8 +154,6 @@ int update_ddp_endp_table(int device, int dev_ch_cap, int param_id,
 {
     int idx = 0;
     int param_idx = 0;
-    ALOGV("%s: dev 0x%x dev_ch_cap %d param_id 0x%x param_val %d",
-           __func__, device, dev_ch_cap , param_id, param_val);
 
     for(idx=0; idx<DDP_ENDP_NUM_DEVICES; idx++) {
         if(ddp_endp_params[idx].device == device) {
@@ -181,7 +179,6 @@ int update_ddp_endp_table(int device, int dev_ch_cap, int param_id,
         return -EINVAL;
     }
 
-    ALOGV("ddp_endp_params[%d].param_val[%d] = %d", idx, param_idx, param_val);
     ddp_endp_params[idx].param_val[param_idx] = param_val;
     return 0;
 }
@@ -423,7 +420,6 @@ int audio_extn_dolby_update_passt_formats(struct audio_device *adev,
         out->supported_formats[i++] = AUDIO_FORMAT_E_AC3_JOC;
         ret = 0;
     }
-    ALOGV("%s: ret = %d", __func__, ret);
     return ret;
 }
 
@@ -436,7 +432,6 @@ bool audio_extn_dolby_is_passt_convert_supported(struct audio_device *adev,
     case AUDIO_FORMAT_E_AC3_JOC:
         if (!platform_is_edid_supported_format(adev->platform,
             AUDIO_FORMAT_E_AC3)) {
-            ALOGV("%s:PASSTHROUGH_CONVERT supported", __func__);
             convert = true;
         }
         break;
@@ -455,8 +450,6 @@ bool audio_extn_dolby_is_passt_supported(struct audio_device *adev,
     switch (out->format) {
     case AUDIO_FORMAT_E_AC3:
         if (platform_is_edid_supported_format(adev->platform, out->format)) {
-            ALOGV("%s:PASSTHROUGH supported for format %x",
-                   __func__, out->format);
             passt = true;
         }
         break;
@@ -464,8 +457,6 @@ bool audio_extn_dolby_is_passt_supported(struct audio_device *adev,
         if (platform_is_edid_supported_format(adev->platform, AUDIO_FORMAT_AC3)
             || platform_is_edid_supported_format(adev->platform,
             AUDIO_FORMAT_E_AC3)) {
-            ALOGV("%s:PASSTHROUGH supported for format %x",
-                   __func__, out->format);
             passt = true;
         }
         break;
@@ -473,12 +464,9 @@ bool audio_extn_dolby_is_passt_supported(struct audio_device *adev,
          /* Check for DDP capability in edid for JOC contents.*/
          if (platform_is_edid_supported_format(adev->platform,
              AUDIO_FORMAT_E_AC3)) {
-             ALOGV("%s:PASSTHROUGH supported for format %x",
-                   __func__, out->format);
              passt = true;
          }
     default:
-        ALOGV("%s:Passthrough not supported", __func__);
     }
     return passt;
 }
@@ -486,13 +474,10 @@ bool audio_extn_dolby_is_passt_supported(struct audio_device *adev,
 void audio_extn_dolby_update_passt_stream_configuration(
         struct audio_device *adev, struct stream_out *out) {
     if (audio_extn_dolby_is_passt_supported(adev, out)) {
-        ALOGV("%s:PASSTHROUGH", __func__);
         out->compr_config.codec->compr_passthr = PASSTHROUGH;
     } else if (audio_extn_dolby_is_passt_convert_supported(adev, out)){
-        ALOGV("%s:PASSTHROUGH CONVERT", __func__);
         out->compr_config.codec->compr_passthr = PASSTHROUGH_CONVERT;
     } else {
-        ALOGV("%s:NO PASSTHROUGH", __func__);
         out->compr_config.codec->compr_passthr = LEGACY_PCM;
     }
 }
@@ -586,7 +571,6 @@ void audio_extn_dolby_set_dmid(struct audio_device *adev)
               __func__, mixer_ctl_name);
         return;
     }
-    ALOGV("%s Dolby device manufacturer id is:%d",__func__,i_dmid);
     ret = mixer_ctl_set_value(ctl, 0, i_dmid);
     if (ret)
         ALOGE("%s: Dolby DMID cannot be set error:%d",__func__, ret);
@@ -613,7 +597,6 @@ void audio_extn_dolby_set_license(struct audio_device *adev)
 #ifdef DOLBY_ACDB_LICENSE
     key = atoi(value);
 #endif
-    ALOGV("%s Setting DS1 License, key:0x%x",__func__, key);
     ret = mixer_ctl_set_value(ctl, 0, key);
     if (ret)
         ALOGE("%s: cannot set license, error:%d",__func__, ret);
@@ -638,7 +621,6 @@ int audio_extn_dap_hal_init(int snd_card) {
     int ret = -EINVAL;
     dap_hal_device_be_id_map_t device_be_id_map;
 
-    ALOGV("%s: opening DAP HAL lib\n", __func__);
     ds2extnmod.ds2_handle = dlopen(LIB_DS2_DAP_HAL, RTLD_NOW);
     if (ds2extnmod.ds2_handle == NULL) {
         ALOGE("%s: DLOPEN failed for %s error %s", __func__, LIB_DS2_DAP_HAL,
@@ -652,11 +634,9 @@ int audio_extn_dap_hal_init(int snd_card) {
            goto close;
     }
     ds2extnmod.dap_hal_set_hw_info(SND_CARD, (void*)(&snd_card));
-    ALOGV("%s Sound card number is:%d",__func__,snd_card);
 
     platform_get_device_to_be_id_map((int**)&device_be_id_map.device_id_to_be_id, &device_be_id_map.len);
     ds2extnmod.dap_hal_set_hw_info(DEVICE_BE_ID_MAP, (void*)(&device_be_id_map));
-    ALOGV("%s Set be id map len:%d",__func__,device_be_id_map.len);
     ret = 0;
     goto ret;
 
@@ -714,7 +694,6 @@ int audio_extn_ds2_enable(struct audio_device *adev) {
     property_get("audio.dolby.ds2.enabled", value, NULL);
     ds2_enabled = atoi(value) || !strncmp("true", value, 4);
 
-    ALOGV("%s:", __func__);
     if(ds2_enabled) {
         ALOGD("%s:ds2_enabled %d", __func__, ds2_enabled);
         ctl = mixer_get_ctl_by_name(adev->mixer, mixer_ctl_name);
@@ -735,12 +714,9 @@ int audio_extn_ds2_enable(struct audio_device *adev) {
 
 int audio_extn_dolby_set_dap_bypass(struct audio_device *adev __unused, int state) {
 
-    ALOGV("%s: state %d", __func__, state);
     if (ds2extnmod.dap_hal_set_hw_info) {
         ds2extnmod.dap_hal_set_hw_info(DAP_BYPASS, (void*)(&state));
-        ALOGV("%s: Dolby set bypas :0x%x", __func__, state);
     } else {
-        ALOGV("%s: dap_hal_set_hw_info is NULL", __func__);
     }
     return 0;
 }
@@ -762,13 +738,11 @@ void audio_extn_dolby_set_license(struct audio_device *adev __unused)
 #endif
     property_get("dmid",c_dmid,"0");
     i_dmid = atoi(c_dmid);
-    ALOGV("%s Setting DS1 License, key:0x%x dmid %d",__func__, i_key,i_dmid);
     dolby_license.dmid = i_dmid;
     dolby_license.license_key = i_key;
     if (ds2extnmod.dap_hal_set_hw_info) {
         ds2extnmod.dap_hal_set_hw_info(DMID, (void*)(&dolby_license.dmid));
     } else {
-        ALOGV("%s: dap_hal_set_hw_info is NULL", __func__);
     }
 }
 
