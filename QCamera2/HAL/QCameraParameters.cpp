@@ -8975,11 +8975,12 @@ int32_t QCameraParameters::getStreamFormat(cam_stream_type_t streamType,
         format = CAM_FORMAT_YUV_420_NV12;
         break;
     case CAM_STREAM_TYPE_RAW:
-#if 0
         if (isRdiMode()) {
             format = m_pCapability->rdi_mode_stream_fmt;
         } else if (mPictureFormat >= CAM_FORMAT_YUV_RAW_8BIT_YUYV) {
             format = CAM_FORMAT_BAYER_QCOM_RAW_10BPP_RGGB;
+        } else if (getofflineRAW()) {
+            format = CAM_FORMAT_BAYER_MIPI_RAW_10BPP_BGGR;
         } else {
             char raw_format[PROPERTY_VALUE_MAX];
             int rawFormat;
@@ -8991,9 +8992,6 @@ int32_t QCameraParameters::getStreamFormat(cam_stream_type_t streamType,
             CDBG_HIGH("%s: Raw stream format %d bundled with snapshot",
                    __func__, format);
         }
-#else
-        format = CAM_FORMAT_BAYER_MIPI_RAW_8BPP_GBRG;
-#endif
         break;
     case CAM_STREAM_TYPE_METADATA:
     case CAM_STREAM_TYPE_OFFLINE_PROC:

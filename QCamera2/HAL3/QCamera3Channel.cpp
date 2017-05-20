@@ -62,7 +62,7 @@ static const char ExifUndefinedPrefix[] =
 #define PREVIEW_FORMAT  CAM_FORMAT_YUV_420_NV21
 #define DEFAULT_FORMAT  CAM_FORMAT_YUV_420_NV21
 #define CALLBACK_FORMAT CAM_FORMAT_YUV_420_NV21
-#define RAW_FORMAT      CAM_FORMAT_BAYER_MIPI_RAW_8BPP_GBRG
+#define RAW_FORMAT      CAM_FORMAT_BAYER_MIPI_RAW_10BPP_GBRG
 
 /*===========================================================================
  * FUNCTION   : QCamera3Channel
@@ -637,7 +637,7 @@ int32_t QCamera3RegularChannel::initialize(cam_is_type_t isType)
          mCamera3Stream->format == HAL_PIXEL_FORMAT_RAW16) {
          // Bayer pattern doesn't matter here.
          // All CAMIF raw format uses 10bit.
-         streamFormat = RAW_FORMAT;
+         streamFormat = CAM_FORMAT_BAYER_MIPI_RAW_10BPP_GBRG;
     } else {
         //TODO: Fail for other types of streams for now
         ALOGE("%s: format is not IMPLEMENTATION_DEFINED or flexible", __func__);

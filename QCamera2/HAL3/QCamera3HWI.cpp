@@ -5583,7 +5583,31 @@ int QCamera3HardwareInterface::initStaticMetadata(uint32_t cameraId)
                       idx);
     //QCAMERA3_OPAQUE_RAW
     uint8_t raw_format = QCAMERA3_OPAQUE_RAW_FORMAT_LEGACY;
-    cam_format_t fmt = CAM_FORMAT_BAYER_MIPI_RAW_8BPP_GBRG;
+    cam_format_t fmt = CAM_FORMAT_BAYER_QCOM_RAW_10BPP_GBRG;
+    switch (gCamCapability[cameraId]->opaque_raw_fmt) {
+    case LEGACY_RAW:
+        if (gCamCapability[cameraId]->white_level == MAX_VALUE_8BIT)
+            fmt = CAM_FORMAT_BAYER_QCOM_RAW_8BPP_GBRG;
+        else if (gCamCapability[cameraId]->white_level == MAX_VALUE_10BIT)
+            fmt = CAM_FORMAT_BAYER_QCOM_RAW_10BPP_GBRG;
+        else if (gCamCapability[cameraId]->white_level == MAX_VALUE_12BIT)
+            fmt = CAM_FORMAT_BAYER_QCOM_RAW_12BPP_GBRG;
+        raw_format = QCAMERA3_OPAQUE_RAW_FORMAT_LEGACY;
+        break;
+    case MIPI_RAW:
+        if (gCamCapability[cameraId]->white_level == MAX_VALUE_8BIT)
+            fmt = CAM_FORMAT_BAYER_MIPI_RAW_8BPP_GBRG;
+        else if (gCamCapability[cameraId]->white_level == MAX_VALUE_10BIT)
+            fmt = CAM_FORMAT_BAYER_MIPI_RAW_10BPP_GBRG;
+        else if (gCamCapability[cameraId]->white_level == MAX_VALUE_12BIT)
+            fmt = CAM_FORMAT_BAYER_MIPI_RAW_12BPP_GBRG;
+        raw_format = QCAMERA3_OPAQUE_RAW_FORMAT_MIPI;
+        break;
+    default:
+        ALOGE("%s: unknown opaque_raw_format %d", __func__,
+                gCamCapability[cameraId]->opaque_raw_fmt);
+        break;
+    }
     staticInfo.update(QCAMERA3_OPAQUE_RAW_FORMAT, &raw_format, 1);
 
     int32_t strides[3*raw_count];
