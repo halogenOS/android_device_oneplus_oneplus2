@@ -800,9 +800,9 @@ static int msm_be_id_array_len  =
     sizeof(msm_device_to_be_id) / sizeof(msm_device_to_be_id[0]);
 
 
-#define DEEP_BUFFER_PLATFORM_DELAY (29*1000LL)
-#define PCM_OFFLOAD_PLATFORM_DELAY (30*1000LL)
-#define LOW_LATENCY_PLATFORM_DELAY (13*1000LL)
+#define DEEP_BUFFER_PLATFORM_DELAY (36*1000LL)
+#define PCM_OFFLOAD_PLATFORM_DELAY (32*1000LL)
+#define LOW_LATENCY_PLATFORM_DELAY (14*1000LL)
 
 static void update_codec_type(const char *snd_card_name) {
     if (!strncmp(snd_card_name, "msm8994-tomtom-mtp-snd-card",
