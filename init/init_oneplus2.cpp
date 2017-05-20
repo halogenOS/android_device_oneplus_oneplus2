@@ -1,5 +1,6 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
+   Copyright (C) 2017 The halogenOS Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -53,11 +54,6 @@ void init_variant_properties() {
         /* America */
         property_set("ro.product.model", "ONE A2005");
         property_set("ro.rf_version", "TDD_FDD_Am");
-        property_set("ro.telephony.default_network", "10,10");
-    } else {
-        /* Who knows? Could happen. */
-        property_set("ro.product.model", "OnePlus 2");
-        property_set("ro.rf_version", "TDD_FDD_Eu");
         property_set("ro.telephony.default_network", "10,10");
     }
 }
