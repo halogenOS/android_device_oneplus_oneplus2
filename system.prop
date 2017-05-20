@@ -143,7 +143,6 @@ persist.radio.start_ota_daemon=1
 persist.radio.rat_on=combine
 persist.data.qmi.adb_logmask=0
 ro.ril.enable.amr.wideband=1
-ro.telephony.sim_unlocked=1
 persist.radio.ignore_dom_time=5
 persist.sys.modem=yes
 ro.ril.hsxpa=3
