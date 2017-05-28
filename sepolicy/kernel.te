@@ -13,7 +13,7 @@ allow kernel gatekeeperd:process setsched;
 allow kernel lmkd:process setsched;
 allow kernel logd:process setsched;
 allow kernel msm_irqbalanced:process setsched;
-allow kernel perfprofd:process setsched;
+userdebug_or_eng(`allow kernel perfprofd:process setsched;')
 allow kernel servicemanager:process setsched;
 allow kernel tee:process setsched;
 allow kernel audioserver:process setsched;
