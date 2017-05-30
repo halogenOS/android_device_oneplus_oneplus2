@@ -76,9 +76,11 @@
 #define SUCCESS TRUE
 #define FAILURE FALSE
 
-#ifndef GPS_CONF_FILE
-#define GPS_CONF_FILE            "/system/etc/gps.conf"
+#ifdef GPS_CONF_FILE
+#undef GPS_CONF_FILE
 #endif
+
+#define GPS_CONF_FILE            "/system/etc/gps.conf"
 
 #ifndef SAP_CONF_FILE
 #define SAP_CONF_FILE            "/system/etc/sap.conf"
