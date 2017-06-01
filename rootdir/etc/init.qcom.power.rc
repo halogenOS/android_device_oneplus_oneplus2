@@ -177,7 +177,8 @@ on property:dev.bootcomplete=0
 
 service charger /charger
     class charger
-    group log
+    critical
+    group log system graphics
     seclabel u:r:healthd:s0
 
 on charger
