@@ -150,12 +150,12 @@ on enable-low-power
 on superb
     setprop sys.io.scheduler "maple"
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
-    write /dev/cpuset/foreground/cpus 0-5
+    write /dev/cpuset/foreground/cpus 1-5
     write /dev/cpuset/foreground/boost/cpus 0-5
-    write /dev/cpuset/background/cpus 2,3,5
-    write /dev/cpuset/system-background/cpus 2,3,5
+    write /dev/cpuset/background/cpus 2,3,4
+    write /dev/cpuset/system-background/cpus 2,3,4
     write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/camera-daemon/cpus 0-2,4
+    write /dev/cpuset/camera-daemon/cpus 1-4
     # Enable Fingerprint boost
     write /sys/kernel/fp_boost/enabled 1
 
