@@ -11,8 +11,8 @@
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
     <uses-sdk
-        android:minSdkVersion="21"
-        android:targetSdkVersion="21"/>
+        android:minSdkVersion="25"
+        android:targetSdkVersion="25"/>
 
     <application
         android:label="OnePlusDoze"
