@@ -15,11 +15,6 @@
     "branch":       "XOS-7.1"
   },
   {
-    "repository": "android_hardware_qcom_camera-op2",
-    "target_path": "hardware/qcom/camera-op2",
-    "branch": "XOS-7.1"
-  },
-  {
     "repository": "android_hardware_qcom_audio-op2",
     "target_path": "hardware/qcom/audio-op2",
     "branch": "XOS-7.1"
