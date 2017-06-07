@@ -1,3 +1,3 @@
 ifeq ($(TARGET_DEVICE),oneplus2)
-include hal/Android.mk
+include $(call my-dir)/hal/Android.mk
 endif
