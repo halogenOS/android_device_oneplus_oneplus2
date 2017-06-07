@@ -45,53 +45,6 @@ TARGET_USES_QCOM_MM_AUDIO := true
 AUDIO_FEATURE_ENABLED_DS2_DOLBY_DAP := true
 ### End - AUDIO_FEATURE_FLAGS
 
-
-#Audio Specific device overlays
-DEVICE_PACKAGE_OVERLAYS += hardware/qcom/audio-op2/configs/common/overlay
-
-USE_XML_AUDIO_POLICY_CONF := 1
-
-# Audio configuration file
-ifeq ($(TARGET_USES_AOSP), true)
-PRODUCT_COPY_FILES += \
-    device/qcom/common/media/audio_policy.conf:system/etc/audio_policy.conf
-else
-PRODUCT_COPY_FILES += \
-    hardware/qcom/audio-op2/configs/msm8992/audio_policy.conf:system/etc/audio_policy.conf
-endif
-
-PRODUCT_COPY_FILES += \
-    hardware/qcom/audio-op2/configs/msm8992/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf \
-    hardware/qcom/audio-op2/configs/msm8992/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    hardware/qcom/audio-op2/configs/msm8992/mixer_paths.xml:system/etc/mixer_paths.xml \
-    hardware/qcom/audio-op2/configs/msm8992/mixer_paths_i2s.xml:system/etc/mixer_paths_i2s.xml \
-    hardware/qcom/audio-op2/configs/msm8992/audio_platform_info.xml:system/etc/audio_platform_info.xml \
-    hardware/qcom/audio-op2/configs/msm8992/audio_platform_info_i2s.xml:system/etc/audio_platform_info_i2s.xml \
-    hardware/qcom/audio-op2/configs/msm8992/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
-    hardware/qcom/audio-op2/configs/msm8992/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml \
-    hardware/qcom/audio-op2/configs/msm8992/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt
-
-#XML Audio configuration files
-ifeq ($(USE_XML_AUDIO_POLICY_CONF), 1)
-ifeq ($(TARGET_USES_AOSP), true)
-PRODUCT_COPY_FILES += \
-    $(TOPDIR)hardware/qcom/audio-op2/configs/common/audio_policy_configuration.xml:/system/etc/audio_policy_configuration.xml
-else
-PRODUCT_COPY_FILES += \
-    $(TOPDIR)hardware/qcom/audio-op2/configs/msm8992/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml
-endif
-PRODUCT_COPY_FILES += \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:/system/etc/a2dp_audio_policy_configuration.xml \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
-endif
-
-# Listen configuration file
-PRODUCT_COPY_FILES += \
-    $(TOPDIR)hardware/qcom/audio-op2/configs/msm8992/listen_platform_info.xml:system/etc/listen_platform_info.xml
-
 PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
