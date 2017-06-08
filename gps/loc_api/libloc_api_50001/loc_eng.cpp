@@ -76,14 +76,12 @@
 #define SUCCESS TRUE
 #define FAILURE FALSE
 
-#ifdef GPS_CONF_FILE
-#undef GPS_CONF_FILE
+#ifndef GPS_CONF_FILE
+#define GPS_CONF_FILE            "/etc/gps.conf"   //??? platform independent
 #endif
 
-#define GPS_CONF_FILE            "/system/etc/gps.conf"
-
 #ifndef SAP_CONF_FILE
-#define SAP_CONF_FILE            "/system/etc/sap.conf"
+#define SAP_CONF_FILE            "/etc/sap.conf"
 #endif
 
 #define XTRA1_GPSONEXTRA         "xtra1.gpsonextra.net"
@@ -1391,7 +1389,6 @@ struct LocEngInit : public LocMsg {
         loc_eng_reinit(*mLocEng);
         // set the capabilities
         mLocEng->adapter->sendMsg(new LocEngSetCapabilities(mLocEng));
-        mLocEng->adapter->setGpsLock(1);
     }
     inline void locallog() const
     {
