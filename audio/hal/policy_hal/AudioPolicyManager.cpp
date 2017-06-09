@@ -42,7 +42,7 @@
 #ifdef VERY_VERBOSE_LOGGING
 #define ALOGVV ALOGV
 #else
-#define ALOGVV(a...) do { } while(0)
+#define ALOGVV(a...)
 #endif
 
 // A device mask for all audio output devices that are considered "remote" when evaluating
