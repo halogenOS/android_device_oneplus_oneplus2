@@ -122,7 +122,9 @@ PRODUCT_COPY_FILES += \
 
 # Charger
 PRODUCT_PACKAGES += \
-    charger_res_images
+    charger_res_images \
+    cm_charger_res_images \
+    libhealthd.cm
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \

@@ -241,6 +241,8 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_DENSITY := xxhdpi
+
 
 # Enable HW disk encryption
 TARGET_HW_DISK_ENCRYPTION := true
