@@ -4,6 +4,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := sensors.ssc.wrapper
 LOCAL_PROPRIETARY_MODULE := true
+LOCAL_CFLAGS := -O2 -fexpensive-optimizations
 
 LOCAL_SRC_FILES := \
     SensorsWrapper.c
