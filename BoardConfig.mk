@@ -253,7 +253,9 @@ HWUI_COMPILE_FOR_PERF := true
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
-BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
+BOARD_SEPOLICY_DIRS += \
+    $(PLATFORM_PATH)/sepolicy \
+    $(PLATFORM_PATH)/charger/sepolicy
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
