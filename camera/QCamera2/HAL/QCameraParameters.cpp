@@ -8970,7 +8970,7 @@ int32_t QCameraParameters::getStreamFormat(cam_stream_type_t streamType,
         if (isRdiMode()) {
             format = m_pCapability->rdi_mode_stream_fmt;
         } else if (mPictureFormat >= CAM_FORMAT_YUV_RAW_8BIT_YUYV) {
-            format = CAM_FORMAT_BAYER_QCOM_RAW_10BPP_RGGB;
+            format = (cam_format_t)mPictureFormat;
         } else if (getofflineRAW()) {
             format = CAM_FORMAT_BAYER_MIPI_RAW_10BPP_BGGR;
         } else {
