@@ -1194,7 +1194,7 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
        ALOGE("%s: m_parent is NULL, Error",__func__);
        return BAD_VALUE;
     }
-    bool needJpegRotation = false;
+    bool needJpegRotation = true;
 
     recvd_frame = jpeg_job_data->src_frame;
     metadata = jpeg_job_data->metadata;
@@ -1270,7 +1270,6 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
        srcChannel->getStreamByIndex(0)->getFrameDimension(dst_dim);
     }
 
-    needJpegRotation = true;
     CDBG_HIGH("%s: Need new session?:%d",__func__, needNewSess);
     if (needNewSess) {
         //creating a new session, so we must destroy the old one
@@ -1290,7 +1289,7 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
         CDBG_HIGH("%s: #src bufs:%d # tmb bufs:%d #dst_bufs:%d", __func__,
                      encodeParam.num_src_bufs,encodeParam.num_tmb_bufs,encodeParam.num_dst_bufs);
 
-        encodeParam.main_dim.src_dim  = src_dim;
+        encodeParam.main_dim.src_dim = src_dim;
         encodeParam.main_dim.dst_dim = dst_dim;
         //swap src width and height, stride and scanline due to rotation
         encodeParam.thumb_dim.dst_dim = jpeg_settings->thumbnail_size;
@@ -1330,17 +1329,6 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
     //TBD_later - Zoom event removed in stream
     //main_stream->getCropInfo(crop);
 
-    jpg_job.encode_job.main_dim.src_dim.width = src_dim.height;
-    jpg_job.encode_job.main_dim.src_dim.height = src_dim.width;
-
-    jpg_job.encode_job.main_dim.dst_dim.width = dst_dim.height;
-    jpg_job.encode_job.main_dim.dst_dim.height = dst_dim.width;
-
-    jpg_job.encode_job.main_dim.crop.width = crop.height;
-    jpg_job.encode_job.main_dim.crop.height = crop.width;
-    jpg_job.encode_job.main_dim.crop.left = crop.top;
-    jpg_job.encode_job.main_dim.crop.top = crop.left;
-
     // get exif data
     QCamera3Exif *pJpegExifObj = m_parent->getExifData(metadata, jpeg_settings);
     jpeg_job_data->pJpegExifObj = pJpegExifObj;
@@ -1358,23 +1346,9 @@ int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_dat
                 jpeg_settings->thumbnail_size;
 
          // Set main dim job parameters and handle rotation
-         if (jpeg_settings->jpeg_orientation == 90 ||
-                 jpeg_settings->jpeg_orientation == 270) {
-            jpg_job.encode_job.main_dim.src_dim.width = src_dim.height;
-            jpg_job.encode_job.main_dim.src_dim.height = src_dim.width;
-
-            jpg_job.encode_job.main_dim.dst_dim.width = dst_dim.height;
-            jpg_job.encode_job.main_dim.dst_dim.height = dst_dim.width;
-
-            jpg_job.encode_job.main_dim.crop.width = crop.height;
-            jpg_job.encode_job.main_dim.crop.height = crop.width;
-            jpg_job.encode_job.main_dim.crop.left = crop.top;
-            jpg_job.encode_job.main_dim.crop.top = crop.left;
-        } else {
-            jpg_job.encode_job.main_dim.src_dim = src_dim;
-            jpg_job.encode_job.main_dim.dst_dim = dst_dim;
-            jpg_job.encode_job.main_dim.crop = crop;
-        }
+        jpg_job.encode_job.main_dim.src_dim = src_dim;
+        jpg_job.encode_job.main_dim.dst_dim = dst_dim;
+        jpg_job.encode_job.main_dim.crop = crop;
         jpg_job.encode_job.thumb_index = main_frame->buf_idx;
     }
 
