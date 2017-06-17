@@ -156,8 +156,6 @@ on superb
     write /dev/cpuset/system-background/cpus 2,3,4
     write /dev/cpuset/top-app/cpus 0-7
     write /dev/cpuset/camera-daemon/cpus 1-4
-    # Enable Fingerprint boost
-    write /sys/kernel/fp_boost/enabled 1
 
 on all-cpu-power-mgm
     trigger enable-low-power
