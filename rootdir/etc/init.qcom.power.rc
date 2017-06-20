@@ -97,33 +97,6 @@ on enable-low-power
     write /sys/module/cpu_boost/parameters/input_boost_freq "0:960000"
     write /sys/module/cpu_boost/parameters/input_boost_ms 50
 
-    # Configure core_ctl module parameters
-
-    # LITTLE
-    write /sys/devices/system/cpu/cpu0/core_ctl/max_cpus 4
-    write /sys/devices/system/cpu/cpu0/core_ctl/min_cpus 1
-    write /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres 72
-    write /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres "0 0 52 44"
-    write /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms 300
-    write /sys/devices/system/cpu/cpu0/core_ctl/is_big_cluster 0
-    write /sys/devices/system/cpu/cpu0/core_ctl/task_thres 3
-    # big
-    write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 4
-    write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 1
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 76
-    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres "0 30 36 48"
-    write /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 100
-    write /sys/devices/system/cpu/cpu4/core_ctl/is_big_cluster 1
-    write /sys/devices/system/cpu/cpu4/core_ctl/task_thres 4
-
-    # enable H-Cube tunings for big cores
-    #write /sys/devices/system/cpu/cpu4/core_ctl/hc_on 1
-    #write /sys/devices/system/cpu/cpu4/core_ctl/hc_down_scale_on 1
-    #write /sys/devices/system/cpu/cpu4/core_ctl/hc_thres_on 1
-    #write /sys/devices/system/cpu/cpu4/core_ctl/hc_ro_use_gourd 1
-    #write /sys/devices/system/cpu/cpu4/core_ctl/hc_correl_lvs "0 0 768000 1248000"
-    #write /sys/devices/system/cpu/cpu4/core_ctl/hc_correl_use_pcost 1
-
     # Setting big.LITTLE scheduler parameters
     write /proc/sys/kernel/sched_migration_fixup 1
     write /proc/sys/kernel/sched_small_task 15
