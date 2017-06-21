@@ -1,0 +1,14 @@
+type haloplugd, domain;
+type haloplugd_exec, exec_type, file_type;
+
+init_daemon_domain(haloplugd);
+
+allow haloplugd haloplugd_exec:file x_file_perms;
+allow haloplugd { proc sysfs_devices_system_cpu }:file w_file_perms;
+r_dir_file(haloplugd, sysfs_rqstats);
+
+allow init haloplugd_exec:file { read open execute };
+allow init haloplugd:process { transition siginh };
+allow haloplugd haloplugd_exec:file { read open execute execute_no_trans entrypoint lock };
+allow haloplugd shell_exec:file { read open execute execute_no_trans entrypoint getattr };
+allow haloplugd self:capability { dac_read_search dac_override };

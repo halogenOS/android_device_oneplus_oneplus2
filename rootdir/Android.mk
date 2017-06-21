@@ -66,3 +66,12 @@ LOCAL_MODULE_TAGS	:= optional eng
 LOCAL_MODULE_CLASS	:= ETC
 LOCAL_SRC_FILES		:= etc/init.qcom.bt.sh
 include $(BUILD_PREBUILT)
+
+# haloplug
+
+include $(CLEAR_VARS)
+LOCAL_MODULE        := haloplugd
+LOCAL_MODULE_TAGS   := optional
+LOCAL_MODULE_CLASS  := EXECUTABLES
+LOCAL_SRC_FILES     := bin/haloplugd
+include $(BUILD_PREBUILT)

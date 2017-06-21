@@ -19,3 +19,5 @@
 /sys/devices/virtual/timed_output/vibrator/vtg_level              u:object_r:sysfs_vibrator:s0
 
 /data/oemnvitems(/.*)?                                          u:object_r:nv_data_file:s0
+
+/system/bin/haloplugd                                           u:object_r:haloplugd_exec:s0

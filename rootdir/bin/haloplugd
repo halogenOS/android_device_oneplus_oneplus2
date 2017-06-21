@@ -1,0 +1,81 @@
+#!/system/bin/sh
+#
+# Copyright (C) 2017 The halogenOS Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+set -e
+
+sleeping=0
+
+write_cpu() {
+  echo $2 > /sys/devices/system/cpu/cpu${1}/online || :
+}
+
+write_cpu 0 1
+write_cpu 1 1
+write_cpu 2 1
+write_cpu 3 0
+
+write_cpu 4 1
+write_cpu 5 0
+write_cpu 6 0
+write_cpu 7 0
+
+while :; do
+  sleep 0.05;
+  if [ $(</sys/devices/soc.0/f9968000.spi/spi_master/spi12/spi12.0/screen_state) == 0 ]; then
+    # Screen is off
+    if [ $sleeping == 1 ]; then
+      sleep 1
+      continue;
+    else
+      sleeping=1
+    fi
+    write_cpu 0 1
+    write_cpu 1 1
+    write_cpu 2 1
+    write_cpu 3 0
+
+    write_cpu 4 1
+    write_cpu 5 0
+    write_cpu 6 0
+    write_cpu 7 0
+    continue
+  elif [ $sleeping == 1 ]; then
+    sleeping=0
+  fi
+  curload=$(($(</sys/devices/system/cpu/cpu0/rq-stats/cpu_normalized_load)/2))
+  if [ $curload -ge 80 ]; then
+    write_cpu 3 1
+  else
+    write_cpu 3 0
+  fi
+  if [ $curload -ge 160 ]; then
+    write_cpu 7 1
+  else
+    write_cpu 7 0
+  fi
+  if [ $curload -ge 400 ]; then
+    write_cpu 5 1
+  else
+    write_cpu 5 0
+  fi
+  if [ $curload -ge 550 ]; then
+    write_cpu 6 1
+  else
+    write_cpu 6 0
+  fi
+done
+

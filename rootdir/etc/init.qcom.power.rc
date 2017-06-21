@@ -133,10 +133,19 @@ on superb
     write /dev/cpuset/camera-daemon/cpus 0-5
     # Reduce to 2 MiB after boot
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+    start haloplugd
 
 on all-cpu-power-mgm
     trigger enable-low-power
     trigger superb
+
+service haloplugd /system/bin/sh /system/bin/haloplugd
+    user root
+    group root
+    seclabel u:r:haloplugd:s0
+    oneshot
+    disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service charger /charger
     class charger
