@@ -200,7 +200,7 @@ ro.device.screen_res=1080x1920
 
 # Higher fling velocities to smooth scrolling
 # and provide better responsiveness
-ro.min.fling_velocity=160
+ro.min.fling_velocity=150
 ro.max.fling_velocity=20000
 
 # Da SN
