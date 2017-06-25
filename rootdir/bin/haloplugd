@@ -34,11 +34,11 @@ write_cpu 6 0
 write_cpu 7 0
 
 while :; do
-  sleep 0.05;
+  sleep 0.8;
   if [ $(</sys/devices/soc.0/f9968000.spi/spi_master/spi12/spi12.0/screen_state) == 0 ]; then
     # Screen is off
     if [ $sleeping == 1 ]; then
-      sleep 1
+      sleep 1.4
       continue;
     else
       sleeping=1
@@ -57,12 +57,12 @@ while :; do
     sleeping=0
   fi
   curload=$(($(</sys/devices/system/cpu/cpu0/rq-stats/cpu_normalized_load)/2))
-  if [ $curload -ge 80 ]; then
+  if [ $curload -ge 70 ]; then
     write_cpu 3 1
   else
     write_cpu 3 0
   fi
-  if [ $curload -ge 160 ]; then
+  if [ $curload -ge 180 ]; then
     write_cpu 7 1
   else
     write_cpu 7 0
@@ -72,7 +72,7 @@ while :; do
   else
     write_cpu 5 0
   fi
-  if [ $curload -ge 550 ]; then
+  if [ $curload -ge 560 ]; then
     write_cpu 6 1
   else
     write_cpu 6 0
