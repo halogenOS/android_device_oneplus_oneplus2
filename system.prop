@@ -205,3 +205,6 @@ ro.max.fling_velocity=20000
 
 # Da SN
 ro.boot.verifiedbootstate=green
+
+# Enable haloplug by default
+persist.service.haloplugd=start
