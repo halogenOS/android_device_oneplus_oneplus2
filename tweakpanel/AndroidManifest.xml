@@ -30,7 +30,8 @@
         <activity
             android:name=".TweakPanel"
             android:icon="@drawable/ic_tweakpanel"
-            android:label="@string/tweakpanel_title">
+            android:label="@string/tweakpanel_title"
+            android:theme="@android:style/Theme.DeviceDefault.Settings">
             <intent-filter>
                 <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
             </intent-filter>
