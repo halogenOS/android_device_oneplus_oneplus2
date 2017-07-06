@@ -401,4 +401,7 @@
 
     <!-- Whether notify fingerprint client of successful cancelled authentication -->
     <bool name="config_notifyClientOnFingerprintCancelSuccess">true</bool>
+
+    <!-- Enable gesture service -->
+    <bool name="config_enableGestureService">true</bool>
 </resources>
