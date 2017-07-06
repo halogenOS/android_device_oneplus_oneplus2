@@ -35,7 +35,7 @@ persist.audio.DiracEnable=true
 persist.audio.DiracHeadset=2
 persist.dirac.acs.controller=qem
 av.offload.enable=true
-af.fast_track_multiplier=1
+af.fast_track_multiplier=2
 audio_hal.period_size=192
 audio.safx.pbe.enabled=true
 
@@ -106,7 +106,7 @@ ro.pip.gated=0
 persist.hwc.mdpcomp.enable=true
 persist.demo.hdmirotationlock=false
 ro.qualcomm.cabl=0
-ro.sf.lcd_density=480
+ro.sf.lcd_density=432
 ro.opengles.version=196610
 
 # Time services
@@ -200,7 +200,7 @@ ro.device.screen_res=1080x1920
 
 # Higher fling velocities to smooth scrolling
 # and provide better responsiveness
-ro.min.fling_velocity=150
+ro.min.fling_velocity=140
 ro.max.fling_velocity=20000
 
 # Da SN

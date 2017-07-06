@@ -1,5 +1,5 @@
 # Copyright (C) 2015 The CyanogenMod Project
-# Copyright (C) 2016-2017 halogenOS
+# Copyright (C) 2016-2017 The halogenOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -79,7 +79,14 @@ TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/$(strip $(HOST_OS))-x86/aarch64/$(TARGET_
 TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/$(TARGET_CROSS_COMPILE_PREFIX)
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=enforcing androidboot.verifiedbootstate=green androidboot.veritymode=enforcing
+BOARD_KERNEL_CMDLINE := \
+	androidboot.hardware=qcom \
+	ehci-hcd.park=3 \
+	lpm_levels.sleep_disabled=1 \
+	boot_cpus=0-7 \
+	androidboot.selinux=enforcing \
+	androidboot.verifiedbootstate=green \
+	androidboot.veritymode=enforcing
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -107,8 +114,6 @@ AUDIO_FEATURE_ENABLED_DS2_DOLBY_DAP := true
 AUDIO_FEATURE_ENABLED_EXTN_FORMATS := true
 AUDIO_FEATURE_ENABLED_FLUENCE := true
 AUDIO_FEATURE_ENABLED_HFP := true
-AUDIO_FEATURE_ENABLED_INCALL_MUSIC := false
-AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := false
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 AUDIO_FEATURE_ENABLED_PCM_OFFLOAD := true
@@ -146,7 +151,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_GLOBAL_CFLAGS += -DUSE_RIL_VERSION_11
 
 # Charger
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BOARD_CHARGER_DISABLE_INIT_BLANK := false
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.cm
 
 # CNE and DPM
@@ -166,11 +171,14 @@ TARGET_USES_NEW_ION_API := true
 TARGET_USES_C2D_COMPOSITION := true
 USE_OPENGL_RENDERER := true
 
-MAX_EGL_CACHE_KEY_SIZE := 12*1024
-MAX_EGL_CACHE_SIZE := 2048*1024
+MAX_EGL_CACHE_KEY_SIZE := 16*1024
+MAX_EGL_CACHE_SIZE := 4096*1024
 
 HAVE_ADRENO_SOURCE := false
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
+VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
+SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
 
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
@@ -243,7 +251,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_DENSITY := xxhdpi
 
-
 # Enable HW disk encryption
 TARGET_HW_DISK_ENCRYPTION := true
 
@@ -259,9 +266,6 @@ BOARD_SEPOLICY_DIRS += \
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
-
-# Enable workaround for slow rom flash
-BOARD_SUPPRESS_SECURE_ERASE := true
 
 # CM Hardware
 BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw

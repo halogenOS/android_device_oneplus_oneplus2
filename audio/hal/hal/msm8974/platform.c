@@ -56,26 +56,26 @@
 #define AUDIO_DATA_BLOCK_MIXER_CTL "HDMI EDID"
 #define CVD_VERSION_MIXER_CTL "CVD Version"
 
-#define MAX_COMPRESS_OFFLOAD_FRAGMENT_SIZE 32768 /* 32 KiB */
-#define MIN_COMPRESS_OFFLOAD_FRAGMENT_SIZE 128   /* 128 byte */
+#define MAX_COMPRESS_OFFLOAD_FRAGMENT_SIZE 16384 /* 16 KiB */
+#define MIN_COMPRESS_OFFLOAD_FRAGMENT_SIZE 64   /* 64 byte */
 #define COMPRESS_OFFLOAD_FRAGMENT_SIZE_FOR_AV_STREAMING 2048 /* 2 KiB */
-#define COMPRESS_OFFLOAD_FRAGMENT_SIZE 32768 /* 32 KiB */
+#define COMPRESS_OFFLOAD_FRAGMENT_SIZE 16384 /* 16 KiB */
 
 /* Used in calculating fragment size for pcm offload */
-#define PCM_OFFLOAD_BUFFER_DURATION 100 /* 100 millisecs */
+#define PCM_OFFLOAD_BUFFER_DURATION 80 /* 80 millisecs */
 
 /* MAX PCM fragment size cannot be increased  further due
  * to flinger's cblk size of 1mb,and it has to be a multiple of
  * 24 - lcm of channels supported by DSP
  */
 #define MAX_PCM_OFFLOAD_FRAGMENT_SIZE (240 * 1024)
-#define MIN_PCM_OFFLOAD_FRAGMENT_SIZE 128 /* 128 byte */
+#define MIN_PCM_OFFLOAD_FRAGMENT_SIZE 64 /* 64 byte */
 
 /*
  * Offload buffer size for compress passthrough
  */
-#define MIN_COMPRESS_PASSTHROUGH_FRAGMENT_SIZE 128 /* 128 byte */
-#define MAX_COMPRESS_PASSTHROUGH_FRAGMENT_SIZE 32768 /* 32 KiB */
+#define MIN_COMPRESS_PASSTHROUGH_FRAGMENT_SIZE 64 /* 64 byte */
+#define MAX_COMPRESS_PASSTHROUGH_FRAGMENT_SIZE 16384 /* 16 KiB */
 
 #define DIV_ROUND_UP(x, y) (((x) + (y) - 1)/(y))
 #define ALIGN(x, y) ((y) * DIV_ROUND_UP((x), (y)))
@@ -98,8 +98,8 @@
 #define DEFAULT_APP_TYPE  0x11130
 
 /* Retry for delay in FW loading*/
-#define RETRY_NUMBER 10
-#define RETRY_US 500000
+#define RETRY_NUMBER 12
+#define RETRY_US 450000
 #define MAX_SND_CARD 8
 
 #define SAMPLE_RATE_8KHZ  8000

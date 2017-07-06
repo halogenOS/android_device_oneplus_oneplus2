@@ -75,7 +75,7 @@
 #include "sound/asound.h"
 
 
-#define COMPRESS_OFFLOAD_NUM_FRAGMENTS 4
+#define COMPRESS_OFFLOAD_NUM_FRAGMENTS 2
 /*DIRECT PCM has same buffer sizes as DEEP Buffer*/
 #define DIRECT_PCM_NUM_FRAGMENTS 2
 #define COMPRESS_OFFLOAD_PLAYBACK_LATENCY 100
