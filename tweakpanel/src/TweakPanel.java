@@ -34,8 +34,6 @@ public class TweakPanel extends PreferenceActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
         addPreferencesFromResource(R.xml.tweakpanel_settings);
 
         mHotplugPreference = (SwitchPreference) findPreference(KEY_HOTPLUG);
