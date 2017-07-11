@@ -25,13 +25,13 @@
     <application
         android:label="@string/tweakpanel_title"
         android:directBootAware="false"
+        android:theme="@android:style/Theme.DeviceDefault.Settings"
         android:defaultToDeviceProtectedStorage="true">
 
         <activity
             android:name=".TweakPanel"
             android:icon="@drawable/ic_tweakpanel"
-            android:label="@string/tweakpanel_title"
-            android:theme="@android:style/Theme.DeviceDefault.Settings">
+            android:label="@string/tweakpanel_title">
             <intent-filter>
                 <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
             </intent-filter>
