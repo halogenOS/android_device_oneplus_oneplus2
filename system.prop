@@ -14,7 +14,7 @@ persist.audio.fluence.speaker=true
 tunnel.audio.encode=false
 audio.offload.disable=false
 audio.offload.gapless.enabled=true
-audio.offload.buffer.size.kb=320
+audio.offload.buffer.size.kb=32
 audio.offload.video=true
 audio.offload.pcm.enable=true
 audio.offload.pcm.16bit.enable=true
@@ -35,8 +35,8 @@ persist.audio.DiracEnable=true
 persist.audio.DiracHeadset=2
 persist.dirac.acs.controller=qem
 av.offload.enable=true
-af.fast_track_multiplier=4
-audio_hal.period_size=1920
+af.fast_track_multiplier=1
+audio_hal.period_size=192
 audio.safx.pbe.enabled=true
 
 # Bluetooth
