@@ -21,9 +21,9 @@
     "branch": "linaro"
   },
   {
-    "repository": "xdevs23/aarch64-linux-android-7.0",
-    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-7.0-uber",
-    "remote": "bitbucket",
+    "repository": "xdevs23/aarch64-linux-android-6.3-linaro",
+    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-6.3-linaro",
+    "remote": "github",
     "branch": "master"
   }
 ]
