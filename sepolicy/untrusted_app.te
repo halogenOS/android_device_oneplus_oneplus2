@@ -1,4 +1,2 @@
 allow untrusted_app sysfs_zram:dir search;
-allow untrusted_app sysfs_zram:file { getattr open read };
-allow untrusted_app rootfs:dir { read open };
-allow untrusted_app system_data_file:file { read getattr };
+allow untrusted_app sysfs_zram:file { getattr };
