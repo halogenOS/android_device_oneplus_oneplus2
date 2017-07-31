@@ -30,11 +30,6 @@ on boot
     write /sys/block/mmcblk0/queue/read_ahead_kb 4096
 
 on enable-low-power
-    # Ensure at most one A57 is online when thermal hotplug is disabled
-    write /sys/devices/system/cpu/cpu5/online 0
-    write /sys/devices/system/cpu/cpu6/online 0
-    write /sys/devices/system/cpu/cpu7/online 0
-
     # Limit A57 max freq from msm_perf module in case CPU 4 is offline
     write /sys/module/msm_performance/parameters/cpu_max_freq "4:960000 5:960000 6:960000 7:960000"
 
