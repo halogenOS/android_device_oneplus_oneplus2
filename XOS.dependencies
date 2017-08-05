@@ -15,7 +15,7 @@
     "branch":       "XOS-7.1"
   },
   {
-    "repository": "xdevs23/gcc-prebuilts",
+    "repository": "nathanchance/gcc-prebuilts",
     "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-7.1.1-kernel-linaro",
     "remote": "github",
     "branch": "personal-linaro-7.x"
