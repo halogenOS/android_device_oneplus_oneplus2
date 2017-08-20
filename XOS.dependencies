@@ -16,5 +16,11 @@
     "target_path": "vendor/oneplus/oneplus2",
     "remote": "XOS",
     "branch": "XOS-7.1"
+  },
+  {
+    "repository": "xanaxdroid/aarch64-6.3",
+    "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-6.3.1-kernel-linaro",
+    "remote": "bitbucket",
+    "branch": "linaro"
   }
 ]
