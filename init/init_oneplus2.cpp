@@ -1,5 +1,6 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
+   Copyright (C) 2017 The halogenOS Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -35,12 +36,7 @@
 #include "util.h"
 
 void init_variant_properties() {
-
-    std::string device = property_get("ro.cm.device");
     std::string rf_version;
-
-    if (device != "oneplus2")
-        return;
 
     rf_version = property_get("ro.boot.rf_v1");
 
@@ -48,22 +44,24 @@ void init_variant_properties() {
         /* Chinese */
         property_set("ro.product.model", "ONE A2001");
         property_set("ro.rf_version", "TDD_FDD_Ch_All");
-        property_set("telephony.lteOnCdmaDevice", "1");
         property_set("ro.telephony.default_network", "20,20");
     } else if (rf_version == "24") {
         /* Asia/Europe */
         property_set("ro.product.model", "ONE A2003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
-        property_set("ro.telephony.default_network", "9,9");
+        property_set("ro.telephony.default_network", "10,10");
     } else if (rf_version == "34") {
         /* America */
         property_set("ro.product.model", "ONE A2005");
         property_set("ro.rf_version", "TDD_FDD_Am");
-        property_set("telephony.lteOnCdmaDevice", "1");
-        property_set("ro.telephony.default_network", "9,9");
+        property_set("ro.telephony.default_network", "10,10");
     }
 }
 
 void vendor_load_properties() {
+    init_variant_properties();
+}
+
+void init_msm_properties() {
     init_variant_properties();
 }
