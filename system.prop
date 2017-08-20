@@ -141,3 +141,11 @@ persist.timed.enable=true
 persist.data.iwlan.enable=true
 
 ro.boot.verifiedbootstate=green
+
+###      Tweaks and UX improvements      ###
+#  exclusively made by the halogenOS team  #
+
+# Higher fling velocities to smooth scrolling
+# and provide better responsiveness
+ro.min.fling_velocity=140
+ro.max.fling_velocity=20000
