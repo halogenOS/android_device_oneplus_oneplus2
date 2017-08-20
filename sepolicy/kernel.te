@@ -2,7 +2,6 @@ allow kernel sysfs:file write;
 allow kernel fingerprintd:process setsched;
 allow kernel netmgrd:process setsched;
 allow kernel per_mgr:process setsched;
-allow kernel perfd:process setsched;
 allow kernel qmuxd:process setsched;
 allow kernel rmt_storage:process setsched;
 allow kernel surfaceflinger:process setsched;

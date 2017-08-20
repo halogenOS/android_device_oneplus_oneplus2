@@ -471,7 +471,6 @@ on post-fs-data
 on property:sys.boot_completed=1
     #allow CPUs to go in deeper idle state than C0
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
-    start perfd
     write /dev/kmsg "Boot completed "
 
     # Set Memory parameters
@@ -491,13 +490,6 @@ service qseecomd /system/bin/qseecomd
     class core
     user root
     group root
-    writepid /dev/cpuset/system-background/tasks
-
-service perfd /system/vendor/bin/perfd
-    class main
-    user root
-    group root readproc
-    disabled
     writepid /dev/cpuset/system-background/tasks
 
 service per_mgr /system/bin/pm-service
