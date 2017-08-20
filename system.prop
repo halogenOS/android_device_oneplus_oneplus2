@@ -139,3 +139,5 @@ persist.timed.enable=true
 
 # Wifi
 persist.data.iwlan.enable=true
+
+ro.boot.verifiedbootstate=green

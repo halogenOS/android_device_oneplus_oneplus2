@@ -77,7 +77,10 @@ BOARD_KERNEL_CMDLINE := \
 	androidboot.hardware=qcom \
 	ehci-hcd.park=3 \
 	lpm_levels.sleep_disabled=1 \
-	boot_cpus=0-7
+	boot_cpus=0-7 \
+	androidboot.selinux=enforcing \
+	androidboot.verifiedbootstate=green \
+	androidboot.veritymode=enforcing
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -88,6 +91,7 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8994
 TARGET_KERNEL_CONFIG := oneplus2_defconfig
+TARGET_KERNEL_BUILD_VARIANT := user
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
