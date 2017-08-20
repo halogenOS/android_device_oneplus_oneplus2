@@ -1,5 +1,4 @@
 allow kernel sysfs:file write;
-allow kernel domain:process setsched;
 allow kernel fingerprintd:process setsched;
 allow kernel netmgrd:process setsched;
 allow kernel per_mgr:process setsched;
