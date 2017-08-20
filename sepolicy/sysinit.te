@@ -1,1 +1,1 @@
-﻿allow sysinit rootfs:lnk_file getattr;
+allow sysinit rootfs:lnk_file getattr;
