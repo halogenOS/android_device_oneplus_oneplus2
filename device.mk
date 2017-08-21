@@ -106,7 +106,10 @@ PRODUCT_PACKAGES += \
     mm-qcamera-app \
     libshim_camera \
     libshim_ims-camera \
-    sensors.hal.tof
+    sensors.hal.tof \
+    libmmcamera_interface \
+    libmmjpeg_interface \
+    libqomx_core
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.d/10opcamsanitize.sh:system/etc/init.d/10opcamsanitize.sh
