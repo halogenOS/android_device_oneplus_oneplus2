@@ -15,7 +15,7 @@
     "repository": "android_vendor_oneplus_oneplus2",
     "target_path": "vendor/oneplus/oneplus2",
     "remote": "XOS",
-    "branch": "XOS-7.1"
+    "branch": "XOS-8.0"
   },
   {
     "repository": "xanaxdroid/aarch64-6.3",
