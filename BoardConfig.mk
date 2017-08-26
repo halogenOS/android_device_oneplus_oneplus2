@@ -83,7 +83,7 @@ BOARD_KERNEL_CMDLINE := \
 	ehci-hcd.park=3 \
 	lpm_levels.sleep_disabled=1 \
 	boot_cpus=0-7 \
-	androidboot.selinux=enforcing \
+	androidboot.selinux=permissive \
 	androidboot.verifiedbootstate=green \
 	androidboot.veritymode=enforcing
 BOARD_KERNEL_BASE := 0x00000000
@@ -207,8 +207,8 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_NO_RPC := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
+#include device/qcom/sepolicy/sepolicy.mk
+#BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 # Sensors
 USE_SENSOR_MULTI_HAL := true
