@@ -33,7 +33,7 @@ LOCAL_SRC_FILES += \
         HAL/QCameraParameters.cpp \
         HAL/QCameraThermalAdapter.cpp
 
-LOCAL_CFLAGS := -Wall -Wextra -Werror -Wno-format
+LOCAL_CFLAGS := -Wall -Wextra -Werror -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare
 LOCAL_CFLAGS += -DHAS_MULTIMEDIA_HINTS
 
 ifeq ($(TARGET_USES_AOSP),true)
@@ -81,7 +81,7 @@ LOCAL_SHARED_LIBRARIES += libqdMetaData libqdutils
 LOCAL_SHARED_LIBRARIES += android.hidl.token@1.0-utils
 LOCAL_SHARED_LIBRARIES += android.hardware.graphics.bufferqueue@1.0
 
-LOCAL_CLANG := false
+LOCAL_CLANG := true
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE := camera.msm8994
 LOCAL_MODULE_TAGS := optional

@@ -9,7 +9,7 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_CFLAGS := -DCAMERA_ION_HEAP_ID=ION_IOMMU_HEAP_ID
 LOCAL_CFLAGS += -Wall -Wextra -Werror -Wno-unused-parameter
-LOCAL_CFLAGS += -D_ANDROID_ -Wno-format
+LOCAL_CFLAGS += -D_ANDROID_ -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare
 
 ifeq ($(strip $(TARGET_USES_ION)),true)
 LOCAL_CFLAGS += -DUSE_ION

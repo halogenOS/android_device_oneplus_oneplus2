@@ -11,7 +11,7 @@ LOCAL_MODULE_TAGS := optional
 omx_core_defines:= -Werror \
                    -g -O3
 
-LOCAL_CFLAGS := -Wno-format $(omx_core_defines)
+LOCAL_CFLAGS := -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare $(omx_core_defines)
 
 OMX_HEADER_DIR := frameworks/native/include/media/openmax
 

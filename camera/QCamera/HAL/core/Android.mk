@@ -5,7 +5,7 @@ include $(CLEAR_VARS)
 
 DLOPEN_LIBMMCAMERA:=0
 
-LOCAL_CFLAGS:= -DDLOPEN_LIBMMCAMERA=$(DLOPEN_LIBMMCAMERA) -Wno-format
+LOCAL_CFLAGS:= -DDLOPEN_LIBMMCAMERA=$(DLOPEN_LIBMMCAMERA) -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare
 
 ifeq ($(strip $(TARGET_USES_ION)),true)
         LOCAL_CFLAGS += -DUSE_ION
