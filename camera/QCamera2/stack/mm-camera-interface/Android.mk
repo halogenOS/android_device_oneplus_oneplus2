@@ -46,7 +46,7 @@ LOCAL_SRC_FILES := $(MM_CAM_FILES)
 LOCAL_CLANG     := false
 LOCAL_MODULE           := libmmcamera_interface
 LOCAL_PRELINK_MODULE   := false
-LOCAL_SHARED_LIBRARIES := libdl libcutils liblog
+LOCAL_SHARED_LIBRARIES := liblog libdl libcutils liblog
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)

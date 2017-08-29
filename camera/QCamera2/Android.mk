@@ -75,7 +75,7 @@ LOCAL_C_INCLUDES += \
 LOCAL_C_INCLUDES += \
         hardware/qcom/display/msm8994/libqdutils
 
-LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl
+LOCAL_SHARED_LIBRARIES := liblog libcamera_client liblog libhardware libutils libcutils libdl
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
 LOCAL_SHARED_LIBRARIES += libqdMetaData libqdutils
 LOCAL_SHARED_LIBRARIES += android.hidl.token@1.0-utils

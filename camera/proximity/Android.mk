@@ -39,7 +39,7 @@ LOCAL_SRC_FILES :=                        \
                 ProximitySensor.cpp    	  \
                 InputEventReader.cpp
 
-LOCAL_SHARED_LIBRARIES := liblog libcutils 
+LOCAL_SHARED_LIBRARIES := liblog liblog libcutils 
 LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
@@ -74,7 +74,7 @@ LOCAL_STATIC_LIBRARIES := \
     libsparse_static \
     libz
 
-LOCAL_SHARED_LIBRARIES := libcutils liblog
+LOCAL_SHARED_LIBRARIES := liblog libcutils liblog
 
 LOCAL_CLANG := $(init_clang)
 include $(BUILD_EXECUTABLE)

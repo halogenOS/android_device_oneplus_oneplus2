@@ -17,12 +17,13 @@ OMX_HEADER_DIR := frameworks/native/include/media/openmax
 
 LOCAL_C_INCLUDES := $(OMX_HEADER_DIR)
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../qexif
+LOCAL_C_INCLUDES += system/core/liblog/include/
 
 LOCAL_SRC_FILES := qomx_core.c
 
 LOCAL_MODULE           := libqomx_core
 LOCAL_PRELINK_MODULE   := false
-LOCAL_SHARED_LIBRARIES := libcutils libdl
+LOCAL_SHARED_LIBRARIES := libcutils libdl liblog
 
 LOCAL_32_BIT_ONLY := true
 include $(BUILD_SHARED_LIBRARY)

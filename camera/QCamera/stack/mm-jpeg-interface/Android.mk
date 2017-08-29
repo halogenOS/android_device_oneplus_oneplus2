@@ -32,7 +32,7 @@ LOCAL_SRC_FILES := \
 
 LOCAL_MODULE           := libmmjpeg_interface
 LOCAL_PRELINK_MODULE   := false
-LOCAL_SHARED_LIBRARIES := libdl libcutils liblog libmmstillomx libimage-jpeg-enc-omx-comp
+LOCAL_SHARED_LIBRARIES := liblog libdl libcutils liblog libmmstillomx libimage-jpeg-enc-omx-comp
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)

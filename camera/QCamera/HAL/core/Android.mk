@@ -118,7 +118,7 @@ LOCAL_SRC_FILES := \
         $(LOCAL_HAL_WRAPPER_FILES) \
         $(LOCAL_HAL_FILES)
 
-LOCAL_SHARED_LIBRARIES := libutils libui libcamera_client liblog libcutils libmmjpeg
+LOCAL_SHARED_LIBRARIES := liblog libutils libui libcamera_client liblog libcutils libmmjpeg
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface
 LOCAL_SHARED_LIBRARIES += libgenlock libbinder libmmjpeg_interface libhardware
 
