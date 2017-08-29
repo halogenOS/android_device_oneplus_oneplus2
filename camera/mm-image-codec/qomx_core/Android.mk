@@ -11,7 +11,7 @@ LOCAL_MODULE_TAGS := optional
 omx_core_defines:= -Werror \
                    -g -O3
 
-LOCAL_CFLAGS := $(omx_core_defines)
+LOCAL_CFLAGS := -Wno-format $(omx_core_defines)
 
 OMX_HEADER_DIR := frameworks/native/include/media/openmax
 
