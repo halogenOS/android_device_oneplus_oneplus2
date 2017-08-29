@@ -41,7 +41,7 @@ namespace init {
 void init_variant_properties() {
     std::string rf_version;
 
-    rf_version = android::base::GetProperty("ro.boot.rf_v1");
+    rf_version = android::base::GetProperty("ro.boot.rf_v1", "");
 
     if (rf_version == "14") {
         /* Chinese */
