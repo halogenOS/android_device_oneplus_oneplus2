@@ -42,11 +42,11 @@ void init_variant_properties() {
     std::string platform;
     std::string rf_version;
 
-    platform = GetProperty("ro.board.platform");
+    platform = GetProperty("ro.board.platform", "");
     if (platform != ANDROID_TARGET)
         return;
 
-    rf_version = GetProperty("ro.boot.rf_v1");
+    rf_version = GetProperty("ro.boot.rf_v1", "");
 
     if (rf_version == "14") {
         /* Chinese */
