@@ -139,8 +139,8 @@ PRODUCT_PACKAGES += \
     libtinyxml
 
 # Doze mode
-PRODUCT_PACKAGES += \
-    OneplusDoze
+#PRODUCT_PACKAGES += \
+#    OneplusDoze
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
