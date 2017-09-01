@@ -109,7 +109,9 @@ PRODUCT_PACKAGES += \
     camera.msm8994 \
     libshim_camera \
     libshim_ims-camera \
-    sensors.hal.tof
+    sensors.hal.tof \
+    camera.device@3.2-impl \
+    android.hardware.camera.provider@2.4-impl
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
