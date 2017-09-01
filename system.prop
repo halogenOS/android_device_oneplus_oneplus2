@@ -93,6 +93,7 @@ media.stagefright.enable-player=true
 media.stagefright.enable-qcp=true
 media.stagefright.enable-scan=true
 media.stagefright.log-uri=1
+persist.media.treble_omx=false
 mmp.enable.3g2=true
 # Get camera working with mm blobs
 media.stagefright.legacyencoder=true
