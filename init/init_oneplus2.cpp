@@ -35,7 +35,6 @@
 #include "util.h"
 
 using android::base::GetProperty;
-using android::base::SetProperty;
 
 void init_variant_properties() {
 
@@ -50,21 +49,21 @@ void init_variant_properties() {
 
     if (rf_version == "14") {
         /* Chinese */
-        SetProperty("ro.product.model", "ONE A2001");
-        SetProperty("ro.rf_version", "TDD_FDD_Ch_All");
-        SetProperty("telephony.lteOnCdmaDevice", "1");
-        SetProperty("ro.telephony.default_network", "20,20");
+        property_set("ro.product.model", "ONE A2001");
+        property_set("ro.rf_version", "TDD_FDD_Ch_All");
+        property_set("telephony.lteOnCdmaDevice", "1");
+        property_set("ro.telephony.default_network", "20,20");
     } else if (rf_version == "24") {
         /* Asia/Europe */
-        SetProperty("ro.product.model", "ONE A2003");
-        SetProperty("ro.rf_version", "TDD_FDD_Eu");
-        SetProperty("ro.telephony.default_network", "9,9");
+        property_set("ro.product.model", "ONE A2003");
+        property_set("ro.rf_version", "TDD_FDD_Eu");
+        property_set("ro.telephony.default_network", "9,9");
     } else if (rf_version == "34") {
         /* America */
-        SetProperty("ro.product.model", "ONE A2005");
-        SetProperty("ro.rf_version", "TDD_FDD_Am");
-        SetProperty("telephony.lteOnCdmaDevice", "1");
-        SetProperty("ro.telephony.default_network", "9,9");
+        property_set("ro.product.model", "ONE A2005");
+        property_set("ro.rf_version", "TDD_FDD_Am");
+        property_set("telephony.lteOnCdmaDevice", "1");
+        property_set("ro.telephony.default_network", "9,9");
     }
 }
 
