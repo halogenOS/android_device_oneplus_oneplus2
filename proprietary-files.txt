@@ -588,7 +588,7 @@ etc/firmware/tp/14049/14049_FW_S3320_jdi.img
 # Widevine
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/libwvdrm_L3.so
-vendor/lib/mediadrm/libwvdrmengine.so
+vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90ab
 
 # Wifi
 bin/cnss-daemon
