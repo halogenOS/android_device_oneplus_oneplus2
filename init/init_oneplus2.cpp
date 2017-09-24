@@ -30,15 +30,18 @@
 
 #include <stdlib.h>
 
-#include "vendor_init.h"
 #include "property_service.h"
-#include "log.h"
-#include "util.h"
+#include <android-base/properties.h>
+
+#include "property_service.h"
+
+namespace android {
+namespace init {
 
 void init_variant_properties() {
     std::string rf_version;
 
-    rf_version = property_get("ro.boot.rf_v1");
+    rf_version = android::base::GetProperty("ro.boot.rf_v1", "");
 
     if (rf_version == "14") {
         /* Chinese */
@@ -65,3 +68,6 @@ void vendor_load_properties() {
 void init_msm_properties() {
     init_variant_properties();
 }
+
+} // namespace init
+} // namespace android

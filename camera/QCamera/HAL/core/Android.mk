@@ -5,7 +5,7 @@ include $(CLEAR_VARS)
 
 DLOPEN_LIBMMCAMERA:=0
 
-LOCAL_CFLAGS:= -DDLOPEN_LIBMMCAMERA=$(DLOPEN_LIBMMCAMERA)
+LOCAL_CFLAGS:= -DDLOPEN_LIBMMCAMERA=$(DLOPEN_LIBMMCAMERA) -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare
 
 ifeq ($(strip $(TARGET_USES_ION)),true)
         LOCAL_CFLAGS += -DUSE_ION
@@ -118,7 +118,7 @@ LOCAL_SRC_FILES := \
         $(LOCAL_HAL_WRAPPER_FILES) \
         $(LOCAL_HAL_FILES)
 
-LOCAL_SHARED_LIBRARIES := libutils libui libcamera_client liblog libcutils libmmjpeg
+LOCAL_SHARED_LIBRARIES := liblog libutils libui libcamera_client liblog libcutils libmmjpeg
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface
 LOCAL_SHARED_LIBRARIES += libgenlock libbinder libmmjpeg_interface libhardware
 

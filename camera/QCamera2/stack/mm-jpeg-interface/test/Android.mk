@@ -9,7 +9,7 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_CFLAGS := -DCAMERA_ION_HEAP_ID=ION_IOMMU_HEAP_ID
 LOCAL_CFLAGS += -Wall -Wextra -Werror -Wno-unused-parameter
-LOCAL_CFLAGS += -D_ANDROID_
+LOCAL_CFLAGS += -D_ANDROID_ -Wno-format -Wno-gnu-designator -Wno-unused-parameter -Wno-unused-variable -Wno-unused-private-field -Wno-unused-label -Wno-tautological-pointer-compare
 
 ifeq ($(strip $(TARGET_USES_ION)),true)
 LOCAL_CFLAGS += -DUSE_ION
@@ -33,7 +33,7 @@ LOCAL_SRC_FILES := mm_jpeg_test.c
 LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)
 LOCAL_MODULE           := mm-jpeg-interface-test
 LOCAL_PRELINK_MODULE   := false
-LOCAL_SHARED_LIBRARIES := libcutils libdl libmmjpeg_interface
+LOCAL_SHARED_LIBRARIES := liblog libcutils libdl libmmjpeg_interface
 
 include $(BUILD_EXECUTABLE)
 
@@ -72,7 +72,7 @@ LOCAL_SRC_FILES := mm_jpegdec_test.c
 LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)
 LOCAL_MODULE           := mm-jpegdec-interface-test
 LOCAL_PRELINK_MODULE   := false
-LOCAL_SHARED_LIBRARIES := libcutils libdl libmmjpeg_interface
+LOCAL_SHARED_LIBRARIES := liblog libcutils libdl libmmjpeg_interface
 
 include $(BUILD_EXECUTABLE)
 

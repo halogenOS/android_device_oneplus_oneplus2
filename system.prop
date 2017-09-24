@@ -78,7 +78,7 @@ persist.sys.dpmd.nsrm=3
 
 # Dex2oat limits
 dalvik.vm.boot-dex2oat-threads=4
-dalvik.vm.dex2oat-threads=2
+dalvik.vm.dex2oat-threads=4
 dalvik.vm.image-dex2oat-threads=4
 
 # GPS
@@ -110,6 +110,7 @@ media.stagefright.enable-player=true
 media.stagefright.enable-qcp=true
 media.stagefright.enable-scan=true
 media.stagefright.log-uri=1
+persist.media.treble_omx=false
 mmp.enable.3g2=true
 # Get camera working with mm blobs
 media.stagefright.legacyencoder=true
