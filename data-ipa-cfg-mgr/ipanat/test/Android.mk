@@ -1,3 +1,5 @@
+BOARD_PLATFORM_LIST := test
+ifeq ($(call is-board-platform-in-list,$(BOARD_PLATFORM_LIST)),true)
 ifneq (,$(filter $(QCOM_BOARD_PLATFORMS),$(TARGET_BOARD_PLATFORM)))
 ifneq (, $(filter aarch64 arm arm64, $(TARGET_ARCH)))
 
@@ -46,4 +48,5 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_DATA)/kernel-tests/ip_accelerator
 include $(BUILD_EXECUTABLE)
 
 endif # $(TARGET_ARCH)
+endif
 endif
