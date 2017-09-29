@@ -135,13 +135,6 @@ PRODUCT_PACKAGES += \
     libmmjpeg_interface \
     libqomx_core
 
-# Connectivity Engine support (CNE)
-PRODUCT_PACKAGES += \
-    cneapiclient \
-    com.quicinc.cne \
-    libcnefeatureconfig \
-    services-ext
-
 # DRM
 PRODUCT_PACKAGES += \
 	android.hardware.drm@1.0-impl
@@ -293,9 +286,11 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
     librmnetctl \
     libxml2 \
     rild_socket
+    
 
 # Sensors
 PRODUCT_PACKAGES += \
