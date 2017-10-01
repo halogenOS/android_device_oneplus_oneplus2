@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.slimroms.doze.oneplus"
+    package="com.cyanogenmod.settings.device"
     android:versionCode="1"
     android:versionName="1.0"
     android:sharedUserId="android.uid.system">
@@ -18,14 +18,14 @@
         android:label="OnePlusDoze"
         android:persistent="true">
 
-        <receiver android:name="com.slimroms.doze.oneplus.BootCompletedReceiver">
+        <receiver android:name="com.cyanogenmod.settings.device.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.slimroms.doze.oneplus.OnePlusDozeService"
+        <service android:name="com.cyanogenmod.settings.device.OnePlusDozeService"
                  android:permission="OnePlusDozeService">
         </service>
 

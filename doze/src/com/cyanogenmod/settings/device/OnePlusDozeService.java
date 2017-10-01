@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.slimroms.doze.oneplus;
+package com.cyanogenmod.settings.device;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
