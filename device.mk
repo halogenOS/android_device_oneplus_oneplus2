@@ -168,7 +168,9 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint sensor
 PRODUCT_PACKAGES += \
-    fingerprint.qcom
+    fingerprint.qcom \
+    android.hardware.biometrics.fingerprint@2.0-service \
+    fingerprint.msm8994
 
 # For config.fs
 PRODUCT_PACKAGES += \
