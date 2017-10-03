@@ -127,6 +127,15 @@ TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(PLATFORM_PATH)/android_filesystem_config
 TARGET_NO_RPC := true
 USE_DEVICE_SPECIFIC_GPS := true
 
+# Enable dexpreopt to speed boot time
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+   endif
+  endif
+endif
+
 # Graphics
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_ION := true
