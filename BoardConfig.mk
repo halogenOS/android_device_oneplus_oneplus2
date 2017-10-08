@@ -155,6 +155,9 @@ BOARD_USES_QCNE := true
 # Cpusets
 ENABLE_CPUSETS := true
 
+# Dataservices (wifi etc.)
+BUILD_CAF_DATASERVICES := true
+
 # Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
