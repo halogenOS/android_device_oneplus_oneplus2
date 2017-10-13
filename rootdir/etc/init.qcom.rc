@@ -113,8 +113,8 @@ on init
     # Touchscreen
     chown root system /proc/touchpanel/double_swipe
     chmod 0660 /proc/touchpanel/double_swipe
-    chown root system /proc/touchpanel/double_tap
-    chmod 0660 /proc/touchpanel/double_tap
+    chown root system /proc/touchpanel/double_tap_enable
+    chmod 0660 /proc/touchpanel/double_tap_enable
     chown root system /proc/touchpanel/down_swipe
     chmod 0660 /proc/touchpanel/down_swipe
     chown root system /proc/touchpanel/draw_circle
