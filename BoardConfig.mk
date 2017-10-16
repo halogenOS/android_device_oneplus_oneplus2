@@ -121,7 +121,7 @@ TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 ENABLE_CPUSETS := true
 
 # Filesystem
-TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(PLATFORM_PATH)/android_filesystem_config.h
+TARGET_FS_CONFIG := $(PLATFORM_PATH)/config.fs
 
 # GPS
 TARGET_NO_RPC := true
