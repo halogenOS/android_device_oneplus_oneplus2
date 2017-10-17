@@ -18,6 +18,12 @@
     "branch": "XOS-8.0"
   },
   {
+    "repository": "AOSiP/platform_hardware_aosip_interfaces",
+    "target_path": "hardware/aosip/interfaces",
+    "remote": "github",
+    "branch": "oreo"
+  },
+  {
     "repository": "xanaxdroid/aarch64-6.3",
     "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-6.3.1-kernel-linaro",
     "remote": "bitbucket",
