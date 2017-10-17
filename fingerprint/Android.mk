@@ -25,7 +25,7 @@ LOCAL_SHARED_LIBRARIES := \
     libhardware liblog libcutils
 
 LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_MODULE := fingerprint.qcom
+LOCAL_MODULE := fingerprint.msm8994
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
