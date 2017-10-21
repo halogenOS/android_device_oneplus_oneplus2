@@ -24,6 +24,7 @@ AC_ARG_WITH(sanitized-headers,
       AS_HELP_STRING([--with-sanitized-headers=DIR],
          [Specify the location of the sanitized Linux headers]),
       [CPPFLAGS="$CPPFLAGS -idirafter $withval"])
+AM_CONDITIONAL(KERNELMODULES, [test -n -eq 0])
 
 AC_ARG_WITH([glib],
       AC_HELP_STRING([--with-glib],
@@ -42,7 +43,7 @@ if (test "x${with_glib}" = "xyes"); then
 fi
 
 AM_CONDITIONAL(USE_GLIB, test "x${with_glib}" = "xyes")
-
+	  
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h netinet/in.h sys/ioctl.h unistd.h])
 

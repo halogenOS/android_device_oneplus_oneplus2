@@ -89,6 +89,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.broadcastradio@1.0-impl \
+    android.hardware.radio.deprecated-V1.0-java \
     android.hardware.soundtrigger@2.0-impl
 
 PRODUCT_COPY_FILES += \
@@ -130,12 +131,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.d/10opcamsanitize.sh:system/etc/init.d/10opcamsanitize.sh
 
-# Connectivity Engine support (CNE)
+# DRM
 PRODUCT_PACKAGES += \
-    cneapiclient \
-    com.quicinc.cne \
-    libcnefeatureconfig \
-    services-ext
+	android.hardware.drm@1.0-impl
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -143,6 +141,11 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.memtrack@1.0-impl \
     copybit.msm8994 \
     gralloc.msm8994 \
     hwcomposer.msm8994 \
@@ -157,8 +160,8 @@ PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
 # Doze mode
-PRODUCT_PACKAGES += \
-    OneplusDoze
+#PRODUCT_PACKAGES += \
+#    OneplusDoze
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -265,8 +268,8 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.msm8994 \
-    android.hardware.power@1.0-impl
+    android.hardware.power@1.0-impl \
+    power.msm8994
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -286,9 +289,11 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
     librmnetctl \
     libxml2 \
     rild_socket
+
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -299,9 +304,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/vendor/etc/sensors/hals.conf
 
-# Seccomp policy
+# Seccomp
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
+    $(LOCAL_PATH)/seccomp/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/seccomp/mediaextractor.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
 
 # USB
 PRODUCT_PACKAGES += \
@@ -316,6 +322,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vr.msm8994
 
+# WiFi HAL
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service
+
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
@@ -327,9 +337,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/hostapd.accept:system/etc/hostapd/hostapd.accept \
-    $(LOCAL_PATH)/wifi/hostapd.conf:system/etc/hostapd/hostapd_default.conf \
-    $(LOCAL_PATH)/wifi/hostapd.deny:system/etc/hostapd/hostapd.deny \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/wifi/WCNSS_cfg.dat \
@@ -338,6 +345,10 @@ PRODUCT_COPY_FILES += \
 # Doze
 PRODUCT_PACKAGES += \
     OnePlusDoze
+
+# Data switch hack
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/netmgrd_control.sh:system/etc/netmgrd_control.sh
 
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)
