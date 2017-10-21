@@ -61,9 +61,9 @@ TARGET_USES_64_BIT_BINDER := true
 
 # Link Toolchain
 TARGET_GCC_VERSION_ARM64 := 6.3.1-kernel-linaro
+TARGET_CROSS_COMPILE_PREFIX := aarch64-
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-
-TARGET_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/aarch64/$(TARGET_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION_ARM64)/bin
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/aarch64/$(TARGET_KERNEL_CROSS_COMPILE_PREFIX)$(TARGET_GCC_VERSION_ARM64)/bin
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=permissive
