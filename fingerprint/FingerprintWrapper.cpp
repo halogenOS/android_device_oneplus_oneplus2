@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017, The LineageOS Project
+ * Copyright (C) 2017  The halogenOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,15 +47,8 @@ static bool ensure_vendor_module_is_loaded(void)
     if (!vendor.module) {
         int rv;
         char vend [PROPERTY_VALUE_MAX];
-        property_get("ro.boot.fpsensor", vend, NULL);
 
-        if (!strcmp(vend, "fpc")) {
-            property_set("persist.sys.fp.goodix", "0");
-            rv = hw_get_module_by_class("fingerprint", "fpc", &vendor.hw_module);
-        } else {
-            property_set("persist.sys.fp.goodix", "1");
-            rv = hw_get_module_by_class("fingerprint", "goodix", &vendor.hw_module);
-        }
+        rv = hw_get_module_by_class("fingerprint", "fpc", &vendor.hw_module);
 
         if (rv) {
             ALOGE("failed to open vendor module, error %d", rv);
