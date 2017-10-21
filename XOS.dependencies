@@ -10,7 +10,7 @@
     "revision": "XOS-8.0"
   },
   {
-    "repository": "android_vendor_oneplus_oneplus",
+    "repository": "android_vendor_oneplus_oneplus2",
     "target_path": "vendor/oneplus/oneplus2",
     "revision": "XOS-8.0"
   }
