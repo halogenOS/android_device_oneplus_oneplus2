@@ -10,6 +10,6 @@ LOCAL_MODULE := libinit_oneplus2
 
 LOCAL_STATIC_LIBRARIES := \
      libbase \
-     libselinux_defaults
+     libselinux
 
 include $(BUILD_STATIC_LIBRARY)
