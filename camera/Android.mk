@@ -35,20 +35,3 @@ LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-
-LOCAL_C_INCLUDES := \
-    system/media/camera/include
-
-LOCAL_SRC_FILES := \
-    CameraWrapper.cpp
-
-LOCAL_SHARED_LIBRARIES := \
-    libhardware liblog libsensor libutils
-
-LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_SHARED_LIBRARY)
