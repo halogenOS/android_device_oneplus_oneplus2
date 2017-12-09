@@ -32,26 +32,10 @@ ro.bluetooth.emb_wp_mode=true
 ro.bluetooth.wipower=true
 
 # Camera
-camera.disable_zsl_mode=1
+persist.camera.HAL3.enabled=0
 persist.camera.cpp.duplication=false
 vidc.debug.perf.mode=2
-vidc.enc.dcvs.extra-buff-count=2persist.camera.zsl.mode=0
-persist.camera.hal.debug.mask=0
-media.camera.ts.monotonic=1
-camera2.portability.force_api=1
-camera2.portability.force_api=1
-camera2.portability.force_api=1
-# Enable RAW support and camera modes
-ro.camcorder.videoModes=true
-persist.camera.raw.format=16
-persist.camera.promode=true
-ro.config.hw_camera_hdr=true
-ro.config.hw_camera_bestShot=true
-persist.camera.tintless=enable
-persist.camera.4k2k.enable=1
-vidc.dec.120fps.enabled=1
-ro.media.enc.jpeg.quality=100
-ro.media.enc.hprof.vid.fps=60
+vidc.enc.dcvs.extra-buff-count=2
 
 # CEC
 ro.hdmi.device_type=4

@@ -123,17 +123,13 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.device@3.2-impl \
-    android.hardware.camera.provider@2.4-impl \
-    libshim_atomic \
     camera.msm8994 \
-    mm-qcamera-app \
     libshim_camera \
     libshim_ims-camera \
     sensors.hal.tof \
-    libmmcamera_interface \
-    libmmjpeg_interface \
-    libqomx_core
+    android.hardware.camera.provider@2.4-impl-op2 \
+    libshim_atomic \
+    libop2_cam
 
 # DRM
 PRODUCT_PACKAGES += \
