@@ -204,8 +204,57 @@ vendor/lib/libmmcamera_ov13860_eeprom.so
 vendor/lib/libmmcamera_ov5648.so
 vendor/lib/libmmcamera_ov5648_eeprom.so
 
+# CNE
+bin/cnd
+etc/cne/SwimConfig.xml
+etc/cne/andsfCne.xml
+etc/permissions/ConnectivityExt.xml
+etc/permissions/cneapiclient.xml
+etc/permissions/com.quicinc.cne.xml
+framework/ConnectivityExt.jar
+framework/cneapiclient.jar
+framework/com.quicinc.cne.jar
+-priv-app/CNEService/CNEService.apk|df1c3a80a4a1a36915f423a7969cff1cdedddcb2
+vendor/lib/libNimsWrap.so
+vendor/lib/libcne.so
+vendor/lib/libcneapiclient.so
+vendor/lib/libcneconn.so
+vendor/lib/libcneqmiutils.so
+vendor/lib/libvendorconn.so
+vendor/lib/libwqe.so
+vendor/lib/libxml.so
+vendor/lib64/libNimsWrap.so
+vendor/lib64/libcne.so
+vendor/lib64/libcneapiclient.so
+vendor/lib64/libcneconn.so
+vendor/lib64/libcneqmiutils.so
+vendor/lib64/libvendorconn.so
+vendor/lib64/libwqe.so
+vendor/lib64/libxml.so
+
 # Display calibration
 -etc/pp_calib_data_jd35695_1080p_cmd_mode_dsi_panel.xml
+
+# DPM
+bin/dpmd
+etc/dpm/dpm.conf
+etc/dpm/nsrm/NsrmConfiguration.xml
+etc/permissions/com.qti.dpmframework.xml
+etc/permissions/dpmapi.xml
+framework/com.qti.dpmframework.jar
+framework/dpmapi.jar
+framework/tcmclient.jar
+-priv-app/dpmserviceapp/dpmserviceapp.apk|27f91229cdbcec87edaf23c6b821c64a108dad83
+vendor/lib/libdpmctmgr.so
+vendor/lib/libdpmfdmgr.so
+vendor/lib/libdpmframework.so
+vendor/lib/libdpmnsrm.so
+vendor/lib/libdpmtcm.so
+vendor/lib64/libdpmctmgr.so
+vendor/lib64/libdpmfdmgr.so
+vendor/lib64/libdpmframework.so
+vendor/lib64/libdpmnsrm.so
+vendor/lib64/libdpmtcm.so
 
 # DRM
 bin/qseecomd
@@ -222,9 +271,9 @@ etc/firmware/fingerprints.b01
 etc/firmware/fingerprints.b02
 etc/firmware/fingerprints.b03
 etc/firmware/fingerprints.mdt
-lib/hw/fingerprint.msm8994.so:lib/hw/fingeprint.vendor.msm8994.so
+lib/hw/fingerprint.msm8994.so
 lib/lib_fpc_tac_shared.so
-lib64/hw/fingerprint.msm8994.so:lib64/hw/fingeprint.vendor.msm8994.so
+lib64/hw/fingerprint.msm8994.so
 lib64/lib_fpc_tac_shared.so
 
 # Gatekeeper
@@ -457,7 +506,6 @@ etc/permissions/telephonyservice.xml
 framework/qti-telephony-common.jar|fbd9aa168759bca89327643a23a7d32aaa78f79a
 framework/QtiTelephonyServicelibrary.jar|1d4ff53f9229caaa91fe3994757bcd359a18b756
 lib64/libparam.so
-vendor/lib64/libcneapiclient.so
 -priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|8d6a447cc4ee0ca78f6abb042b484c52775db9ed
 vendor/bin/qti
 -vendor/lib/libmdmdetect.so
@@ -470,7 +518,6 @@ vendor/lib64/libril-qc-qmi-1.so
 vendor/lib64/libril-qc-radioconfig.so
 vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
-vendor/lib64/libxml.so
 vendor/qcril.db
 
 # Radio - IMS
@@ -541,7 +588,7 @@ etc/firmware/tp/14049/14049_FW_S3320_jdi.img
 # Widevine
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/libwvdrm_L3.so
-vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90ab
+vendor/lib/mediadrm/libwvdrmengine.so
 
 # Wifi
 bin/cnss-daemon
