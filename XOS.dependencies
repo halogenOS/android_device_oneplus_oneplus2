@@ -19,5 +19,20 @@
     "target_path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-6.3.1-kernel-linaro",
     "remote": "bitbucket",
     "branch": "linaro"
+  },
+  {
+    "repository": "android_external_ant-wireless_ant_native",
+    "target_path": "external/ant-wireless/ant_native",
+    "branch": "XOS-8.1"
+  },
+  {
+    "repository": "android_external_ant-wireless_ant_service",
+    "target_path": "external/ant-wireless/ant_service",
+    "branch": "XOS-8.1"
+  },
+  {
+    "repository": "android_external_ant-wireless_antradio-library",
+    "target_path": "external/ant-wireless/antradio-library",
+    "branch": "XOS-8.1"
   }
 ]
