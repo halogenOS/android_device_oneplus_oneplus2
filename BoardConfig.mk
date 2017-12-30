@@ -72,7 +72,12 @@ TARGET_TOOLCHAIN_ROOT := prebuilts/gcc/linux-x86/aarch64/$(TARGET_CROSS_COMPILE_
 TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/$(TARGET_CROSS_COMPILE_PREFIX)
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := \
+    androidboot.hardware=qcom \
+    ehci-hcd.park=3 \
+    lpm_levels.sleep_disabled=1 \
+    boot_cpus=0-7 \
+    androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
