@@ -68,7 +68,8 @@ LOCAL_STATIC_LIBRARIES := \
     libselinux \
     libc++_static \
     libdl \
-    libz
+    libz \
+    libcrypto
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils liblog libext4_utils libsparse
 
