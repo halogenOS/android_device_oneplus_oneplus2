@@ -44,7 +44,6 @@ LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
 
-
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES:= \
     laser_init.cpp \
@@ -64,20 +63,16 @@ LOCAL_STATIC_LIBRARIES := \
     liblogwrap \
     libcutils \
     libbase \
-    libext4_utils_static \
     libutils \
     liblog \
     libselinux \
-    libmincrypt \
     libc++_static \
     libdl \
-    libsparse_static \
     libz
 
-LOCAL_SHARED_LIBRARIES := liblog libcutils liblog
+LOCAL_SHARED_LIBRARIES := liblog libcutils liblog libext4_utils libsparse
 
 LOCAL_CLANG := $(init_clang)
 include $(BUILD_EXECUTABLE)
-
 
 endif # !TARGET_SIMULATOR
