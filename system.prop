@@ -21,6 +21,7 @@ tunnel.audio.encode=false
 audio.offload.passthrough=false
 audio.deep_buffer.media=true
 audio.offload.min.duration.secs=30
+af.resampler.quality=7
 
 # Bluetooth
 bluetooth.enable_timeout_ms=12000
