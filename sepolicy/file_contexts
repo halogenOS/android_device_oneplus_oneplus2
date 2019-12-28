@@ -56,3 +56,7 @@
 
 # Touch features
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.oneplus2     u:object_r:hal_lineage_touch_default_exec:s0
+
+# Files/dirs in root
+/bt_firmware(/.*)?       u:object_r:bt_firmware_file:s0
+/firmware(/.*)?          u:object_r:firmware_file:s0
